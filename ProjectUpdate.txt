@@ -1,0 +1,5 @@
+Kam ndertuar programin mbi te cilin do te implementoj kriteret e projektit.
+Deri tani eshte perdorur:
+-Ndarja ne shtresa
+-Perdorimi i Serviseve
+-Automapper
