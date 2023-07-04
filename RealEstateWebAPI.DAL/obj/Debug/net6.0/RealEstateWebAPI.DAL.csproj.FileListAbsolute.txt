@@ -1,0 +1,14 @@
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\bin\Debug\net6.0\RealEstateWebAPI.DAL.deps.json
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\bin\Debug\net6.0\RealEstateWebAPI.DAL.runtimeconfig.json
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\bin\Debug\net6.0\RealEstateWebAPI.DAL.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\bin\Debug\net6.0\RealEstateWebAPI.DAL.pdb
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.csproj.AssemblyReference.cache
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.AssemblyInfoInputs.cache
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.AssemblyInfo.cs
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.csproj.CoreCompileInputs.cache
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\refint\RealEstateWebAPI.DAL.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.pdb
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.genruntimeconfig.cache
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\ref\RealEstateWebAPI.DAL.dll
