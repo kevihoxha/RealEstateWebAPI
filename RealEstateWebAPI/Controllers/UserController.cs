@@ -1,79 +1,81 @@
-﻿namespace RealEstateWebAPI.Controllers;
-using global::RealEstateWebAPI.BLL.DTO;
-using Microsoft.AspNetCore.Mvc;
-using RealEstateWebAPI.BLL.Services;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using RealEstateWebAPI.BLL.DTO;
+using RealEstateWebAPI.BLL.Services;
+using System.Collections.Generic;
+using RealEstateWebAPI.Common.ErrorHandeling;
 
+namespace RealEstateWebAPI.Controllers
+{
     [ApiController]
-    [Route("api/users")]
-    public class UserController : ControllerBase
+    [Route("users")]
+    public class UserController : BaseController 
     {
         private readonly IUsersService _userService;
+        private readonly ILogger<PropertyController> _logger;
 
-        public UserController(IUsersService userService)
-        {
+        public UserController(ILogger<PropertyController> logger,IUsersService userService):base(logger) 
+        { 
+        
             _userService = userService;
+             _logger = logger;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
         {
-            var users = await _userService.GetAllUsersAsync();
-            return Ok(users);
+            return await HandleAsync<IEnumerable<UserDTO>>(async () =>
+            {
+                var users = await _userService.GetAllUsersAsync();
+                return Ok (users);
+            });
         }
 
         [HttpGet("{id}")]
+
         public async Task<ActionResult<UserDTO>> GetUserById(int id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
-            if (user == null)
+            throw new Common.ErrorHandeling.NotFoundException("missing user");
+        
+            return await HandleAsync<UserDTO>(async () =>
             {
-                return NotFound();
+                var user = await _userService.GetUserByIdAsync(id);
+                if (user == null)
+                {
+                throw new Common.ErrorHandeling.NotFoundException("missing user");
             }
-            return Ok(user);
+            return user;
+            });
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<ActionResult<int>> AddUser(UserDTO userDTO)
         {
-            try
+            return await HandleAsync<int>(async () =>
             {
                 var userId = await _userService.AddUserAsync(userDTO);
-                return Ok(userId);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+                return userId;
+            });
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult> UpdateUser(int id, UserDTO userDTO)
         {
-            try
+            return await HandleAsync(async () =>
             {
-                await _userService.UpdateUserAsync(id, userDTO);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+               await  _userService.UpdateUserAsync(id, userDTO);
+            });
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteUser(int id)
         {
-            try
+            return await HandleAsync(async () =>
             {
-                await _userService.DeleteUserAsync(id);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+                 await _userService.DeleteUserAsync(id);
+            });
         }
+       
     }
+}

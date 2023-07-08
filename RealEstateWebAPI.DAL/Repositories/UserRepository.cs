@@ -27,8 +27,13 @@ namespace RealEstateWebAPI.DAL.Repositories
             {
                 return await _dbContext.Users.FindAsync(userId);
             }
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _dbContext.Users.SingleOrDefaultAsync(u => u.UserName == username);
+        }
+    
 
-            public async Task AddUserAsync(User user)
+        public async Task AddUserAsync(User user)
             {
                 _dbContext.Users.Add(user);
                 await _dbContext.SaveChangesAsync();

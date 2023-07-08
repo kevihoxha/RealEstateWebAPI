@@ -10,5 +10,6 @@ namespace RealEstateWebAPI.BLL.Services
         Task<int> AddUserAsync(UserDTO userDTO);
         Task UpdateUserAsync(int userId, UserDTO userDTO);
         Task DeleteUserAsync(int userId);
+        Task<UserDTO> GetUserByUserNameAsync(string username);
     }
 }

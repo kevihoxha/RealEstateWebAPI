@@ -1,82 +1,97 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RealEstateWebAPI.BLL.DTO;
 using RealEstateWebAPI.BLL.Services;
+using RealEstateWebAPI.Common;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace RealEstateWebAPI.Controllers
 {
     [ApiController]
-    [Route("api/properties")]
-    public class PropertyController : ControllerBase
+    [Route("properties")]
+
+
+    public class PropertyController : BaseController
     {
         private readonly IPropertiesService _propertyService;
+        private readonly ILogger<PropertyController> _logger;
 
-        public PropertyController(IPropertiesService propertyService)
+        public PropertyController(ILogger<PropertyController> logger, IPropertiesService propertyService) : base(logger)
         {
+
+            _logger = logger;
             _propertyService = propertyService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PropertyDTO>>> GetAllProperties()
         {
-            var properties = await _propertyService.GetAllPropertiesAsync();
-            return Ok(properties);
+            return await HandleAsync<IEnumerable<PropertyDTO>>(async () =>
+            {
+                var properties = await _propertyService.GetAllPropertiesAsync();
+                return Ok(properties);
+            });
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<ActionResult<PropertyDTO>> GetPropertyById(int id)
         {
-            var property = await _propertyService.GetPropertyByIdAsync(id);
-            if (property == null)
+            return await HandleAsync<PropertyDTO>(async () =>
             {
-                return NotFound();
-            }
-            return Ok(property);
+                var property = await _propertyService.GetPropertyByIdAsync(id);
+                if (property == null)
+                {
+                    return NotFound();
+                }
+                return Ok(property);
+            });
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<ActionResult<int>> AddProperty(PropertyDTO propertyDTO)
         {
-            try
+            return await HandleAsync<int>(async () =>
             {
                 var propertyId = await _propertyService.AddPropertyAsync(propertyDTO);
                 return Ok(propertyId);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            });
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult> UpdateProperty(int id, PropertyDTO propertyDTO)
         {
-            try
+            return await HandleAsync(async () =>
             {
                 await _propertyService.UpdatePropertyAsync(id, propertyDTO);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            });
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteProperty(int id)
         {
-            try
+            return await HandleAsync(async () =>
             {
                 await _propertyService.DeletePropertyAsync(id);
-                return NoContent();
-            }
-            catch (Exception ex)
+            });
+        }
+        [HttpGet("search/{location}")]
+        public async Task<ActionResult<IEnumerable<PropertyDTO>>> GetAllPropertiesByLocationAsync(string location)
+        {
+            return await HandleAsync<IEnumerable<PropertyDTO>>(async () =>
             {
-                return BadRequest(ex.Message);
-            }
+                var property = await _propertyService.GetAllPropertiesByLocationAsync(location);
+                if (property == null)
+                {
+                    return NotFound();
+                }
+                return Ok(property);
+            });
         }
     }
 }
+
 

@@ -48,7 +48,7 @@ namespace RealEstateWebAPI.BLL.Services
             var user = await _userRepository.GetUserByIdAsync(userId);
             if (user != null)
             {
-                _mapper.Map(userDTO, user);
+                _mapper.Map<UserDTO, User>(userDTO, user);
                 await _userRepository.UpdateUserAsync(user);
             }
         }
@@ -56,6 +56,13 @@ namespace RealEstateWebAPI.BLL.Services
         public async Task DeleteUserAsync(int userId)
         {
             await _userRepository.DeleteUserAsync(userId);
+        }
+
+        public async Task<UserDTO> GetUserByUserNameAsync(string username)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+            return _mapper.Map<UserDTO>(user);
+           
         }
     }
 

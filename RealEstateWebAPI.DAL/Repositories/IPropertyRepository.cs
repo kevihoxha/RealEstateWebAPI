@@ -15,5 +15,6 @@ namespace RealEstateWebAPI.DAL.Repositories
         Task AddPropertyAsync(Property property);
         Task UpdatePropertyAsync(Property property);
         Task DeletePropertyAsync(int propertyId);
+        Task<IEnumerable<Property>> GetPropertyByLocationAsync(string location);
     }
 }

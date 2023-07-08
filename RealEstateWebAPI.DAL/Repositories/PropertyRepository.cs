@@ -20,13 +20,19 @@ namespace RealEstateWebAPI.DAL.Repositories
 
         public async Task<IEnumerable<Property>> GetAllPropertiesAsync()
         {
-            return await _dbContext.Properties.ToListAsync();
+            return await _dbContext.Properties.Where(p => !p.IsDeleted).ToListAsync();
         }
 
         public async Task<Property> GetPropertyByIdAsync(int propertyId)
         {
-            return await _dbContext.Properties.FindAsync(propertyId);
+            return await _dbContext.Properties.FirstOrDefaultAsync(p => p.PropertyId == propertyId && !p.IsDeleted);
         }
+        public async Task<IEnumerable<Property>> GetPropertyByLocationAsync(string location)
+        {
+            return await _dbContext.Properties.Where(p => p.Location.Contains(location)).ToListAsync();
+        }
+
+
 
         public async Task AddPropertyAsync(Property property)
         {
@@ -40,12 +46,13 @@ namespace RealEstateWebAPI.DAL.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeletePropertyAsync(int propertyId)
+        public async Task DeletePropertyAsync(int id)
         {
-            var property = await _dbContext.Properties.FindAsync(propertyId);
+            var property = await _dbContext.Properties.FindAsync(id);
             if (property != null)
             {
-                _dbContext.Properties.Remove(property);
+                property.IsDeleted = true;
+                property.DeletedAt = DateTime.UtcNow;
                 await _dbContext.SaveChangesAsync();
             }
         }

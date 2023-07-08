@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using RealEstateWebAPI.BLL.DTO;
 using RealEstateWebAPI.DAL.Entities;
 using RealEstateWebAPI.DAL.Repositories;
@@ -14,17 +15,27 @@ namespace RealEstateWebAPI.BLL.Services
     {
         private readonly IPropertyRepository _propertyRepository;
         private readonly IMapper _mapper;
+        private readonly Microsoft.Extensions.Logging.ILogger<PropertiesService> _logger; 
 
-        public PropertiesService(IPropertyRepository propertyRepository, IMapper mapper)
+        public PropertiesService(Microsoft.Extensions.Logging.ILogger<PropertiesService> logger, IPropertyRepository propertyRepository, IMapper mapper)
         {
             _propertyRepository = propertyRepository;
             _mapper = mapper;
+            _logger= logger;
         }
 
         public async Task<IEnumerable<PropertyDTO>> GetAllPropertiesAsync()
         {
-            var properties = await _propertyRepository.GetAllPropertiesAsync();
-            return _mapper.Map<IEnumerable<PropertyDTO>>(properties);
+            try
+            {
+                var properties = await _propertyRepository.GetAllPropertiesAsync();
+                
+                return _mapper.Map<IEnumerable<PropertyDTO>>(properties);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<PropertyDTO> GetPropertyByIdAsync(int propertyId)
@@ -53,6 +64,18 @@ namespace RealEstateWebAPI.BLL.Services
         public async Task DeletePropertyAsync(int propertyId)
         {
             await _propertyRepository.DeletePropertyAsync(propertyId);
+        }
+        public async Task<IEnumerable<PropertyDTO>> GetAllPropertiesByLocationAsync(string location)
+        {
+            try
+            {
+                var properties = await _propertyRepository.GetPropertyByLocationAsync(location);
+                return _mapper.Map<IEnumerable<PropertyDTO>>(properties);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

@@ -15,6 +15,12 @@ namespace RealEstateWebAPI.DAL.Entities
         public string Title { get; set; }
         public string Location { get; set; }
         public decimal Price { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedAt { get; set; }
+      
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
 
     }
 }
