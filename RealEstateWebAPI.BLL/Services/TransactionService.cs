@@ -28,13 +28,13 @@ namespace RealEstateWebAPI.BLL.Services
         {
             try
             {
-                // Perform validation and mapping from the request DTO to the entity model
+
                 var transaction = _mapper.Map<Transaction>(transactionRequest);
 
-                // Save the transaction using the repository
+
                 var createdTransaction = await _transactionRepository.AddTransactionAsync(transaction);
 
-                // Map the created transaction to the DTO model
+
                 var transactionDTO = _mapper.Map<TransactionDTO>(createdTransaction);
 
                 return transactionDTO;
