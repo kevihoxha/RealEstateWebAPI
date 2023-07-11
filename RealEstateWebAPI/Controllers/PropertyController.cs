@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RealEstateWebAPI.ActionFilters;
 using RealEstateWebAPI.BLL.DTO;
 using RealEstateWebAPI.BLL.Services;
 using RealEstateWebAPI.Common;
@@ -13,8 +14,6 @@ namespace RealEstateWebAPI.Controllers
 {
     [ApiController]
     [Route("properties")]
-
-
     public class PropertyController : BaseController
     {
         private readonly IPropertiesService _propertyService;
@@ -37,7 +36,7 @@ namespace RealEstateWebAPI.Controllers
             });
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}")]
         public async Task<ActionResult<PropertyDTO>> GetPropertyById(int id)
         {
             return await HandleAsync<PropertyDTO>(async () =>
@@ -57,7 +56,16 @@ namespace RealEstateWebAPI.Controllers
             return await HandleAsync<int>(async () =>
             {
                 var propertyId = await _propertyService.AddPropertyAsync(propertyDTO);
-                return Ok(propertyId);
+                if (propertyId > 0)
+                {
+                    _logger.LogInformation("Property added succesfully");
+                    return Ok(propertyId);
+                }
+                else
+                {
+                    _logger.LogError("Property could not be added");
+                    return Ok(propertyId);
+                }
             });
         }
 
@@ -71,6 +79,7 @@ namespace RealEstateWebAPI.Controllers
         }
 
         [HttpDelete("delete/{id}")]
+        [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult> DeleteProperty(int id)
         {
             return await HandleAsync(async () =>

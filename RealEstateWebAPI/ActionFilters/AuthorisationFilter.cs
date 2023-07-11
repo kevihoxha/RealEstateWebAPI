@@ -1,28 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
+using RealEstateWebAPI.DAL;
 using System.Drawing.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace RealEstateWebAPI.ActionFilters
 {
-    public class AuthorisationFilter:ActionFilterAttribute
+    public class AuthorisationFilter : IActionFilter
     {
-        private string _roleRequired { get; set; }
-        public AuthorisationFilter(string roleRequired)
+        public void OnActionExecuting(ActionExecutingContext context)
         {
-            _roleRequired = roleRequired ?? "Anonymous";
-        }
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-        /*    var x = context.ActionDescriptor.AttributeRouteInfo;*/
-            if (_roleRequired == "Admin")
+            // Check if the user is authenticated
+/*            if (!context.HttpContext.User.Identity.IsAuthenticated)
             {
+                context.Result = new UnauthorizedResult();
+                return;
+            }*/
 
+            if (!context.HttpContext.User.Claims.Any(c => c.Type == ClaimTypes.Name && c.Value == "admin"))
+            {
+                context.Result = new ForbidResult();
+                return;
             }
-            base.OnActionExecuting(context);
-            
         }
-        public override void OnActionExecuted(ActionExecutedContext context)
+
+        public void OnActionExecuted(ActionExecutedContext context)
         {
-            base.OnActionExecuted(context);
+            // Perform any necessary actions after the action is executed
         }
+
     }
 }
+

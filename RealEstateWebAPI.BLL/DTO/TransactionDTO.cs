@@ -13,8 +13,6 @@ namespace RealEstateWebAPI.BLL.DTO
         public string BuyerName { get; set; }
         public decimal SalePrice { get; set; }
         public DateTime TransactionDate { get; set; }
-        [ForeignKey(nameof(Property))]
         public int PropertyId { get; set; }
-        public PropertyDTO Property { get; set; }
     }
 }

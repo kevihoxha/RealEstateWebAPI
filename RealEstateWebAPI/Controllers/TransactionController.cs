@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RealEstateWebAPI.ActionFilters;
 using RealEstateWebAPI.BLL.DTO;
 using RealEstateWebAPI.BLL.Services;
 
@@ -18,6 +19,7 @@ namespace RealEstateWebAPI.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<IEnumerable<TransactionDTO>>> GetAllTransactions()
         {
             return await HandleAsync<IEnumerable<TransactionDTO>>(async () =>
@@ -28,6 +30,7 @@ namespace RealEstateWebAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<TransactionDTO>> GetTransactionById(int id)
         {
             return await HandleAsync <TransactionDTO>(async () =>
@@ -42,6 +45,7 @@ namespace RealEstateWebAPI.Controllers
         }
 
         [HttpPost("create")]
+        [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<TransactionDTO>> CreateTransaction(TransactionDTO transactionRequest)
         {
             return await HandleAsync <TransactionDTO> (async () =>

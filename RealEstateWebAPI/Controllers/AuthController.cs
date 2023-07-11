@@ -10,6 +10,7 @@ namespace RealEstateWebAPI.Controllers
     using Microsoft.EntityFrameworkCore;
     using RealEstateWebAPI.BLL.DTO;
     using RealEstateWebAPI.BLL.Services;
+    using RealEstateWebAPI.DAL;
     using RealEstateWebAPI.JWTMangament;
 
     [ApiController]
@@ -17,11 +18,13 @@ namespace RealEstateWebAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly TokenService _tokenService;
-        private readonly IUsersService _usersService;
-        public AuthController(TokenService tokenService,IUsersService usersService)
+        private readonly IUserRepository _usersService;
+        private readonly AppDbContext _appDbContext;
+        public AuthController(TokenService tokenService, IUserRepository usersService, AppDbContext context)
         {
             _tokenService = tokenService;
             _usersService = usersService;
+            _appDbContext = context;
         }
         [HttpPost]
         [Route("login")]
@@ -33,7 +36,7 @@ namespace RealEstateWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var managedUser = await _usersService.GetUserByUserNameAsync(request.Username);
+            var managedUser = await _usersService.GetUserByUsernameAsync(request.Username);
             if (managedUser == null)
             {
                 return BadRequest("Bad credentials");
@@ -43,7 +46,7 @@ namespace RealEstateWebAPI.Controllers
                 return BadRequest("Bad credentials");
             }
 
-            var accessToken = _tokenService.CreateToken(managedUser);
+            var accessToken = _tokenService.CreateToken(managedUser, _appDbContext);
             return Ok(new AuthResponse
             {
                 Username = managedUser.UserName,

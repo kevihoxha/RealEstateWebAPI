@@ -1,5 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using RealEstateWebAPI.BLL.DTO;
+using RealEstateWebAPI.DAL;
+using RealEstateWebAPI.DAL.Entities;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,11 +13,11 @@ namespace RealEstateWebAPI.JWTMangament
     {
 
         private const int ExpirationMinutes = 30;
-        public string CreateToken(UserDTO user)
+        public string CreateToken(User user, AppDbContext context)
         {
             var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
             var token = CreateJwtToken(
-                CreateClaims(user),
+                CreateClaims(user,context),
                 CreateSigningCredentials(),
                 expiration
             );
@@ -33,19 +35,27 @@ namespace RealEstateWebAPI.JWTMangament
                 signingCredentials: credentials
             );
 
-        private List<Claim> CreateClaims(UserDTO user)
+        private List<Claim> CreateClaims(User user,AppDbContext context)
         {
             try
             {
+                var userWithRole = context.GetUserWithRole(user.UserId);
                 var claims = new List<Claim>
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, "TokenForTheApiWithAuth"),
+                new Claim(JwtRegisteredClaimNames.Sub, "TokenForTheApiWithAuth"),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
                     new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
                 };
+                if (userWithRole.Role != null && !string.IsNullOrEmpty(userWithRole.Role.Name))
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, userWithRole.Role.Name));
+                }
+
+
+
                 return claims;
             }
             catch (Exception e)

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RealEstateWebAPI.ActionFilters;
 using RealEstateWebAPI.BLL;
 using RealEstateWebAPI.Common;
 using RealEstateWebAPI.DAL;
@@ -22,7 +23,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddTransient<GlobalErrorHandlingMiddleware>();
+
 builder.Services.AddControllers();
+
 ;
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -99,6 +102,10 @@ builder.Services.AddLogging(loggingBuilder =>
 });
 
 builder.Services.AddSingleton<AuthenticationMiddleware>();
+/*builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(typeof(AuthorisationFilter));
+});*/
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -106,12 +113,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseRouting();
-app.UseHttpsRedirection();
-/*app.UseAuthentication();*/
-/*app.UseMiddleware(typeof(AuthenticationMiddleware));*/
-app.UseAuthorization();
 app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+app.UseRouting();
+StartUp.SeedData(app);
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseMiddleware(typeof(AuthenticationMiddleware));
+/*app.UseAuthorization();*/
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
