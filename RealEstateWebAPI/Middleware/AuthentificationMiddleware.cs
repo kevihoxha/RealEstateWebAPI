@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using RealEstateWebAPI.JWTMangament;
+using System.Net;
 
 namespace RealEstateWebAPI.Middleware
 {
@@ -6,11 +7,14 @@ namespace RealEstateWebAPI.Middleware
 
     public class AuthenticationMiddleware : IMiddleware
     {
-        
             public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
 
-       if (context.Request.Path.Equals("/login", StringComparison.OrdinalIgnoreCase)|| context.Request.Path.Equals("/properties", StringComparison.OrdinalIgnoreCase) || context.Request.Path.StartsWithSegments("/properties/search", StringComparison.OrdinalIgnoreCase))
+            if (context.Request.Path.Equals("/login", StringComparison.OrdinalIgnoreCase)
+                || context.Request.Path.Equals("/properties", StringComparison.OrdinalIgnoreCase)
+                || context.Request.Path.StartsWithSegments("/properties/search", StringComparison.OrdinalIgnoreCase
+                ))
+
     {
 
         await next(context);
@@ -18,13 +22,13 @@ namespace RealEstateWebAPI.Middleware
     }
 
             if (!context.Request.Headers.ContainsKey("Authorization"))
-    {
-        context.Response.StatusCode = 401; 
-        context.Response.ContentType = "text/plain";
-        await context.Response.WriteAsync("You are not authorized to be here.");
-        return;
-    }
+            {
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync("You are not authorized to be here.");
+                return;
+            }
 
-    await next(context);
+            await next(context);
 }
     } }

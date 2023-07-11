@@ -42,10 +42,6 @@ namespace RealEstateWebAPI.Controllers
             return await HandleAsync<PropertyDTO>(async () =>
             {
                 var property = await _propertyService.GetPropertyByIdAsync(id);
-                if (property == null)
-                {
-                    return NotFound();
-                }
                 return Ok(property);
             });
         }
@@ -56,16 +52,7 @@ namespace RealEstateWebAPI.Controllers
             return await HandleAsync<int>(async () =>
             {
                 var propertyId = await _propertyService.AddPropertyAsync(propertyDTO);
-                if (propertyId > 0)
-                {
-                    _logger.LogInformation("Property added succesfully");
                     return Ok(propertyId);
-                }
-                else
-                {
-                    _logger.LogError("Property could not be added");
-                    return Ok(propertyId);
-                }
             });
         }
 
@@ -93,10 +80,6 @@ namespace RealEstateWebAPI.Controllers
             return await HandleAsync<IEnumerable<PropertyDTO>>(async () =>
             {
                 var property = await _propertyService.GetAllPropertiesByLocationAsync(location);
-                if (property == null)
-                {
-                    return NotFound();
-                }
                 return Ok(property);
             });
         }

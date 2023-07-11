@@ -7,6 +7,10 @@ namespace RealEstateWebAPI.DAL
 {
     public class AppDbContext : DbContext
     {
+        public AppDbContext():base  ()
+        {
+
+        }
         public User GetUserWithRole(int userId)
         {
             return Users.Include(u => u.Role)
@@ -28,14 +32,20 @@ namespace RealEstateWebAPI.DAL
             modelBuilder.Entity<Property>()
                 .Property(e => e.Price)
                 .HasPrecision(18, 4);
+/*            modelBuilder.Entity<Property>()
+    .HasOne(p => p.User)
+    .WithMany()
+    .HasForeignKey(t => t.PropertyId);*/
             modelBuilder.Entity<Transaction>()
                 .Property(e => e.SalePrice)
                 .HasPrecision(18, 4);
+
         }
         public DbSet<Property> Properties { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role>Roles { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Message>Messages { get; set; }
 
 
     }

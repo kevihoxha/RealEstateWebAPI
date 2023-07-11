@@ -21,6 +21,7 @@ namespace RealEstateWebAPI.DAL
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
         }
         public static void SeedData(IApplicationBuilder app)
         {

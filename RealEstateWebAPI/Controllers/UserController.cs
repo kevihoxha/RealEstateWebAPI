@@ -45,11 +45,7 @@ namespace RealEstateWebAPI.Controllers
         
             return await HandleAsync<UserDTO>(async () =>
             {
-                var user = await _userService.GetUserByIdAsync(id);
-                if (user == null)
-                {
-                throw new Common.ErrorHandeling.NotFoundException("missing user");
-            }
+                var user = await _userService.GetUserByIdAsync(id);           
             return user;
             });
         }

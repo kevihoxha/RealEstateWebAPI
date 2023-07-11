@@ -40,30 +40,58 @@ namespace RealEstateWebAPI.BLL.Services
 
         public async Task<PropertyDTO> GetPropertyByIdAsync(int propertyId)
         {
-            var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
-            return _mapper.Map<PropertyDTO>(property);
+            try
+            {
+                var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
+                return _mapper.Map<PropertyDTO>(property);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<int> AddPropertyAsync(PropertyDTO propertyDTO)
         {
-            var property = _mapper.Map<Property>(propertyDTO);
-            await _propertyRepository.AddPropertyAsync(property);
-            return property.PropertyId;
+            try
+            {
+                var property = _mapper.Map<Property>(propertyDTO);
+                await _propertyRepository.AddPropertyAsync(property);
+                return property.PropertyId;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task UpdatePropertyAsync(int propertyId, PropertyDTO propertyDTO)
         {
-            var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
-            if (property != null)
+            try
             {
-                _mapper.Map(propertyDTO, property);
-                await _propertyRepository.UpdatePropertyAsync(property);
+                var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
+                if (property != null)
+                {
+                    _mapper.Map(propertyDTO, property);
+                    await _propertyRepository.UpdatePropertyAsync(property);
+                }
+            }catch(Exception ex)
+            {
+                throw;
             }
         }
 
         public async Task DeletePropertyAsync(int propertyId)
+
         {
-            await _propertyRepository.DeletePropertyAsync(propertyId);
+            try
+            {
+                await _propertyRepository.DeletePropertyAsync(propertyId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         public async Task<IEnumerable<PropertyDTO>> GetAllPropertiesByLocationAsync(string location)
         {

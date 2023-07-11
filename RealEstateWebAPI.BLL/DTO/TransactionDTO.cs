@@ -9,7 +9,7 @@ namespace RealEstateWebAPI.BLL.DTO
 {
     public class TransactionDTO
     {
-        public int Id { get; set; }
+        public int TransactionId { get; set; }
         public string BuyerName { get; set; }
         public decimal SalePrice { get; set; }
         public DateTime TransactionDate { get; set; }

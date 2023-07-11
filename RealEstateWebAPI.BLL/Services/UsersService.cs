@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace RealEstateWebAPI.BLL.Services
 {
     using AutoMapper;
+    using Microsoft.AspNetCore.Identity;
     using RealEstateWebAPI.BLL.DTO;
     using RealEstateWebAPI.DAL.Entities;
     using RealEstateWebAPI.DAL.Repositories;
@@ -17,11 +18,13 @@ namespace RealEstateWebAPI.BLL.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly PasswordHasher _passwordHasher;
 
-        public UsersService(IUserRepository userRepository, IMapper mapper)
+        public UsersService(IUserRepository userRepository, IMapper mapper, PasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
@@ -38,7 +41,9 @@ namespace RealEstateWebAPI.BLL.Services
 
         public async Task<int> AddUserAsync(UserDTO userDTO)
         {
+            string hashedPassword = _passwordHasher.HashPassword(userDTO.PasswordHash);
             var user = _mapper.Map<User>(userDTO);
+            user.PasswordHash = hashedPassword;
             await _userRepository.AddUserAsync(user);
             return user.UserId;
         }
@@ -64,6 +69,20 @@ namespace RealEstateWebAPI.BLL.Services
             return _mapper.Map<UserDTO>(user);
            
         }
+        public async Task<bool> VerifyPasswordAsync(string username, string password)
+        {
+            // Retrieve the user by username
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+            if (user == null)
+            {
+                return false; // User not found
+            }
+
+            // Verify the password
+            return _passwordHasher.VerifyPassword(password, user.PasswordHash);
+        }
+
     }
+
 
 }

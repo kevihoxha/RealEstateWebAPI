@@ -7,6 +7,9 @@ using Microsoft.Extensions.Logging;
 using Serilog.Sinks.MSSqlServer;
 using Serilog;
 using System.Configuration;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
+using RealEstateWebAPI.DAL.Entities;
 
 namespace RealEstateWebAPI.BLL
 {
@@ -18,6 +21,8 @@ namespace RealEstateWebAPI.BLL
             services.AddScoped<IPropertiesService, PropertiesService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
             services.AddAutoMapper(typeof(Startup));
             

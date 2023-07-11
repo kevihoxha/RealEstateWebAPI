@@ -21,6 +21,8 @@ namespace RealEstateWebAPI.BLL
             CreateMap<TransactionDTO, Transaction>();
             CreateMap<RoleDTO, Role>();
             CreateMap<Role, RoleDTO>();
+            CreateMap<MessageDTO, Message>();
+            CreateMap<Message, MessageDTO>();
         }
     }
 }

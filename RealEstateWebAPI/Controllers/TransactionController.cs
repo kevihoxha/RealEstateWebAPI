@@ -36,10 +36,6 @@ namespace RealEstateWebAPI.Controllers
             return await HandleAsync <TransactionDTO>(async () =>
             {
                 var transaction = await _transactionService.GetTransactionByIdAsync(id);
-                if (transaction == null)
-                {
-                    return NotFound();
-                }
                 return Ok(transaction);
             });
         }

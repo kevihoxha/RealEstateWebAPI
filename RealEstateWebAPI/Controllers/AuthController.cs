@@ -19,12 +19,16 @@ namespace RealEstateWebAPI.Controllers
     {
         private readonly TokenService _tokenService;
         private readonly IUserRepository _usersService;
+        private readonly IUsersService _usersService2;
         private readonly AppDbContext _appDbContext;
-        public AuthController(TokenService tokenService, IUserRepository usersService, AppDbContext context)
+        private readonly IPasswordHasher<User> _passHasher;
+        public AuthController(TokenService tokenService, IUserRepository usersService, AppDbContext context, IPasswordHasher<User> passHasher,IUsersService usersService2)
         {
             _tokenService = tokenService;
             _usersService = usersService;
             _appDbContext = context;
+            _passHasher = passHasher;
+            _usersService2 = usersService2;
         }
         [HttpPost]
         [Route("login")]
@@ -41,7 +45,8 @@ namespace RealEstateWebAPI.Controllers
             {
                 return BadRequest("Bad credentials");
             }
-            if (request.Password!=managedUser.PasswordHash)
+           bool isPasswordValid = await _usersService2.VerifyPasswordAsync(request.Username, request.Password);
+            if (!isPasswordValid)
             {
                 return BadRequest("Bad credentials");
             }
