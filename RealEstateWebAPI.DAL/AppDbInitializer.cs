@@ -51,16 +51,16 @@ namespace RealEstateWebAPI.DAL
                 context.SaveChanges(); 
             }
 
-            var adminUser = new User
+           /* var adminUser = new User
             {
                 UserName = "admin",
-                PasswordHash = ( "adminpasswordhash"),
+                PasswordHash = HashPasword
                 PasswordSalt = "adminpasswordsalt",
                 Email = "admin@example.com",
                 RoleId = adminRole.RoleId
             };
             context.Users.Add(adminUser);
-            context.SaveChanges(); 
+            context.SaveChanges();*/
         }
 
     }

@@ -4,12 +4,6 @@ namespace RealEstateWebAPI.Controllers
 {
     public class BaseController : ControllerBase
     {
-        private readonly ILogger<BaseController> _logger;
-
-        public BaseController(ILogger<BaseController> logger)
-        {
-            _logger = logger;
-        }
 
         protected async Task<ActionResult<T>> HandleAsync<T>(Func<Task<ActionResult<T>>> action)
         {

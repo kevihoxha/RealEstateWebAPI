@@ -17,7 +17,7 @@ namespace RealEstateWebAPI.JWTMangament
         {
             var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
             var token = CreateJwtToken(
-                CreateClaims(user,context),
+                CreateClaims(user, context),
                 CreateSigningCredentials(),
                 expiration
             );
@@ -42,7 +42,7 @@ namespace RealEstateWebAPI.JWTMangament
                 var userWithRole = context.GetUserWithRole(user.UserId);
                 var claims = new List<Claim>
                 {
-                new Claim(JwtRegisteredClaimNames.Sub, "TokenForTheApiWithAuth"),
+                new Claim(JwtRegisteredClaimNames.Sub,  user.UserId.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
                     new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),

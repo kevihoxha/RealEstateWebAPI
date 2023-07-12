@@ -1,4 +1,4 @@
-/*using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,15 +18,13 @@ namespace NUnitTesting
         private Mock<IUserRepository> _userRepositoryMock;
         private Mock<IMapper> _mapperMock;
         private IUsersService _userService;
-        private IPasswordHasher<User> _passHasher;
 
         [SetUp]
         public void SetUp()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
             _mapperMock = new Mock<IMapper>();
-            _passHasher = new Mock<IPasswordHasher<User>>();
-            _userService = new UsersService(_userRepositoryMock.Object, _mapperMock.Object,_passHasher.Object);
+            _userService = new UsersService(_userRepositoryMock.Object, _mapperMock.Object);
         }
 
         [Test]
@@ -48,4 +46,3 @@ namespace NUnitTesting
         // Add more tests for other methods in the UsersService class
     }
 }
-*/

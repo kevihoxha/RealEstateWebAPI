@@ -6,5 +6,6 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             Task<IEnumerable<Message>> GetMessagesForPropertyAsync(int propertyId);
             Task SendMessageAsync(Message message);
+            Task<IEnumerable<Message>> GetAllMessagesByUserAsync(int authenticatedUserId);
         }
     }

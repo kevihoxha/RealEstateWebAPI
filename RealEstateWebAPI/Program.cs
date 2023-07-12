@@ -59,7 +59,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 builder.Services.AddScoped<TokenService, TokenService>();
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.RegisterServices(builder.Configuration);
 
 builder.Services
@@ -83,7 +83,7 @@ builder.Services
     });
 
 Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Warning()
+            .MinimumLevel.Error()
             .WriteTo.File("C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI\\bin\\Debug\\net6.0\\Logs\\logs.txt")
             .WriteTo.MSSqlServer(
         connectionString: "Data Source=.,1401;Initial Catalog=RealEstateWebAPIDb;Persist Security Info=True;User ID=sa;Password=yourStrong(!)Password;TrustServerCertificate=True", // Replace with your actual connection string
@@ -102,10 +102,6 @@ builder.Services.AddLogging(loggingBuilder =>
 });
 
 builder.Services.AddSingleton<AuthenticationMiddleware>();
-/*builder.Services.AddControllers(options =>
-{
-    options.Filters.Add(typeof(AuthorisationFilter));
-});*/
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -117,7 +113,7 @@ app.UseMiddleware<GlobalErrorHandlingMiddleware>();
 app.UseRouting();
 StartUp.SeedData(app);
 app.UseHttpsRedirection();
-app.UseAuthentication();
+/*app.UseAuthentication();*/
 app.UseMiddleware(typeof(AuthenticationMiddleware));
 /*app.UseAuthorization();*/
 

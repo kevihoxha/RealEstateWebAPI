@@ -201,3 +201,4 @@ C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\obj\Debug\net6.0\ref\NUni
 C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\RealEstateWebAPI.BLL.dll
 C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\RealEstateWebAPI.BLL.pdb
+C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll

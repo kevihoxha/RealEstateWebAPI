@@ -16,13 +16,11 @@ namespace RealEstateWebAPI.Controllers
     public class UserController : BaseController 
     {
         private readonly IUsersService _userService;
-        private readonly ILogger<PropertyController> _logger;
 
-        public UserController(ILogger<PropertyController> logger,IUsersService userService):base(logger) 
+        public UserController(ILogger<PropertyController> logger,IUsersService userService)
         { 
         
             _userService = userService;
-             _logger = logger;
         }
 
         [HttpGet]
@@ -51,7 +49,7 @@ namespace RealEstateWebAPI.Controllers
         }
 
         [HttpPost("create")]
-        [TypeFilter(typeof(AuthorisationFilter))]
+       /* [TypeFilter(typeof(AuthorisationFilter))]*/
         public async Task<ActionResult<int>> AddUser(UserDTO userDTO)
         {
             return await HandleAsync<int>(async () =>

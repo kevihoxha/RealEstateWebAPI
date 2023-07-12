@@ -10,11 +10,9 @@ namespace RealEstateWebAPI.Controllers
     public class TransactionController : BaseController
     {
         private readonly ITransactionService _transactionService;
-        private readonly ILogger<TransactionController> _logger;
 
-        public TransactionController(ILogger<TransactionController> logger, ITransactionService transactionService) : base(logger)
+        public TransactionController( ITransactionService transactionService)
         {
-            _logger = logger;
             _transactionService = transactionService;
         }
 

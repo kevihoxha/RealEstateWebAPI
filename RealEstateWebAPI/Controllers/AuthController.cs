@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using RealEstateWebAPI.DAL.Entities;
 using RealEstateWebAPI.DAL.Repositories;
 
 namespace RealEstateWebAPI.Controllers
 {
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using RealEstateWebAPI.BLL.DTO;
     using RealEstateWebAPI.BLL.Services;
     using RealEstateWebAPI.DAL;
     using RealEstateWebAPI.JWTMangament;
+    using RealEstateWebAPI.Middleware;
 
     [ApiController]
    
@@ -21,14 +21,11 @@ namespace RealEstateWebAPI.Controllers
         private readonly IUserRepository _usersService;
         private readonly IUsersService _usersService2;
         private readonly AppDbContext _appDbContext;
-        private readonly IPasswordHasher<User> _passHasher;
-        public AuthController(TokenService tokenService, IUserRepository usersService, AppDbContext context, IPasswordHasher<User> passHasher,IUsersService usersService2)
+        public  AuthController(TokenService tokenService, IUserRepository usersService, AppDbContext context)
         {
             _tokenService = tokenService;
             _usersService = usersService;
             _appDbContext = context;
-            _passHasher = passHasher;
-            _usersService2 = usersService2;
         }
         [HttpPost]
         [Route("login")]
@@ -45,19 +42,18 @@ namespace RealEstateWebAPI.Controllers
             {
                 return BadRequest("Bad credentials");
             }
-           bool isPasswordValid = await _usersService2.VerifyPasswordAsync(request.Username, request.Password);
-            if (!isPasswordValid)
+            if (PasswordHashing.VerifyPassword(request.Password, managedUser.PasswordHash,managedUser.PasswordSalt))
             {
-                return BadRequest("Bad credentials");
-            }
 
-            var accessToken = _tokenService.CreateToken(managedUser, _appDbContext);
-            return Ok(new AuthResponse
-            {
-                Username = managedUser.UserName,
-                Email = managedUser.Email,
-                Token = accessToken,
-            });
+                var accessToken = _tokenService.CreateToken(managedUser, _appDbContext);
+                return Ok(new AuthResponse
+                {
+                    Username = managedUser.UserName,
+                    Email = managedUser.Email,
+                    Token = accessToken,
+                });
+            }
+            return new AuthResponse();
         }
     }
 }

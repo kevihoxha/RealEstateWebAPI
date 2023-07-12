@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿/*using Microsoft.AspNetCore.Authorization;*/
 using Microsoft.AspNetCore.Mvc;
 using RealEstateWebAPI.ActionFilters;
 using RealEstateWebAPI.BLL.DTO;
 using RealEstateWebAPI.BLL.Services;
 using RealEstateWebAPI.Common;
+using RealEstateWebAPI.Middleware;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -17,16 +18,14 @@ namespace RealEstateWebAPI.Controllers
     public class PropertyController : BaseController
     {
         private readonly IPropertiesService _propertyService;
-        private readonly ILogger<PropertyController> _logger;
 
-        public PropertyController(ILogger<PropertyController> logger, IPropertiesService propertyService) : base(logger)
+        public PropertyController(IPropertiesService propertyService) 
         {
-
-            _logger = logger;
             _propertyService = propertyService;
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<PropertyDTO>>> GetAllProperties()
         {
             return await HandleAsync<IEnumerable<PropertyDTO>>(async () =>
@@ -57,6 +56,7 @@ namespace RealEstateWebAPI.Controllers
         }
 
         [HttpPut("update/{id}")]
+
         public async Task<ActionResult> UpdateProperty(int id, PropertyDTO propertyDTO)
         {
             return await HandleAsync(async () =>
@@ -75,6 +75,7 @@ namespace RealEstateWebAPI.Controllers
             });
         }
         [HttpGet("search/{location}")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<PropertyDTO>>> GetAllPropertiesByLocationAsync(string location)
         {
             return await HandleAsync<IEnumerable<PropertyDTO>>(async () =>

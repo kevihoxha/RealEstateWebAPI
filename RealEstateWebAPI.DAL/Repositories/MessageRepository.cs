@@ -16,12 +16,15 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             _dbContext = dbContext;
         }
-
+        public async Task<IEnumerable<Message>> GetAllMessagesByUserAsync(int authenticatedUserId)
+        {
+            return await _dbContext.Messages.Where(m => m.Property.UserId == authenticatedUserId).ToListAsync();
+        }
         public async Task<IEnumerable<Message>> GetMessagesForPropertyAsync(int propertyId)
         {
             return await _dbContext.Messages
-                .Where(m => m.PropertyId == propertyId)
-                .ToListAsync();
+                    .Where(m => m.PropertyId == propertyId)
+                    .ToListAsync();
         }
 
         public async Task SendMessageAsync(Message message)

@@ -22,7 +22,6 @@ namespace RealEstateWebAPI.BLL
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IMessageService, MessageService>();
-            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
             services.AddAutoMapper(typeof(Startup));
             

@@ -20,6 +20,11 @@ namespace RealEstateWebAPI.BLL.Services
             _messageRepository = messageRepository;
             _mapper = mapper;
         }
+        public async Task<IEnumerable<MessageDTO>> GetAllMessagesByUser(int authenticatedUserId)
+        {
+            var messages = await _messageRepository.GetAllMessagesByUserAsync(authenticatedUserId);
+            return _mapper.Map<IEnumerable<MessageDTO>>(messages);
+        }
 
         public async Task<IEnumerable<MessageDTO>> GetMessagesForPropertyAsync(int propertyId)
         {

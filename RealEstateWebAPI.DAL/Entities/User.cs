@@ -15,7 +15,7 @@ namespace RealEstateWebAPI.DAL.Entities
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string PasswordHash { get; set; }
-        public string PasswordSalt { get; set; }
+        public byte[] PasswordSalt { get; set; }
         public string Email { get; set; }
 
         [ForeignKey(nameof(Role))]

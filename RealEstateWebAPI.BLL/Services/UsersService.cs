@@ -11,6 +11,7 @@ namespace RealEstateWebAPI.BLL.Services
     using RealEstateWebAPI.BLL.DTO;
     using RealEstateWebAPI.DAL.Entities;
     using RealEstateWebAPI.DAL.Repositories;
+    using Serilog;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -18,68 +19,106 @@ namespace RealEstateWebAPI.BLL.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly PasswordHasher _passwordHasher;
 
-        public UsersService(IUserRepository userRepository, IMapper mapper, PasswordHasher passwordHasher)
+        public UsersService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
-            _passwordHasher = passwordHasher;
+
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
-            var users = await _userRepository.GetAllUsersAsync();
-            return _mapper.Map<IEnumerable<UserDTO>>(users);
+            try
+            {
+                var users = await _userRepository.GetAllUsersAsync();
+                Log.Information("Got all Users");
+                return _mapper.Map<IEnumerable<UserDTO>>(users);
+                
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error Getting Users");
+                return Enumerable.Empty<UserDTO>();
+            }
         }
 
         public async Task<UserDTO> GetUserByIdAsync(int userId)
         {
-            var user = await _userRepository.GetUserByIdAsync(userId);
-            return _mapper.Map<UserDTO>(user);
+            try
+            {
+                var user = await _userRepository.GetUserByIdAsync(userId);
+                Log.Information($"Got user will id {userId}");
+                return _mapper.Map<UserDTO>(user);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error Geting a user");
+                return new UserDTO();
+            }
         }
 
         public async Task<int> AddUserAsync(UserDTO userDTO)
         {
-            string hashedPassword = _passwordHasher.HashPassword(userDTO.PasswordHash);
-            var user = _mapper.Map<User>(userDTO);
-            user.PasswordHash = hashedPassword;
-            await _userRepository.AddUserAsync(user);
-            return user.UserId;
+            try
+            {
+                var user = _mapper.Map<User>(userDTO);
+                byte[] salt;
+                user.PasswordHash = PasswordHashing.HashPasword(userDTO.Password, out salt);
+                user.PasswordSalt = salt;
+                await _userRepository.AddUserAsync(user);
+                Log.Information("User added succesfully");
+                return user.UserId;
+            }catch(Exception ex)
+            {
+                Log.Error(ex, "Error while trying to add user");
+                return 0;
+            }
+
         }
 
         public async Task UpdateUserAsync(int userId, UserDTO userDTO)
         {
-            var user = await _userRepository.GetUserByIdAsync(userId);
-            if (user != null)
+            try
             {
-                _mapper.Map<UserDTO, User>(userDTO, user);
-                await _userRepository.UpdateUserAsync(user);
+                var user = await _userRepository.GetUserByIdAsync(userId);
+                if (user != null)
+                {
+                    _mapper.Map<UserDTO, User>(userDTO, user);
+                    await _userRepository.UpdateUserAsync(user);
+                    Log.Information("User updated succesfully");
+                }
+            }catch (Exception ex)
+            {
+                Log.Information(ex, "Error while updating user");
             }
         }
 
         public async Task DeleteUserAsync(int userId)
         {
-            await _userRepository.DeleteUserAsync(userId);
+            try
+            {
+
+                await _userRepository.DeleteUserAsync(userId);
+            }catch(Exception ex)
+            {
+                Log.Information(ex, "Error while deleting user");
+            }
         }
 
         public async Task<UserDTO> GetUserByUserNameAsync(string username)
         {
-            var user = await _userRepository.GetUserByUsernameAsync(username);
-            return _mapper.Map<UserDTO>(user);
-           
-        }
-        public async Task<bool> VerifyPasswordAsync(string username, string password)
-        {
-            // Retrieve the user by username
-            var user = await _userRepository.GetUserByUsernameAsync(username);
-            if (user == null)
+            try
             {
-                return false; // User not found
+                var user = await _userRepository.GetUserByUsernameAsync(username);
+                Log.Information("Got the user by name");
+                return _mapper.Map<UserDTO>(user);
+            }catch  (Exception ex)
+            {
+                Log.Error(ex, "Error while getting a user bt name");
+                return new UserDTO();
             }
-
-            // Verify the password
-            return _passwordHasher.VerifyPassword(password, user.PasswordHash);
+           
         }
 
     }

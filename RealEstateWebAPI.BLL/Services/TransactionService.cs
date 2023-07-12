@@ -28,15 +28,9 @@ namespace RealEstateWebAPI.BLL.Services
         {
             try
             {
-
                 var transaction = _mapper.Map<Transaction>(transactionRequest);
-
-
                 var createdTransaction = await _transactionRepository.AddTransactionAsync(transaction);
-
-
                 var transactionDTO = _mapper.Map<TransactionDTO>(createdTransaction);
-
                 return transactionDTO;
             }
             catch (Exception ex)
