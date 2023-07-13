@@ -1,5 +1,4 @@
 using AutoMapper;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -27,6 +26,10 @@ namespace NUnitTesting
             _userService = new UsersService(_userRepositoryMock.Object, _mapperMock.Object);
         }
 
+        /// <summary>
+        /// Teston metoden GetAllUsersAsync nga klasa UsersService.
+        /// Duhet te ktheje te gjithe users.
+        /// </summary>
         [Test]
         public async Task GetAllUsersAsync_ReturnsAllUsers()
         {
@@ -42,7 +45,65 @@ namespace NUnitTesting
             // Assert
             Assert.AreEqual(userDTOs, result);
         }
+        /// <summary>
+        /// Teston metoden GetAllUsersAsync nga klasa UsersService.
+        /// Duhet te kthehe numrin e sakte e users.
+        /// </summary>
+        [Test]
+        public async Task GetAllUsersAsync_ReturnsNumberOfUsers()
+        {
+            // Arrange
+            var users = new List<User> { new User { UserId = 1, UserName = "user1" }, new User { UserId = 2, UserName = "user2" } };
+            var userDTOs = new List<UserDTO> { new UserDTO { UserId = 1, UserName = "user1" }, new UserDTO { UserId = 2, UserName = "user2" } };
+            _userRepositoryMock.Setup(repo => repo.GetAllUsersAsync()).ReturnsAsync(users);
+            _mapperMock.Setup(mapper => mapper.Map<IEnumerable<UserDTO>>(users)).Returns(userDTOs);
 
-        // Add more tests for other methods in the UsersService class
+            // Act
+            var result = await _userService.GetAllUsersAsync();
+
+            // Assert
+            Assert.AreEqual(userDTOs.Count, 2);
+        }
+        /// <summary>
+        /// Teston metoden GetUserByIdAsyncnga klasa UsersService.
+        /// Duhet te ktheje nje UserDTO per nje user qe ekziston me ate ID.
+        /// </summary>
+        [Test]
+        public async Task GetUserByIdAsync_ExistingUserId_ShouldReturnUserDTO()
+        {
+            // Arrange
+            int userId = 1;
+            var user = new User();
+            var userDTO = new UserDTO();
+
+            _userRepositoryMock.Setup(repo => repo.GetUserByIdAsync(userId)).ReturnsAsync(user);
+            _mapperMock.Setup(mapper => mapper.Map<UserDTO>(user)).Returns(userDTO);
+
+            // Act
+            var result = await _userService.GetUserByIdAsync(userId);
+
+            // Assert
+            Assert.AreEqual(userDTO, result);
+        }
+        /// <summary>
+        /// Teston metoden AddUserAsync per klasen UsersService.
+        /// Duhet te ktheje user ID per UserDTO e sapo shtuar.
+        /// </summary>
+        [Test]
+        public async Task AddUserAsync_ValidUserDTO_ShouldReturnUserId()
+        {
+            // Arrange
+            var userDTO = new UserDTO { UserName = "john", Password = "password" };
+            var user = new User { UserId = 1 };
+
+            _mapperMock.Setup(mapper => mapper.Map<User>(userDTO)).Returns(user);
+            _userRepositoryMock.Setup(repo => repo.AddUserAsync(user));
+
+            // Act
+            var result = await _userService.AddUserAsync(userDTO);
+
+            // Assert
+            Assert.AreEqual(user.UserId, result);
+        }
     }
 }

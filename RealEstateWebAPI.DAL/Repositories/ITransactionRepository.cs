@@ -12,6 +12,5 @@ namespace RealEstateWebAPI.DAL.Repositories
         Task<Transaction> AddTransactionAsync(Transaction transaction);
         Task<Transaction> GetTransactionByIdAsync(int transactionId);
         Task<IEnumerable<Transaction>> GetAllTransactionsAsync();
-        // Add other transaction-related methods as needed
     }
 }

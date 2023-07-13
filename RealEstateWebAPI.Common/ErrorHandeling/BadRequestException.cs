@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace RealEstateWebAPI.Common.ErrorHandeling
 {
 
-        public class BadRequestException : Exception
-        {
-            public BadRequestException(string message) : base(message) { }
-        }
+    public class BadRequestException : Exception
+    {
+        public BadRequestException(string message) : base(message) { }
     }
+}
 

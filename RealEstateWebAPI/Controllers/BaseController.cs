@@ -27,7 +27,7 @@ namespace RealEstateWebAPI.Controllers
             }
             catch (Exception ex)
             {
-               /* _logger.LogError(ex.Message);*/
+                /* _logger.LogError(ex.Message);*/
                 return BadRequest(ex.Message);
             }
         }

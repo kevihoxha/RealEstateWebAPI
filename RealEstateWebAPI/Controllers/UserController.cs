@@ -13,13 +13,13 @@ namespace RealEstateWebAPI.Controllers
 
     [ApiController]
     [Route("users")]
-    public class UserController : BaseController 
+    public class UserController : BaseController
     {
         private readonly IUsersService _userService;
 
-        public UserController(ILogger<PropertyController> logger,IUsersService userService)
-        { 
-        
+        public UserController(ILogger<PropertyController> logger, IUsersService userService)
+        {
+
             _userService = userService;
         }
 
@@ -30,7 +30,7 @@ namespace RealEstateWebAPI.Controllers
             return await HandleAsync<IEnumerable<UserDTO>>(async () =>
             {
                 var users = await _userService.GetAllUsersAsync();
-                return Ok (users);
+                return Ok(users);
             });
         }
 
@@ -39,17 +39,17 @@ namespace RealEstateWebAPI.Controllers
 
         public async Task<ActionResult<UserDTO>> GetUserById(int id)
         {
-           /* throw new Common.ErrorHandeling.NotFoundException("missing user");*/
-        
+            /* throw new Common.ErrorHandeling.NotFoundException("missing user");*/
+
             return await HandleAsync<UserDTO>(async () =>
             {
-                var user = await _userService.GetUserByIdAsync(id);           
-            return user;
+                var user = await _userService.GetUserByIdAsync(id);
+                return user;
             });
         }
 
         [HttpPost("create")]
-       /* [TypeFilter(typeof(AuthorisationFilter))]*/
+        [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<int>> AddUser(UserDTO userDTO)
         {
             return await HandleAsync<int>(async () =>
@@ -65,7 +65,7 @@ namespace RealEstateWebAPI.Controllers
         {
             return await HandleAsync(async () =>
             {
-               await  _userService.UpdateUserAsync(id, userDTO);
+                await _userService.UpdateUserAsync(id, userDTO);
             });
         }
 
@@ -75,9 +75,9 @@ namespace RealEstateWebAPI.Controllers
         {
             return await HandleAsync(async () =>
             {
-                 await _userService.DeleteUserAsync(id);
+                await _userService.DeleteUserAsync(id);
             });
         }
-       
+
     }
 }

@@ -1,26 +1,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using RealEstateWebAPI.ActionFilters;
 using RealEstateWebAPI.BLL;
-using RealEstateWebAPI.Common;
 using RealEstateWebAPI.DAL;
 using RealEstateWebAPI.JWTMangament;
 using RealEstateWebAPI.Middleware;
 using Serilog;
-using Serilog.Events;
-using Serilog.Extensions.Logging;
-using Serilog.Formatting.Json;
 using Serilog.Sinks.MSSqlServer;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddTransient<GlobalErrorHandlingMiddleware>();
 
@@ -103,6 +92,7 @@ builder.Services.AddLogging(loggingBuilder =>
 
 builder.Services.AddSingleton<AuthenticationMiddleware>();
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -125,9 +115,5 @@ app.UseEndpoints(endpoints =>
         pattern: "/api/errorHandler",
         defaults: new { controller = "ErrorHandler", action = "HandleError" }
     );
-});
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
 });
 app.Run();

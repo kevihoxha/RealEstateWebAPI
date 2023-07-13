@@ -11,15 +11,25 @@ using System.Threading.Tasks;
 
 namespace RealEstateWebAPI.Middleware
 {
+    /// <summary>
+    /// Middleware for handling global errors.
+    /// </summary>
     public class GlobalErrorHandlingMiddleware : IMiddleware
-    { 
+    {
+        /// <summary>
+        /// Ndez kete middleware
+        /// </summary>
+        /// <param name="context"> HTTP context.</param>
+        /// <param name="next">Delegati i middleware te rradhes</param>
+        /// <returns>Nje Task qe tregon se middleware ka mbaruar funksionin</returns>
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
                 await next(context);
 
-            }catch(NotFoundException ex)
+            }
+            catch (NotFoundException ex)
             {
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "text/plain";

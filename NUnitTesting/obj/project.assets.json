@@ -97,15 +97,19 @@
           "build/netstandard1.0/coverlet.collector.targets": {}
         }
       },
-      "Microsoft.AspNet.Identity.Core/2.2.3": {
+      "itext7.commons/8.0.0": {
         "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging": "5.0.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
         "compile": {
-          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {
+          "lib/netstandard2.0/itext.commons.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {
+          "lib/netstandard2.0/itext.commons.dll": {
             "related": ".xml"
           }
         }
@@ -1573,6 +1577,33 @@
           "build/netcoreapp2.1/NUnit3TestAdapter.props": {}
         }
       },
+      "PDFsharp/1.50.5147": {
+        "type": "package",
+        "compile": {
+          "lib/net20/PdfSharp.Charting.dll": {
+            "related": ".xml"
+          },
+          "lib/net20/PdfSharp.dll": {
+            "related": ".Charting.xml;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net20/PdfSharp.Charting.dll": {
+            "related": ".xml"
+          },
+          "lib/net20/PdfSharp.dll": {
+            "related": ".Charting.xml;.xml"
+          }
+        },
+        "resource": {
+          "lib/net20/de/PdfSharp.Charting.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net20/de/PdfSharp.resources.dll": {
+            "locale": "de"
+          }
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
         "type": "package",
         "runtimeTargets": {
@@ -3031,7 +3062,6 @@
         "dependencies": {
           "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
-          "Microsoft.AspNet.Identity.Core": "2.2.3",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.19",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.19",
           "Microsoft.EntityFrameworkCore": "7.0.8",
@@ -3041,6 +3071,7 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
           "Microsoft.Extensions.Hosting": "7.0.1",
           "Newtonsoft.Json": "13.0.3",
+          "PdfSharp": "1.50.5147",
           "RealEstateWebAPI.DAL": "1.0.0",
           "Serilog": "3.0.1",
           "Serilog.AspNetCore": "7.0.0",
@@ -3051,7 +3082,8 @@
           "Serilog.Sinks.MSSqlServer": "6.3.0",
           "Swashbuckle.AspNetCore": "6.5.0",
           "System.IdentityModel.Tokens.Jwt": "6.31.0",
-          "System.Net.Http": "4.3.4"
+          "System.Net.Http": "4.3.4",
+          "itext7.commons": "8.0.0"
         },
         "compile": {
           "bin/placeholder/RealEstateWebAPI.BLL.dll": {}
@@ -3074,6 +3106,7 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
           "Microsoft.Extensions.Hosting": "7.0.1",
           "Newtonsoft.Json": "13.0.3",
+          "PdfSharp": "1.50.5147",
           "Serilog": "3.0.1",
           "Serilog.AspNetCore": "7.0.0",
           "Serilog.Exceptions": "8.4.0",
@@ -3083,7 +3116,8 @@
           "Serilog.Sinks.MSSqlServer": "6.3.0",
           "Swashbuckle.AspNetCore": "6.5.0",
           "System.IdentityModel.Tokens.Jwt": "6.31.0",
-          "System.Net.Http": "4.3.4"
+          "System.Net.Http": "4.3.4",
+          "itext7.commons": "8.0.0"
         },
         "compile": {
           "bin/placeholder/RealEstateWebAPI.DAL.dll": {}
@@ -3237,17 +3271,20 @@
         "coverlet.collector.nuspec"
       ]
     },
-    "Microsoft.AspNet.Identity.Core/2.2.3": {
-      "sha512": "Mv5FpoaxspE8hlWLE4r1IdZtovg/OyFgVRhxQbx47J4sqdLImN1hnM1lnwCj+/wLmqtqFk/RYMoZ5GAcwm/00g==",
+    "itext7.commons/8.0.0": {
+      "sha512": "YPraDCzJKy+xX79WkHd0FevrTtbRmHyuhF0oS9c7s12Qe+3xlCnWqaPMGQ4batr3aarDU8E4Tquj4idcuJqrWg==",
       "type": "package",
-      "path": "microsoft.aspnet.identity.core/2.2.3",
+      "path": "itext7.commons/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net45/Microsoft.AspNet.Identity.Core.dll",
-        "lib/net45/Microsoft.AspNet.Identity.Core.xml",
-        "microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
-        "microsoft.aspnet.identity.core.nuspec"
+        "ITSC-avatar.png",
+        "itext7.commons.8.0.0.nupkg.sha512",
+        "itext7.commons.nuspec",
+        "lib/net461/itext.commons.dll",
+        "lib/net461/itext.commons.xml",
+        "lib/netstandard2.0/itext.commons.dll",
+        "lib/netstandard2.0/itext.commons.xml"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.19": {
@@ -5791,6 +5828,23 @@
         "build/netcoreapp2.1/testcentric.engine.metadata.dll",
         "nunit3testadapter.4.2.1.nupkg.sha512",
         "nunit3testadapter.nuspec"
+      ]
+    },
+    "PDFsharp/1.50.5147": {
+      "sha512": "vr5KBIqcXu2hqZ43UTwPR+jqHgMrT5tsPtJvEF+mORKoBNMh3bRWgAwic0U1sT2IVb4PR5m0GyQxnmCz8jBHWg==",
+      "type": "package",
+      "path": "pdfsharp/1.50.5147",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/PdfSharp.Charting.dll",
+        "lib/net20/PdfSharp.Charting.xml",
+        "lib/net20/PdfSharp.dll",
+        "lib/net20/PdfSharp.xml",
+        "lib/net20/de/PdfSharp.Charting.resources.dll",
+        "lib/net20/de/PdfSharp.resources.dll",
+        "pdfsharp.1.50.5147.nupkg.sha512",
+        "pdfsharp.nuspec"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
@@ -9031,9 +9085,11 @@
       "NUnit >= 3.13.3",
       "NUnit.Analyzers >= 3.3.0",
       "NUnit3TestAdapter >= 4.2.1",
+      "PdfSharp >= 1.50.5147",
       "RealEstateWebAPI.BLL >= 1.0.0",
       "RealEstateWebAPI.DAL >= 1.0.0",
-      "coverlet.collector >= 3.1.2"
+      "coverlet.collector >= 3.1.2",
+      "itext7.commons >= 8.0.0"
     ]
   },
   "packageFolders": {
@@ -9102,9 +9158,17 @@
             "target": "Package",
             "version": "[4.2.1, )"
           },
+          "PdfSharp": {
+            "target": "Package",
+            "version": "[1.50.5147, )"
+          },
           "coverlet.collector": {
             "target": "Package",
             "version": "[3.1.2, )"
+          },
+          "itext7.commons": {
+            "target": "Package",
+            "version": "[8.0.0, )"
           }
         },
         "imports": [
@@ -9146,8 +9210,8 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Microsoft.AspNet.Identity.Core 2.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "Microsoft.AspNet.Identity.Core",
+      "message": "Package 'PDFsharp 1.50.5147' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "PDFsharp",
       "targetGraphs": [
         "net6.0"
       ]

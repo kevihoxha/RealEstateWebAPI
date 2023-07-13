@@ -92,6 +92,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "PdfSharp": {
+              "target": "Package",
+              "version": "[1.50.5147, )"
+            },
             "Serilog": {
               "target": "Package",
               "version": "[3.0.1, )"
@@ -131,6 +135,10 @@
             "System.Net.Http": {
               "target": "Package",
               "version": "[4.3.4, )"
+            },
+            "itext7.commons": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [

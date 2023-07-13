@@ -14,14 +14,14 @@ namespace RealEstateWebAPI.Controllers
     using RealEstateWebAPI.Middleware;
 
     [ApiController]
-   
+
     public class AuthController : ControllerBase
     {
         private readonly TokenService _tokenService;
         private readonly IUserRepository _usersService;
         private readonly IUsersService _usersService2;
         private readonly AppDbContext _appDbContext;
-        public  AuthController(TokenService tokenService, IUserRepository usersService, AppDbContext context)
+        public AuthController(TokenService tokenService, IUserRepository usersService, AppDbContext context)
         {
             _tokenService = tokenService;
             _usersService = usersService;
@@ -42,7 +42,7 @@ namespace RealEstateWebAPI.Controllers
             {
                 return BadRequest("Bad credentials");
             }
-            if (PasswordHashing.VerifyPassword(request.Password, managedUser.PasswordHash,managedUser.PasswordSalt))
+            if (PasswordHashing.VerifyPassword(request.Password, managedUser.PasswordHash, managedUser.PasswordSalt))
             {
 
                 var accessToken = _tokenService.CreateToken(managedUser, _appDbContext);

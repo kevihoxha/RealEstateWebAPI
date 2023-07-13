@@ -143,4 +143,8 @@ C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\Syst
 C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
 C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
 C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
-C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\itext.commons.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\PdfSharp.Charting.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\PdfSharp.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\de\PdfSharp.Charting.resources.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\bin\Debug\net6.0\de\PdfSharp.resources.dll

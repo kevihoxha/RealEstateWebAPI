@@ -10,14 +10,12 @@ namespace RealEstateWebAPI.ActionFilters
 {
     public class AuthorisationFilter : IActionFilter
     {
+        /// <summary>
+        /// Thirret perpara se nje metode te ekzekutohet, performon nje kontroll authorizimi pe rkete metode.
+        /// </summary>
+        /// <param name="context">Context per metoden qe do te ekzekutohet</param>
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            // Check if the user is authenticated
-/*            if (!context.HttpContext.User.Identity.IsAuthenticated)
-            {
-                context.Result = new UnauthorizedResult();
-                return;
-            }*/
 
             if (!context.HttpContext.User.Claims.Any(c => c.Type == ClaimTypes.Name && c.Value == "admin"))
             {
@@ -25,10 +23,12 @@ namespace RealEstateWebAPI.ActionFilters
                 return;
             }
         }
-
+        /// <summary>
+        /// Thirret pasi nje metode ekzekutohet, nuk ben asgje ne kete rast.
+        /// </summary>
+        /// <param name="context">Context per metoden pas ekzekuimit.</param>
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            // Perform any necessary actions after the action is executed
         }
 
     }

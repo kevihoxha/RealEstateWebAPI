@@ -24,5 +24,5 @@ namespace RealEstateWebAPI.DAL.Entities
 
     }
 
-} 
-     
+}
+

@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using RealEstateWebAPI.BLL.DTO;
 using RealEstateWebAPI.DAL.Entities;
 using RealEstateWebAPI.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace RealEstateWebAPI.BLL.Services
 {
@@ -15,21 +10,22 @@ namespace RealEstateWebAPI.BLL.Services
     {
         private readonly IPropertyRepository _propertyRepository;
         private readonly IMapper _mapper;
-        private readonly Microsoft.Extensions.Logging.ILogger<PropertiesService> _logger; 
 
         public PropertiesService(Microsoft.Extensions.Logging.ILogger<PropertiesService> logger, IPropertyRepository propertyRepository, IMapper mapper)
         {
             _propertyRepository = propertyRepository;
             _mapper = mapper;
-            _logger= logger;
         }
-
+        /// <summary>
+        /// Merr te gjithe Properties asinkronisht.
+        /// </summary>
+        /// <returns>Nje koleksion Properties pervec atyre qe jane softDelete.</returns>
         public async Task<IEnumerable<PropertyDTO>> GetAllPropertiesAsync()
         {
             try
             {
                 var properties = await _propertyRepository.GetAllPropertiesAsync();
-                
+
                 return _mapper.Map<IEnumerable<PropertyDTO>>(properties);
             }
             catch (Exception ex)
@@ -37,7 +33,10 @@ namespace RealEstateWebAPI.BLL.Services
                 throw;
             }
         }
-
+        /// <summary>
+        /// Merr nje property asinkronisht ne baze te id .
+        /// </summary>
+        /// <returns>Nje Property pervec atij qe eshte softDeleted.</returns>
         public async Task<PropertyDTO> GetPropertyByIdAsync(int propertyId)
         {
             try
@@ -50,7 +49,9 @@ namespace RealEstateWebAPI.BLL.Services
                 throw;
             }
         }
-
+        /// <summary>
+        /// Shton nje Property asinkronisht.
+        /// </summary>
         public async Task<int> AddPropertyAsync(PropertyDTO propertyDTO)
         {
             try
@@ -64,7 +65,9 @@ namespace RealEstateWebAPI.BLL.Services
                 throw;
             }
         }
-
+        /// <summary>
+        /// Modifikon nje Property asinkronisht.
+        /// </summary>
         public async Task UpdatePropertyAsync(int propertyId, PropertyDTO propertyDTO)
         {
             try
@@ -75,12 +78,15 @@ namespace RealEstateWebAPI.BLL.Services
                     _mapper.Map(propertyDTO, property);
                     await _propertyRepository.UpdatePropertyAsync(property);
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw;
             }
         }
-
+        /// <summary>
+        /// Fshin nje Property asinkronisht.
+        /// </summary>
         public async Task DeletePropertyAsync(int propertyId)
 
         {
@@ -93,6 +99,10 @@ namespace RealEstateWebAPI.BLL.Services
                 throw;
             }
         }
+        /// <summary>
+        /// Merr nje property ne baze te lokacionit asinkronisht.
+        /// </summary>
+        /// <returns>>Nje Property</returns>
         public async Task<IEnumerable<PropertyDTO>> GetAllPropertiesByLocationAsync(string location)
         {
             try

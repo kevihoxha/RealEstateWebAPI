@@ -8,28 +8,41 @@ using System.Text;
 namespace RealEstateWebAPI.Middleware
 {
 
-
+    /// <summary>
+    /// Middleware for handling authentication.
+    /// </summary>
     public class AuthenticationMiddleware : IMiddleware
     {
+        /// <summary>
+        /// Ndez middleware.
+        /// </summary>
+        /// <param name="context"> HTTP context.</param>
+        /// <param name="next">Delegati i middleware te rradhes</param>
+        /// <returns>Nje Task qe tregon se middleware ka mbaruar funksionin</returns>
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-
-            if (/*context.Request.Path.Equals("/login", StringComparison.OrdinalIgnoreCase)
-                || context.Request.Path.Equals("/properties", StringComparison.OrdinalIgnoreCase)
-                || context.Request.Path.StartsWithSegments("/properties/search", StringComparison.OrdinalIgnoreCase
-                )*/ HasAllowAnonymousAttribute(context))
+            /// <summary>
+            /// Kontrollon nese lejohet aksesi si anonymous
+            /// </summary>
+            if (HasAllowAnonymousAttribute(context))
 
             {
                 await next(context);
                 return;
             }
-            if (!context.Request.Headers.ContainsKey("Authorization"))
+            /// <summary>
+            /// Kontrollon nese ka nje token
+            /// </summary>
+/*            if (!context.Request.Headers.ContainsKey("Authorization"))
             {
                 context.Response.StatusCode = 401;
                 context.Response.ContentType = "text/plain";
                 await context.Response.WriteAsync("You are not authorized to be here.");
                 return;
-            }
+            }*/
+            /// <summary>
+            /// Kontrollon nese ka nje token ne header
+            /// </summary>
             string token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (string.IsNullOrEmpty(token))
             {
@@ -38,7 +51,9 @@ namespace RealEstateWebAPI.Middleware
                 await context.Response.WriteAsync("Invalid token.");
                 return;
             }
-
+            /// <summary>
+            /// Validimi i token te marre nga header
+            /// </summary>
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtSecret = "!SomethingSecret!12345abcd ergijnewr orwjngkjebwrkg reijbgkewbgrkhwberg";
             var tokenValidationParameters = new TokenValidationParameters
@@ -64,7 +79,9 @@ namespace RealEstateWebAPI.Middleware
 
             await next(context);
         }
-
+        /// <summary>
+        /// Kontrollon nese ai endpoint eshte i dekoruar me AllowAnonymous attribute
+        /// </summary>
         private bool HasAllowAnonymousAttribute(HttpContext context)
         {
             var endpoint = context.GetEndpoint();
@@ -76,4 +93,4 @@ namespace RealEstateWebAPI.Middleware
             return false;
         }
     }
-    } 
+}

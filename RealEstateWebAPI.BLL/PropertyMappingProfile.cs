@@ -8,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RealEstateWebAPI.BLL
-{
+{/// <summary>
+/// Mappimi i DTO me Entities
+/// </summary>
     public class PropertyMappingProfile : Profile
     {
         public PropertyMappingProfile()

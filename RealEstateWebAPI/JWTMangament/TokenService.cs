@@ -13,6 +13,12 @@ namespace RealEstateWebAPI.JWTMangament
     {
 
         private const int ExpirationMinutes = 30;
+        /// <summary>
+        /// Krijon nje JWT token per nje user specifik.
+        /// </summary>
+        /// <param name="user">user.</param>
+        /// <param name="context"> context.</param>
+        /// <returns> JWT token.</returns>
         public string CreateToken(User user, AppDbContext context)
         {
             var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
@@ -34,8 +40,13 @@ namespace RealEstateWebAPI.JWTMangament
                 expires: expiration,
                 signingCredentials: credentials
             );
-
-        private List<Claim> CreateClaims(User user,AppDbContext context)
+        /// <summary>
+        /// Krijon nje calims per nje user specifik na baze te token.
+        /// </summary>
+        /// <param name="user">user.</param>
+        /// <param name="context"> context.</param>
+        /// <returns>Koleksion te Claims</returns>
+        private List<Claim> CreateClaims(User user, AppDbContext context)
         {
             try
             {

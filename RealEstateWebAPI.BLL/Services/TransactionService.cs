@@ -23,7 +23,9 @@ namespace RealEstateWebAPI.BLL.Services
             _mapper = mapper;
             _logger = logger;
         }
-
+        /// <summary>
+        /// Shton nje Transaction te ri asinkronisht.
+        /// </summary>
         public async Task<TransactionDTO> CreateTransactionAsync(TransactionDTO transactionRequest)
         {
             try
@@ -39,13 +41,18 @@ namespace RealEstateWebAPI.BLL.Services
                 throw;
             }
         }
-
+        /// <summary>
+        /// Merr nje Transaction me ane te Id asinkronisht.
+        /// </summary>
         public async Task<TransactionDTO> GetTransactionByIdAsync(int transactionId)
         {
             var transaction = await _transactionRepository.GetTransactionByIdAsync(transactionId);
             return _mapper.Map<TransactionDTO>(transaction);
         }
-
+        /// <summary>
+        /// Merr te gjithe Transactions asinkronisht.
+        /// </summary>
+        /// <returns>Nje koleksion Transactions.</returns>
         public async Task<IEnumerable<TransactionDTO>> GetAllTransactionsAsync()
         {
             var transactions = await _transactionRepository.GetAllTransactionsAsync();

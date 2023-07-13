@@ -11,24 +11,24 @@ using System.Security.Claims;
 namespace RealEstateWebAPI.Controllers
 {
 
-   
-    
-        [ApiController]
 
-        public class MessagesController : BaseController
-        {
-            private readonly IMessageService _messageService;
+
+    [ApiController]
+
+    public class MessagesController : BaseController
+    {
+        private readonly IMessageService _messageService;
         private readonly IPropertiesService _propertiesService;
 
 
         public MessagesController(
                                   IMessageService messageService,
                                   IPropertiesService propertiesService
-                                  ) 
-            {
-                _messageService = messageService;
+                                  )
+        {
+            _messageService = messageService;
             _propertiesService = propertiesService;
-            }
+        }
         [HttpGet("properties/messages")]
 
         public async Task<ActionResult<IEnumerable<MessageDTO>>> GetAllMessages()
@@ -46,7 +46,7 @@ namespace RealEstateWebAPI.Controllers
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<IEnumerable<MessageDTO>>> GetMessagesForProperty(int propertyId)
         {
-            
+
             return await HandleAsync<IEnumerable<MessageDTO>>(async () =>
             {
                 var messages = await _messageService.GetMessagesForPropertyAsync(propertyId);
@@ -62,18 +62,18 @@ namespace RealEstateWebAPI.Controllers
 
         [HttpPost("properties/{id}/message")]
         [AllowAnonymous]
-        public async Task<ActionResult> SendMessage(int id,MessageDTO messageDTO)
+        public async Task<ActionResult> SendMessage(int id, MessageDTO messageDTO)
+        {
+            return await HandleAsync(async () =>
             {
-                return await HandleAsync(async () =>
-                {
-                    var property = await _propertiesService.GetPropertyByIdAsync(id);
-                    messageDTO.PropertyId = id;
-                    await _messageService.SendMessageAsync(messageDTO);
-                    Log.Information("Message sent successfully");
-                   
-                });
-            }
+                var property = await _propertiesService.GetPropertyByIdAsync(id);
+                messageDTO.PropertyId = id;
+                await _messageService.SendMessageAsync(messageDTO);
+                Log.Information("Message sent successfully");
+
+            });
         }
-        }
-    
+    }
+}
+
 

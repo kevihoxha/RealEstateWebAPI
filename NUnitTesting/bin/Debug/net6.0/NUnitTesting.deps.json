@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "NUnitTesting/1.0.0": {
         "dependencies": {
+          "BouncyCastle": "1.8.9",
           "Microsoft.NET.Test.Sdk": "17.3.2",
           "Moq": "4.18.4",
           "NUnit": "3.13.3",
@@ -15,7 +16,9 @@
           "NUnit3TestAdapter": "4.2.1",
           "RealEstateWebAPI.BLL": "1.0.0",
           "RealEstateWebAPI.DAL": "1.0.0",
-          "coverlet.collector": "3.1.2"
+          "coverlet.collector": "3.1.2",
+          "itext7": "7.0.1",
+          "itext7.commons": "8.0.0"
         },
         "runtime": {
           "NUnitTesting.dll": {}
@@ -78,6 +81,14 @@
           }
         }
       },
+      "BouncyCastle/1.8.9": {
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {
+            "assemblyVersion": "1.8.9.0",
+            "fileVersion": "1.8.20343.1"
+          }
+        }
+      },
       "Castle.Core/5.1.1": {
         "dependencies": {
           "System.Diagnostics.EventLog": "7.0.0"
@@ -90,6 +101,50 @@
         }
       },
       "coverlet.collector/3.1.2": {},
+      "itext7/7.0.1": {
+        "runtime": {
+          "lib/net40/itext.barcodes.dll": {
+            "assemblyVersion": "7.0.1.0",
+            "fileVersion": "7.0.1.0"
+          },
+          "lib/net40/itext.forms.dll": {
+            "assemblyVersion": "7.0.1.0",
+            "fileVersion": "7.0.1.0"
+          },
+          "lib/net40/itext.io.dll": {
+            "assemblyVersion": "7.0.1.0",
+            "fileVersion": "7.0.1.0"
+          },
+          "lib/net40/itext.kernel.dll": {
+            "assemblyVersion": "7.0.1.0",
+            "fileVersion": "7.0.1.0"
+          },
+          "lib/net40/itext.layout.dll": {
+            "assemblyVersion": "7.0.1.0",
+            "fileVersion": "7.0.1.0"
+          },
+          "lib/net40/itext.pdfa.dll": {
+            "assemblyVersion": "7.0.1.0",
+            "fileVersion": "7.0.1.0"
+          },
+          "lib/net40/itext.sign.dll": {
+            "assemblyVersion": "7.0.1.0",
+            "fileVersion": "7.0.1.0"
+          }
+        }
+      },
+      "itext7.commons/8.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging": "7.0.0",
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/itext.commons.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.0.0"
+          }
+        }
+      },
       "Microsoft.AspNet.Identity.Core/2.2.3": {
         "runtime": {
           "lib/net45/Microsoft.AspNet.Identity.Core.dll": {
@@ -1104,6 +1159,26 @@
       },
       "NUnit.Analyzers/3.3.0": {},
       "NUnit3TestAdapter/4.2.1": {},
+      "PDFsharp/1.50.5147": {
+        "runtime": {
+          "lib/net20/PdfSharp.Charting.dll": {
+            "assemblyVersion": "1.50.5147.0",
+            "fileVersion": "1.50.5147.0"
+          },
+          "lib/net20/PdfSharp.dll": {
+            "assemblyVersion": "1.50.5147.0",
+            "fileVersion": "1.50.5147.0"
+          }
+        },
+        "resources": {
+          "lib/net20/de/PdfSharp.Charting.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net20/de/PdfSharp.resources.dll": {
+            "locale": "de"
+          }
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
@@ -1873,6 +1948,7 @@
         "dependencies": {
           "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+          "BouncyCastle": "1.8.9",
           "Microsoft.AspNet.Identity.Core": "2.2.3",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.19",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.19",
@@ -1883,6 +1959,7 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
           "Microsoft.Extensions.Hosting": "7.0.1",
           "Newtonsoft.Json": "13.0.3",
+          "PDFsharp": "1.50.5147",
           "RealEstateWebAPI.DAL": "1.0.0",
           "Serilog": "3.0.1",
           "Serilog.AspNetCore": "7.0.0",
@@ -1893,7 +1970,9 @@
           "Serilog.Sinks.MSSqlServer": "6.3.0",
           "Swashbuckle.AspNetCore": "6.5.0",
           "System.IdentityModel.Tokens.Jwt": "6.31.0",
-          "System.Net.Http": "4.3.4"
+          "System.Net.Http": "4.3.4",
+          "itext7": "7.0.1",
+          "itext7.commons": "8.0.0"
         },
         "runtime": {
           "RealEstateWebAPI.BLL.dll": {}
@@ -1902,6 +1981,7 @@
       "RealEstateWebAPI.DAL/1.0.0": {
         "dependencies": {
           "AutoMapper": "12.0.1",
+          "BouncyCastle": "1.8.9",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.19",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.19",
           "Microsoft.EntityFrameworkCore": "7.0.8",
@@ -1920,7 +2000,9 @@
           "Serilog.Sinks.MSSqlServer": "6.3.0",
           "Swashbuckle.AspNetCore": "6.5.0",
           "System.IdentityModel.Tokens.Jwt": "6.31.0",
-          "System.Net.Http": "4.3.4"
+          "System.Net.Http": "4.3.4",
+          "itext7": "7.0.1",
+          "itext7.commons": "8.0.0"
         },
         "runtime": {
           "RealEstateWebAPI.DAL.dll": {}
@@ -1962,6 +2044,13 @@
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
     },
+    "BouncyCastle/1.8.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-axnBgvdD5n+FnEG6efk/tfKuMFru7R/EoISH9zjh319yb3HD24TEHSAbNN/lTRT2ulOGRxDgOsCjkuk08iwWPg==",
+      "path": "bouncycastle/1.8.9",
+      "hashPath": "bouncycastle.1.8.9.nupkg.sha512"
+    },
     "Castle.Core/5.1.1": {
       "type": "package",
       "serviceable": true,
@@ -1975,6 +2064,20 @@
       "sha512": "sha512-wuLDIDKD5XMt0A7lE31JPenT7QQwZPFkP5rRpdJeblyXZ9MGLI8rYjvm5fvAKln+2/X+4IxxQDxBtwdrqKNLZw==",
       "path": "coverlet.collector/3.1.2",
       "hashPath": "coverlet.collector.3.1.2.nupkg.sha512"
+    },
+    "itext7/7.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Lb4dLY1EtT/Xw6C0SMRSIkFtaGo3TRJ13pjvJ6l8I5TCa78I67Qy9quAKJejLn8agV6EcvsmviSZwcYbV1VFOQ==",
+      "path": "itext7/7.0.1",
+      "hashPath": "itext7.7.0.1.nupkg.sha512"
+    },
+    "itext7.commons/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YPraDCzJKy+xX79WkHd0FevrTtbRmHyuhF0oS9c7s12Qe+3xlCnWqaPMGQ4batr3aarDU8E4Tquj4idcuJqrWg==",
+      "path": "itext7.commons/8.0.0",
+      "hashPath": "itext7.commons.8.0.0.nupkg.sha512"
     },
     "Microsoft.AspNet.Identity.Core/2.2.3": {
       "type": "package",
@@ -2465,6 +2568,13 @@
       "sha512": "sha512-kgH8VKsrcZZgNGQXRpVCrM7TnNz9li3b/snH+YmnXUNqsaWa1Xw9EQWHpbzq4Li2FbTjTE/E5N5HdLNXzZ8BpQ==",
       "path": "nunit3testadapter/4.2.1",
       "hashPath": "nunit3testadapter.4.2.1.nupkg.sha512"
+    },
+    "PDFsharp/1.50.5147": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vr5KBIqcXu2hqZ43UTwPR+jqHgMrT5tsPtJvEF+mORKoBNMh3bRWgAwic0U1sT2IVb4PR5m0GyQxnmCz8jBHWg==",
+      "path": "pdfsharp/1.50.5147",
+      "hashPath": "pdfsharp.1.50.5147.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
       "type": "package",

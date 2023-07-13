@@ -10,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace RealEstateWebAPI.DAL
 {
-
-    public static  class AppDbInitializer { 
-
+    /// <summary>
+    /// Kjo klase do te inicializoje databazen e applikacionit
+    /// </summary>
+    public static class AppDbInitializer
+    {
+        /// <summary>
+        /// Inicializon databazen dhe sigurohet nese ajo eshte ndezur apo jo 
+        /// </summary>
         public static void Initialize(AppDbContext context)
         {
             context.Database.EnsureCreated();
@@ -20,12 +25,14 @@ namespace RealEstateWebAPI.DAL
 
             SeedAdminAndAgentUsers(context);
         }
-
+        /// <summary>
+        /// Ben Seed rolet e admin dhe agent ne databaze nese ato nuk ekzitojne.
+        /// </summary>
         private static void SeedAdminAndAgentUsers(AppDbContext context)
         {
 
             if (context.Users.Any(u => u.UserName == "admin"))
-                return; 
+                return;
 
             var adminRole = context.Roles.SingleOrDefault(r => r.Name == "admin");
             if (adminRole == null)
@@ -36,7 +43,7 @@ namespace RealEstateWebAPI.DAL
                     UniqueIdentifier = Guid.NewGuid()
                 };
                 context.Roles.Add(adminRole);
-                context.SaveChanges(); 
+                context.SaveChanges();
             }
 
             var agentRole = context.Roles.SingleOrDefault(r => r.Name == "agent");
@@ -48,21 +55,21 @@ namespace RealEstateWebAPI.DAL
                     UniqueIdentifier = Guid.NewGuid()
                 };
                 context.Roles.Add(agentRole);
-                context.SaveChanges(); 
+                context.SaveChanges();
             }
 
-           /* var adminUser = new User
-            {
-                UserName = "admin",
-                PasswordHash = HashPasword
-                PasswordSalt = "adminpasswordsalt",
-                Email = "admin@example.com",
-                RoleId = adminRole.RoleId
-            };
-            context.Users.Add(adminUser);
-            context.SaveChanges();*/
+            /* var adminUser = new User
+             {
+                 UserName = "admin",
+                 PasswordHash = HashPasword
+                 PasswordSalt = "adminpasswordsalt",
+                 Email = "admin@example.com",
+                 RoleId = adminRole.RoleId
+             };
+             context.Users.Add(adminUser);
+             context.SaveChanges();*/
         }
 
     }
-    }
+}
 

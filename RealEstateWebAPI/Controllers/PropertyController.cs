@@ -19,7 +19,7 @@ namespace RealEstateWebAPI.Controllers
     {
         private readonly IPropertiesService _propertyService;
 
-        public PropertyController(IPropertiesService propertyService) 
+        public PropertyController(IPropertiesService propertyService)
         {
             _propertyService = propertyService;
         }
@@ -51,7 +51,7 @@ namespace RealEstateWebAPI.Controllers
             return await HandleAsync<int>(async () =>
             {
                 var propertyId = await _propertyService.AddPropertyAsync(propertyDTO);
-                    return Ok(propertyId);
+                return Ok(propertyId);
             });
         }
 
