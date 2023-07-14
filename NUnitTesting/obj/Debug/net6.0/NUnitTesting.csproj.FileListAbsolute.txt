@@ -201,15 +201,6 @@ C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\obj\Debug\net6.0\ref\NUni
 C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\RealEstateWebAPI.BLL.dll
 C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\RealEstateWebAPI.BLL.pdb
-C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll
-C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\BouncyCastle.Crypto.dll
-C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\itext.barcodes.dll
-C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\itext.forms.dll
-C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\itext.io.dll
-C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\itext.kernel.dll
-C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\itext.layout.dll
-C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\itext.pdfa.dll
-C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\itext.sign.dll
 C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\itext.commons.dll
 C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\PdfSharp.Charting.dll
 C:\Users\pc\source\repos\RealEstateWebAPI\NUnitTesting\bin\Debug\net6.0\PdfSharp.dll

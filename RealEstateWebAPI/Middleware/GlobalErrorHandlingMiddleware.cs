@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RealEstateWebAPI.Common.ErrorHandeling;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -29,11 +30,12 @@ namespace RealEstateWebAPI.Middleware
                 await next(context);
 
             }
-            catch (NotFoundException ex)
+            catch (CustomException ex)
             {
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "text/plain";
                 await context.Response.WriteAsync("Custom Error: " + ex.Message);
+                Log.Error(ex.Message);  
             }
         }
     }

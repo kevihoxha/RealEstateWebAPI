@@ -315,7 +315,7 @@
     <Compile Include="ErrorHandeling\BadRequestException.cs" />
     <Compile Include="ErrorHandeling\DTOResponse.cs" />
     <Compile Include="ErrorHandeling\KeyNotFoundException.cs" />
-    <Compile Include="ErrorHandeling\NotFoundException.cs" />
+    <Compile Include="ErrorHandeling\CustomException.cs" />
     <Compile Include="ErrorHandeling\NotImplementedException.cs" />
     <Compile Include="ErrorHandeling\UnauthorizedAccessException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

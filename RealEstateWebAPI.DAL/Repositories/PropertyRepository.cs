@@ -72,5 +72,9 @@ namespace RealEstateWebAPI.DAL.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+        public async Task<IEnumerable<Property>> GetPropertiesByUserIdAsync(int userId)
+        {
+            return await _properties.Where(p => p.UserId == userId && !p.IsDeleted).ToListAsync();
+        }
     }
 }

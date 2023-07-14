@@ -38,6 +38,7 @@ namespace RealEstateWebAPI.DAL
         /// </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Property>()
             .HasOne(p => p.User)
             .WithMany()

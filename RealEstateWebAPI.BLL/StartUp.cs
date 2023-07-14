@@ -9,6 +9,7 @@ using Serilog;
 using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 using RealEstateWebAPI.DAL.Entities;
+using RealEstateWebAPI.BLL.DTO;
 
 namespace RealEstateWebAPI.BLL
 {
@@ -23,7 +24,8 @@ namespace RealEstateWebAPI.BLL
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IMessageService, MessageService>();
-
+            services.AddSingleton<IEmailService, EmailService>();
+            services.Configure<EmailServiceSettings>(config.GetSection("EmailServiceSettings"));
             services.AddAutoMapper(typeof(Startup));
 
 

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RealEstateWebAPI.Common.ErrorHandeling;
+using Serilog;
 
 namespace RealEstateWebAPI.Controllers
 {
@@ -11,10 +13,9 @@ namespace RealEstateWebAPI.Controllers
             {
                 return await action();
             }
-            catch (Exception ex)
+            catch (CustomException ex)
             {
-                /* _logger.LogError(ex.Message);*/
-                return BadRequest(ex.Message);
+                throw;
             }
         }
 
@@ -25,10 +26,9 @@ namespace RealEstateWebAPI.Controllers
                 await action();
                 return NoContent();
             }
-            catch (Exception ex)
+            catch (CustomException ex)
             {
-                /* _logger.LogError(ex.Message);*/
-                return BadRequest(ex.Message);
+                throw;
             }
         }
     }

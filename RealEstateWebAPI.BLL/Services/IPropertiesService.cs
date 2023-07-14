@@ -6,8 +6,8 @@ namespace RealEstateWebAPI.BLL.Services
     {
         Task<IEnumerable<PropertyDTO>> GetAllPropertiesAsync();
         Task<PropertyDTO> GetPropertyByIdAsync(int propertyId);
-        Task<int> AddPropertyAsync(PropertyDTO propertyDTO);
-        Task UpdatePropertyAsync(int propertyId, PropertyDTO propertyDTO);
+        Task<int> AddPropertyAsync(PropertyDTO propertyDTO,int userId);
+        Task UpdatePropertyAsync(int propertyId, PropertyDTO propertyDTO,int userId);
         Task DeletePropertyAsync(int propertyId);
         Task<IEnumerable<PropertyDTO>> GetAllPropertiesByLocationAsync(string location);
     }

@@ -9,22 +9,25 @@ namespace RealEstateWebAPI.BLL.Services
     using AutoMapper;
     using Microsoft.AspNetCore.Identity;
     using RealEstateWebAPI.BLL.DTO;
+    using RealEstateWebAPI.Common.ErrorHandeling;
     using RealEstateWebAPI.DAL.Entities;
     using RealEstateWebAPI.DAL.Repositories;
     using Serilog;
     using System.Collections.Generic;
+    using System.Security.AccessControl;
     using System.Threading.Tasks;
 
     public class UsersService : IUsersService
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IPropertyRepository _propertyRepository;
 
-        public UsersService(IUserRepository userRepository, IMapper mapper)
+        public UsersService(IUserRepository userRepository, IMapper mapper, IPropertyRepository propertyRepository)
         {
             _userRepository = userRepository;
             _mapper = mapper;
-
+            _propertyRepository = propertyRepository;
         }
         /// <summary>
         /// Merr te gjithe users asinkronisht.
@@ -32,18 +35,14 @@ namespace RealEstateWebAPI.BLL.Services
         /// <returns>Nje koleksion UserDTOs</returns>
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
-            try
-            {
                 var users = await _userRepository.GetAllUsersAsync();
-                Log.Information("Got all Users");
-                return _mapper.Map<IEnumerable<UserDTO>>(users);
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Error Getting Users");
-                return Enumerable.Empty<UserDTO>();
-            }
+                if (users != null)
+                {
+                    Log.Information("Got all Users");
+                    return _mapper.Map<IEnumerable<UserDTO>>(users);
+                }
+                Log.Error("Error Getting Users");
+                throw new CustomException("Couldnt get users");  
         }
         /// <summary>
         /// Merr nje use me ane te Id asinkronisht.
@@ -55,15 +54,24 @@ namespace RealEstateWebAPI.BLL.Services
             try
             {
                 var user = await _userRepository.GetUserByIdAsync(userId);
-                Log.Information($"Got user will id {userId}");
-                return _mapper.Map<UserDTO>(user);
+                if (user != null)
+                {
+                    Log.Information($"Got user with ID: {userId}");
+                    return _mapper.Map<UserDTO>(user);
+                }
+
+                Log.Error($"User with ID: {userId} not found");
+                throw new CustomException("User not found");
             }
-            catch (Exception ex)
+            catch (CustomException ex)
             {
-                Log.Error(ex, "Error Geting a user");
-                return new UserDTO();
+                Log.Error(ex, "CustomException in GetUserByIdAsync");
+                throw; 
             }
         }
+
+
+
         /// <summary>
         /// Shton nje User te ri asinkronisht.
         /// </summary>
@@ -72,6 +80,15 @@ namespace RealEstateWebAPI.BLL.Services
         {
             try
             {
+                if(await _userRepository.GetUserByUsernameAsync(userDTO.UserName) != null)
+                {
+                    throw new CustomException($"User with username {userDTO.UserName} already exists");
+                }
+                if (await _userRepository.GetUserByEmailAsync(userDTO.Email) != null)
+                {
+                    throw new CustomException($"User with email {userDTO.Email} already exists");
+                }
+
                 var user = _mapper.Map<User>(userDTO);
                 byte[] salt;
                 user.PasswordHash = PasswordHashing.HashPasword(userDTO.Password, out salt);
@@ -80,10 +97,9 @@ namespace RealEstateWebAPI.BLL.Services
                 Log.Information("User added succesfully");
                 return user.UserId;
             }
-            catch (Exception ex)
+            catch (CustomException)
             {
-                Log.Error(ex, "Error while trying to add user");
-                return 0;
+                throw;
             }
 
         }
@@ -116,16 +132,22 @@ namespace RealEstateWebAPI.BLL.Services
         {
             try
             {
-
+                var userToDelete = await _userRepository.GetUserByIdAsync(userId);
+                if (userToDelete == null)
+                {
+                    Log.Error("User not found");
+                    throw new CustomException("User not found");
+                }
                 await _userRepository.DeleteUserAsync(userId);
+                Log.Information($"User {userToDelete.UserName} got deleted");
             }
-            catch (Exception ex)
+            catch (CustomException )
             {
-                Log.Information(ex, "Error while deleting user");
+                throw;
             }
         }
         /// <summary>
-        /// Merr nje use me ane te Username asinkronisht.
+        /// Merr nje user me ane te Username asinkronisht.
         /// </summary>
         /// <param name="username">UserName e User qe do te kapi</param>
         /// <returns>Userin me UserName specifike,ose null nese nuk e gjen.</returns>
@@ -134,16 +156,68 @@ namespace RealEstateWebAPI.BLL.Services
             try
             {
                 var user = await _userRepository.GetUserByUsernameAsync(username);
-                Log.Information("Got the user by name");
-                return _mapper.Map<UserDTO>(user);
+                if (user != null)
+                {
+                    Log.Information($"Got the user {user.UserName} by name");
+                    return _mapper.Map<UserDTO>(user);
+                }
+                Log.Error("Couldnt get this user");
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Error while getting a user bt name");
-                return new UserDTO();
+
             }
+            return new UserDTO();
 
         }
+        /// <summary>
+        /// Merr nje user me ane te Email asinkronisht.
+        /// </summary>
+        /// <param name="email">Email e User qe do te kapi</param>
+        /// <returns>Userin me Email specifike,ose null nese nuk e gjen.</returns>
+        public async Task<UserDTO> GetUserByEmailAsync(string email)
+        {
+            try
+            {
+                var user = await _userRepository.GetUserByEmailAsync(email);
+                if (user != null)
+                {
+                    Log.Information($"Got the user {user.Email} by email");
+                    return _mapper.Map<UserDTO>(user);
+                }
+                Log.Error("Couldnt get this user");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new UserDTO();
+
+        }
+        /// <summary>
+        /// Merr nje property me ane te userid asinkronisht.
+        /// </summary>
+        /// <param name="username">UserId e User qe do te kapi property te tij</param>
+        /// <returns>Koleksion te properties qe ai user zoteron</returns>
+        public async Task<IEnumerable<PropertyDTO>> GetPropertiesByUserIdAsync(int userId)
+        {
+            try
+            {
+                var properties = await _propertyRepository.GetPropertiesByUserIdAsync(userId);
+                if (properties != null)
+                {
+                    Log.Information("Got Properties by userId");
+                    return _mapper.Map<IEnumerable<PropertyDTO>>(properties);
+                }
+                Log.Error("Couldn't get Properties by UserId");
+                throw new CustomException("UserId not found");
+            }
+            catch (CustomException ex)
+            {
+                throw; // Re-throw the same exception to be caught by the middleware
+            }
+        }
+
 
     }
 

@@ -15,6 +15,7 @@ namespace NUnitTesting
     public class UsersServiceTests
     {
         private Mock<IUserRepository> _userRepositoryMock;
+        private Mock<IPropertyRepository> _propertyRepositoryMock;
         private Mock<IMapper> _mapperMock;
         private IUsersService _userService;
 
@@ -22,8 +23,9 @@ namespace NUnitTesting
         public void SetUp()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
+            _propertyRepositoryMock = new Mock<IPropertyRepository>();
             _mapperMock = new Mock<IMapper>();
-            _userService = new UsersService(_userRepositoryMock.Object, _mapperMock.Object);
+            _userService = new UsersService(_userRepositoryMock.Object, _mapperMock.Object,_propertyRepositoryMock.Object);
         }
 
         /// <summary>

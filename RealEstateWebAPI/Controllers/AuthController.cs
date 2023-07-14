@@ -19,7 +19,6 @@ namespace RealEstateWebAPI.Controllers
     {
         private readonly TokenService _tokenService;
         private readonly IUserRepository _usersService;
-        private readonly IUsersService _usersService2;
         private readonly AppDbContext _appDbContext;
         public AuthController(TokenService tokenService, IUserRepository usersService, AppDbContext context)
         {

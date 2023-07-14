@@ -8,7 +8,7 @@ namespace RealEstateWebAPI.Controllers
     public class ErrorHandlerController : ControllerBase
     {
         [HttpGet]
-        public IActionResult HandleError(NotFoundException ex)
+        public IActionResult HandleError(CustomException ex)
         {
             return Problem("An error occurred: " + ex.Message, statusCode: 500);
         }

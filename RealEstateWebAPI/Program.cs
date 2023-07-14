@@ -100,6 +100,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+
 app.UseRouting();
 StartUp.SeedData(app);
 app.UseHttpsRedirection();

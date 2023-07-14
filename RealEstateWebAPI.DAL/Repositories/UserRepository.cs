@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using iText.Commons.Utils;
+using Microsoft.EntityFrameworkCore;
 using RealEstateWebAPI.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,15 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _users.SingleOrDefaultAsync(u => u.UserName == username);
         }
-
+        /// <summary>
+        /// Merr nje use me ane te Email asinkronisht.
+        /// </summary>
+        /// <param name="email">Email e User qe do te kapi</param>
+        /// <returns>Userin me Email specifike,ose null nese nuk e gjen.</returns>
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _users.SingleOrDefaultAsync(u => u.Email == email);
+        }
         /// <summary>
         /// Shton nje User te ri asinkronisht.
         /// </summary>
@@ -81,5 +90,6 @@ namespace RealEstateWebAPI.DAL.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+       
     }
 }

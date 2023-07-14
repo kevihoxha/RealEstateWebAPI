@@ -9,6 +9,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RealEstateWebAPI.Controllers
@@ -44,26 +45,53 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(property);
             });
         }
-
         [HttpPost("create")]
         public async Task<ActionResult<int>> AddProperty(PropertyDTO propertyDTO)
         {
+            // Get the user ID from the currently logged-in user
+            int userId = GetAuthenticatedUserId(); // Replace this with your actual implementation
+
             return await HandleAsync<int>(async () =>
             {
-                var propertyId = await _propertyService.AddPropertyAsync(propertyDTO);
+                var propertyId = await _propertyService.AddPropertyAsync(propertyDTO, userId);
                 return Ok(propertyId);
             });
         }
-
+        private int GetAuthenticatedUserId()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return int.Parse(userIdClaim);
+        }
+        /* [HttpPost("create")]
+         public async Task<ActionResult<int>> AddProperty(PropertyDTO propertyDTO)
+         {
+             return await HandleAsync<int>(async () =>
+             {
+                 var propertyId = await _propertyService.AddPropertyAsync(propertyDTO);
+                 return Ok(propertyId);
+             });
+         }*/
         [HttpPut("update/{id}")]
-
         public async Task<ActionResult> UpdateProperty(int id, PropertyDTO propertyDTO)
         {
+            // Get the user ID from the currently logged-in user
+            int userId = GetAuthenticatedUserId(); // Replace this with your actual implementation
+
             return await HandleAsync(async () =>
             {
-                await _propertyService.UpdatePropertyAsync(id, propertyDTO);
+                await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
             });
         }
+        /*
+                [HttpPut("update/{id}")]
+
+                public async Task<ActionResult> UpdateProperty(int id, PropertyDTO propertyDTO)
+                {
+                    return await HandleAsync(async () =>
+                    {
+                        await _propertyService.UpdatePropertyAsync(id, propertyDTO);
+                    });
+                }*/
 
         [HttpDelete("delete/{id}")]
         [TypeFilter(typeof(AuthorisationFilter))]

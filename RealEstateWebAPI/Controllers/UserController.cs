@@ -17,7 +17,7 @@ namespace RealEstateWebAPI.Controllers
     {
         private readonly IUsersService _userService;
 
-        public UserController(ILogger<PropertyController> logger, IUsersService userService)
+        public UserController(IUsersService userService)
         {
 
             _userService = userService;
@@ -39,7 +39,7 @@ namespace RealEstateWebAPI.Controllers
 
         public async Task<ActionResult<UserDTO>> GetUserById(int id)
         {
-            /* throw new Common.ErrorHandeling.NotFoundException("missing user");*/
+            /*throw new Common.ErrorHandeling.CustomException("missing user");*/
 
             return await HandleAsync<UserDTO>(async () =>
             {
@@ -78,6 +78,15 @@ namespace RealEstateWebAPI.Controllers
                 await _userService.DeleteUserAsync(id);
             });
         }
-
+        [HttpGet("{userId}/properties")]
+        [TypeFilter(typeof(AuthorisationFilter))]
+        public async Task<ActionResult<IEnumerable<PropertyDTO>>> GetPropertiesByUserId(int userId)
+        {
+            return await HandleAsync<IEnumerable<PropertyDTO>>(async () =>
+            {
+                var properties = await _userService.GetPropertiesByUserIdAsync(userId);
+                return Ok(properties);
+            });
+        }
     }
 }

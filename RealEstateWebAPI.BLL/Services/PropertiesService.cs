@@ -52,11 +52,15 @@ namespace RealEstateWebAPI.BLL.Services
         /// <summary>
         /// Shton nje Property asinkronisht.
         /// </summary>
-        public async Task<int> AddPropertyAsync(PropertyDTO propertyDTO)
+        /// 
+
+        public async Task<int> AddPropertyAsync(PropertyDTO propertyDTO, int userId)
         {
             try
             {
                 var property = _mapper.Map<Property>(propertyDTO);
+                property.UserId = userId; // Assign the user ID to the property
+
                 await _propertyRepository.AddPropertyAsync(property);
                 return property.PropertyId;
             }
@@ -65,17 +69,34 @@ namespace RealEstateWebAPI.BLL.Services
                 throw;
             }
         }
+
+        /* public async Task<int> AddPropertyAsync(PropertyDTO propertyDTO)
+         {
+             try
+             {
+                 var property = _mapper.Map<Property>(propertyDTO);
+                 await _propertyRepository.AddPropertyAsync(property);
+                 return property.PropertyId;
+             }
+             catch (Exception ex)
+             {
+                 throw;
+             }
+         }*/
         /// <summary>
         /// Modifikon nje Property asinkronisht.
         /// </summary>
-        public async Task UpdatePropertyAsync(int propertyId, PropertyDTO propertyDTO)
+        public async Task UpdatePropertyAsync(int propertyId, PropertyDTO propertyDTO, int userId)
         {
             try
             {
                 var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
                 if (property != null)
                 {
+                    // Update the property details
                     _mapper.Map(propertyDTO, property);
+                    property.UserId = userId; // Assign the user ID to the property
+
                     await _propertyRepository.UpdatePropertyAsync(property);
                 }
             }
@@ -84,6 +105,22 @@ namespace RealEstateWebAPI.BLL.Services
                 throw;
             }
         }
+        /* public async Task UpdatePropertyAsync(int propertyId, PropertyDTO propertyDTO)
+         {
+             try
+             {
+                 var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
+                 if (property != null)
+                 {
+                     _mapper.Map(propertyDTO, property);
+                     await _propertyRepository.UpdatePropertyAsync(property);
+                 }
+             }
+             catch (Exception ex)
+             {
+                 throw;
+             }
+         }*/
         /// <summary>
         /// Fshin nje Property asinkronisht.
         /// </summary>
@@ -116,4 +153,5 @@ namespace RealEstateWebAPI.BLL.Services
             }
         }
     }
+
 }
