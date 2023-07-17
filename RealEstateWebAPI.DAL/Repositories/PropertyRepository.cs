@@ -72,6 +72,10 @@ namespace RealEstateWebAPI.DAL.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+        /// <summary>
+        /// Merr nje property asinkronisht ne baze te UserId .
+        /// </summary>
+        /// <returns>Nje  koleksion Property pervec atij qe eshte softDeleted.</returns>
         public async Task<IEnumerable<Property>> GetPropertiesByUserIdAsync(int userId)
         {
             return await _properties.Where(p => p.UserId == userId && !p.IsDeleted).ToListAsync();

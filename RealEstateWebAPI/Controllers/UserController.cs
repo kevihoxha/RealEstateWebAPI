@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using RealEstateWebAPI.Common.ErrorHandeling;
 using RealEstateWebAPI.ActionFilters;
 using Microsoft.AspNetCore.Authorization;
+using MimeKit;
 
 namespace RealEstateWebAPI.Controllers
 {
@@ -16,11 +17,13 @@ namespace RealEstateWebAPI.Controllers
     public class UserController : BaseController
     {
         private readonly IUsersService _userService;
+        private readonly IEmailService _emailService;
 
-        public UserController(IUsersService userService)
+        public UserController(IUsersService userService, IEmailService emailService)
         {
 
             _userService = userService;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -55,9 +58,14 @@ namespace RealEstateWebAPI.Controllers
             return await HandleAsync<int>(async () =>
             {
                 var userId = await _userService.AddUserAsync(userDTO);
+
+                // Send email to the user
+                await SendNewUserEmail(userDTO.Email, userDTO.UserName, userDTO.Password);
+
                 return userId;
             });
         }
+
 
         [HttpPut("update/{id}")]
         [TypeFilter(typeof(AuthorisationFilter))]
@@ -87,6 +95,25 @@ namespace RealEstateWebAPI.Controllers
                 var properties = await _userService.GetPropertiesByUserIdAsync(userId);
                 return Ok(properties);
             });
+        }
+        private async Task SendNewUserEmail(string email, string username, string password)
+        {
+            // Create the email message
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Admin", "hoxhakevi09@gmail.com")); // Set the admin's email address
+            message.To.Add(new MailboxAddress("", email)); // Set the user's email address
+            message.Subject = "Welcome to the Real Estate Web App";
+            message.Body = new TextPart("plain")
+            {
+                Text = $"Hello {username},\n\n" +
+                       $"Your account has been created for the Real Estate Web App. Here are your credentials:\n\n" +
+                       $"Username: {username}\n" +
+                       $"Password: {password}\n\n" +
+                       $"Thank you for joining our platform!"
+            };
+
+            // Send the email using the email service
+            await _emailService.SendAsync(message);
         }
     }
 }

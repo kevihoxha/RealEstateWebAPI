@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using RealEstateWebAPI.BLL.DTO;
+using RealEstateWebAPI.Common.ErrorHandeling;
 using RealEstateWebAPI.DAL.Entities;
 using RealEstateWebAPI.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Serilog;
 
 namespace RealEstateWebAPI.BLL.Services
 {
@@ -15,31 +12,23 @@ namespace RealEstateWebAPI.BLL.Services
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<TransactionService> _logger;
 
-        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper, ILogger<TransactionService> logger)
+        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper)
         {
             _transactionRepository = transactionRepository;
             _mapper = mapper;
-            _logger = logger;
         }
         /// <summary>
         /// Shton nje Transaction te ri asinkronisht.
         /// </summary>
         public async Task<TransactionDTO> CreateTransactionAsync(TransactionDTO transactionRequest)
         {
-            try
-            {
-                var transaction = _mapper.Map<Transaction>(transactionRequest);
-                var createdTransaction = await _transactionRepository.AddTransactionAsync(transaction);
-                var transactionDTO = _mapper.Map<TransactionDTO>(createdTransaction);
-                return transactionDTO;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to create transaction.");
-                throw;
-            }
+
+            var transaction = _mapper.Map<Transaction>(transactionRequest);
+            var createdTransaction = await _transactionRepository.AddTransactionAsync(transaction);
+            var transactionDTO = _mapper.Map<TransactionDTO>(createdTransaction);
+            Log.Information("Transaction added succesfully");
+            return transactionDTO;
         }
         /// <summary>
         /// Merr nje Transaction me ane te Id asinkronisht.
@@ -47,7 +36,12 @@ namespace RealEstateWebAPI.BLL.Services
         public async Task<TransactionDTO> GetTransactionByIdAsync(int transactionId)
         {
             var transaction = await _transactionRepository.GetTransactionByIdAsync(transactionId);
-            return _mapper.Map<TransactionDTO>(transaction);
+            if (transaction != null)
+            {
+                Log.Information($"Got transaction with ID: {transactionId}");
+                return _mapper.Map<TransactionDTO>(transaction);
+            }
+            throw new CustomException("Transaction not found");
         }
         /// <summary>
         /// Merr te gjithe Transactions asinkronisht.
@@ -56,7 +50,12 @@ namespace RealEstateWebAPI.BLL.Services
         public async Task<IEnumerable<TransactionDTO>> GetAllTransactionsAsync()
         {
             var transactions = await _transactionRepository.GetAllTransactionsAsync();
-            return _mapper.Map<IEnumerable<TransactionDTO>>(transactions);
+            if (transactions != null)
+            {
+                Log.Information("Got all Transactions");
+                return _mapper.Map<IEnumerable<TransactionDTO>>(transactions);
+            }
+            throw new CustomException("Couldnt get Transactions");
         }
 
     }

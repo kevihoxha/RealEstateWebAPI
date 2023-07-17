@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RealEstateWebAPI.BLL.DTO;
+using RealEstateWebAPI.Common.ErrorHandeling;
 using RealEstateWebAPI.DAL.Entities;
 using RealEstateWebAPI.DAL.Repositories;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +30,12 @@ namespace RealEstateWebAPI.BLL.Services
         public async Task<IEnumerable<MessageDTO>> GetAllMessagesByUser(int authenticatedUserId)
         {
             var messages = await _messageRepository.GetAllMessagesByUserAsync(authenticatedUserId);
-            return _mapper.Map<IEnumerable<MessageDTO>>(messages);
+            if (messages != null)
+            {
+                Log.Information($"User {authenticatedUserId} got all his messages ");
+                return _mapper.Map<IEnumerable<MessageDTO>>(messages);
+            }
+            throw new CustomException($"User {authenticatedUserId} failed to get all his messages ");
         }
         /// <summary>
         /// Merr  Messages sipas propertyID asinkronisht.
@@ -36,7 +44,12 @@ namespace RealEstateWebAPI.BLL.Services
         public async Task<IEnumerable<MessageDTO>> GetMessagesForPropertyAsync(int propertyId)
         {
             var messages = await _messageRepository.GetMessagesForPropertyAsync(propertyId);
-            return _mapper.Map<IEnumerable<MessageDTO>>(messages);
+            if (messages != null)
+            {
+                Log.Information($"Got all messages for property {propertyId}");
+                return _mapper.Map<IEnumerable<MessageDTO>>(messages);
+            }
+            throw new CustomException($"Failed to get all messages for property {propertyId}");
         }
         /// <summary>
         /// Krijon nje message asinkronisht.
@@ -45,6 +58,7 @@ namespace RealEstateWebAPI.BLL.Services
         {
             var message = _mapper.Map<Message>(messageDTO);
             await _messageRepository.SendMessageAsync(message);
+            Log.Information("Message sent");
         }
     }
 }

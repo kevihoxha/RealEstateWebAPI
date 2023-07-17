@@ -4770,3 +4770,484 @@ RealEstateWebAPI.Common.ErrorHandeling.CustomException: User with username kevih
 2023-07-14 11:52:43.892 +02:00 [ERR] User with username kevihoxha already exists
 2023-07-14 11:53:05.061 +02:00 [ERR] User with email kevi@gmail.com already exists
 2023-07-14 11:53:05.653 +02:00 [ERR] User with email kevi@gmail.com already exists
+2023-07-16 19:36:19.906 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> MailKit.Security.AuthenticationException: 535: 5.7.8 Username and Password not accepted. Learn more at
+5.7.8  https://support.google.com/mail/?p=BadCredentials qt11-20020a170906eceb00b00997c1d125fasm824837ejb.170 - gsmtp
+ ---> MailKit.Net.Smtp.SmtpCommandException: 5.7.8 Username and Password not accepted. Learn more at
+5.7.8  https://support.google.com/mail/?p=BadCredentials qt11-20020a170906eceb00b00997c1d125fasm824837ejb.170 - gsmtp
+   --- End of inner exception stack trace ---
+   at MailKit.Net.Smtp.SmtpClient.AuthenticateAsync(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 30
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 37
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 42
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method87(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 20:00:02.111 +02:00 [ERR] User with username admin already exists
+2023-07-16 20:00:18.708 +02:00 [ERR] User with username kevitest already exists
+2023-07-16 20:00:44.402 +02:00 [ERR] User with username kevitest already exists
+2023-07-16 20:01:06.551 +02:00 [ERR] User with email kevihoxhapg@gmail.com already exists
+2023-07-16 20:21:50.921 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> System.ArgumentNullException: Value cannot be null. (Parameter 'password')
+   at MailKit.MailService.AuthenticateAsync(Encoding encoding, String userName, String password, CancellationToken cancellationToken)
+   at MailKit.MailService.AuthenticateAsync(String userName, String password, CancellationToken cancellationToken)
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 31
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 38
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 43
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method87(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 20:23:08.081 +02:00 [ERR] User with username redihoxha already exists
+2023-07-16 20:33:53.315 +02:00 [ERR] User with username redihoxha already exists
+2023-07-16 20:34:20.623 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> System.ArgumentNullException: Value cannot be null. (Parameter 'password')
+   at MailKit.MailService.AuthenticateAsync(Encoding encoding, String userName, String password, CancellationToken cancellationToken)
+   at MailKit.MailService.AuthenticateAsync(String userName, String password, CancellationToken cancellationToken)
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 31
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 38
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 43
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method87(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 20:41:26.016 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> System.ArgumentNullException: Value cannot be null. (Parameter 'password')
+   at MailKit.MailService.AuthenticateAsync(Encoding encoding, String userName, String password, CancellationToken cancellationToken)
+   at MailKit.MailService.AuthenticateAsync(String userName, String password, CancellationToken cancellationToken)
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 31
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 38
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 43
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method87(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 20:43:52.879 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> System.ArgumentNullException: Value cannot be null. (Parameter 'password')
+   at MailKit.MailService.AuthenticateAsync(Encoding encoding, String userName, String password, CancellationToken cancellationToken)
+   at MailKit.MailService.AuthenticateAsync(String userName, String password, CancellationToken cancellationToken)
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 31
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 38
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 43
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method132(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 20:46:41.076 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> System.ArgumentNullException: Value cannot be null. (Parameter 'password')
+   at MailKit.MailService.AuthenticateAsync(Encoding encoding, String userName, String password, CancellationToken cancellationToken)
+   at MailKit.MailService.AuthenticateAsync(String userName, String password, CancellationToken cancellationToken)
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 31
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 38
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 43
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method132(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 20:55:00.399 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> MailKit.Security.AuthenticationException: 535: 5.7.8 Username and Password not accepted. Learn more at
+5.7.8  https://support.google.com/mail/?p=BadCredentials v15-20020a056402184f00b0051df6c2bb7asm8818668edy.38 - gsmtp
+ ---> MailKit.Net.Smtp.SmtpCommandException: 5.7.8 Username and Password not accepted. Learn more at
+5.7.8  https://support.google.com/mail/?p=BadCredentials v15-20020a056402184f00b0051df6c2bb7asm8818668edy.38 - gsmtp
+   --- End of inner exception stack trace ---
+   at MailKit.Net.Smtp.SmtpClient.AuthenticateAsync(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 31
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 38
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 43
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method132(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 20:55:18.025 +02:00 [ERR] User with email kevieshtenjeri@gmail.com already exists
+2023-07-16 20:55:33.229 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> MailKit.Security.AuthenticationException: 535: 5.7.8 Username and Password not accepted. Learn more at
+5.7.8  https://support.google.com/mail/?p=BadCredentials lf16-20020a170907175000b00993928e4d1bsm8196847ejc.24 - gsmtp
+ ---> MailKit.Net.Smtp.SmtpCommandException: 5.7.8 Username and Password not accepted. Learn more at
+5.7.8  https://support.google.com/mail/?p=BadCredentials lf16-20020a170907175000b00993928e4d1bsm8196847ejc.24 - gsmtp
+   --- End of inner exception stack trace ---
+   at MailKit.Net.Smtp.SmtpClient.AuthenticateAsync(Encoding encoding, ICredentials credentials, CancellationToken cancellationToken)
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 31
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 38
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 43
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method132(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 21:04:19.204 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> System.ArgumentNullException: Value cannot be null. (Parameter 'password')
+   at MailKit.MailService.AuthenticateAsync(Encoding encoding, String userName, String password, CancellationToken cancellationToken)
+   at MailKit.MailService.AuthenticateAsync(String userName, String password, CancellationToken cancellationToken)
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 31
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 38
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 43
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method132(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 21:07:48.170 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> System.Exception: Email password not found. Make sure to set the EMAIL_PASSWORD environment variable.
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 37
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 48
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 53
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method132(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-16 21:09:59.302 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while sending the email.
+ ---> System.Exception: Email password not found. Make sure to set the EMAIL_PASSWORD environment variable.
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 37
+   --- End of inner exception stack trace ---
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 48
+   at EmailService.SendAsync(MimeMessage message) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.BLL\Services\IEmailService.cs:line 53
+   at RealEstateWebAPI.Controllers.UserController.SendNewUserEmail(String email, String username, String password) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 116
+   at RealEstateWebAPI.Controllers.UserController.<>c__DisplayClass5_0.<<AddUser>b__0>d.MoveNext() in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 63
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Controllers.BaseController.HandleAsync[T](Func`1 action) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\BaseController.cs:line 14
+   at RealEstateWebAPI.Controllers.UserController.AddUser(UserDTO userDTO) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\UserController.cs:line 58
+   at lambda_method132(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 80
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-07-17 10:36:48.377 +02:00 [ERR] User with ID: 44444 not found
+2023-07-17 10:45:01.918 +02:00 [ERR] User with ID: 44444 not found
+2023-07-17 11:03:23.586 +02:00 [ERR] Failed executing DbCommand (249ms) [Parameters=[@__username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[Email], [u].[Id], [u].[PasswordHash], [u].[PasswordSalt], [u].[RoleId], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[UserName] = @__username_0
+2023-07-17 11:03:23.778 +02:00 [ERR] An exception occurred while iterating over the results of a query for context type 'RealEstateWebAPI.DAL.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Id'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__208_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:bf916771-abfe-47bd-b208-5dc8062dc31f
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Id'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__208_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:bf916771-abfe-47bd-b208-5dc8062dc31f
+Error Number:207,State:1,Class:16
+2023-07-17 11:03:24.497 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Id'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__208_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at RealEstateWebAPI.DAL.Repositories.UserRepository.GetUserByUsernameAsync(String username) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\Repositories\UserRepository.cs:line 51
+   at RealEstateWebAPI.Controllers.AuthController.Authenticate(AuthRequest request) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Controllers\AuthController.cs:line 39
+   at lambda_method12(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at RealEstateWebAPI.Middleware.AuthenticationMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\AuthentificationMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at RealEstateWebAPI.Middleware.GlobalErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI\Middleware\GlobalErrorHandlingMiddleware.cs:line 30
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass6_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+ClientConnectionId:bf916771-abfe-47bd-b208-5dc8062dc31f
+Error Number:207,State:1,Class:16
+2023-07-17 11:05:04.183 +02:00 [ERR] User with ID: 1012 not found
+2023-07-17 11:06:38.837 +02:00 [ERR] User with ID: 1243234 not found
+2023-07-17 11:06:39.470 +02:00 [ERR] User not found
+2023-07-17 11:14:16.741 +02:00 [ERR] User with ID: 666 not found
+2023-07-17 11:14:17.393 +02:00 [ERR] User not found
+2023-07-17 11:16:23.929 +02:00 [ERR] User not found
+2023-07-17 11:17:15.065 +02:00 [ERR] User does not exists
+2023-07-17 11:17:22.377 +02:00 [ERR] User not found
+2023-07-17 11:17:22.961 +02:00 [ERR] User not found
+2023-07-17 11:26:39.437 +02:00 [ERR] Transaction not found
+2023-07-17 11:26:49.940 +02:00 [ERR] Transaction not found
+2023-07-17 11:41:59.203 +02:00 [ERR] User not found
+2023-07-17 11:43:51.000 +02:00 [ERR] User not found
+2023-07-17 11:44:31.907 +02:00 [ERR] Transaction not found
+2023-07-17 11:45:06.746 +02:00 [ERR] Property not found
