@@ -30,7 +30,7 @@ namespace RealEstateWebAPI.Middleware
                 await next(context);
 
             }
-            catch (CustomException ex)
+            catch (Exception ex)
             {
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "text/plain";

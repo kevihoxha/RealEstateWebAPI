@@ -15,7 +15,7 @@ namespace RealEstateWebAPI.BLL.DTO
         public string Title { get; set; }
         public string Location { get; set; }
         public decimal Price { get; set; }
-/*        public int UserId { get; set; }*/
+        public int UserId { get; set; }
 
     }
 }

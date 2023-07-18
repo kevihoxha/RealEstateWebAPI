@@ -13,9 +13,9 @@ namespace RealEstateWebAPI.Controllers
             {
                 return await action();
             }
-            catch (CustomException ex)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -26,9 +26,9 @@ namespace RealEstateWebAPI.Controllers
                 await action();
                 return NoContent();
             }
-            catch (CustomException ex)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
     }

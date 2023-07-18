@@ -25,7 +25,9 @@ namespace RealEstateWebAPI.Controllers
             _userService = userService;
             _emailService = emailService;
         }
-
+        /// <summary>
+        /// Merr te gjith users
+        /// </summary>
         [HttpGet]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
@@ -36,21 +38,24 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(users);
             });
         }
-
+        /// <summary>
+        /// Merr user me Id Specifike
+        /// </summary>
+        /// <param name="id">Id e Userit qe od te merret</param>
         [HttpGet("{id}")]
         [TypeFilter(typeof(AuthorisationFilter))]
 
         public async Task<ActionResult<UserDTO>> GetUserById(int id)
         {
-            /*throw new Common.ErrorHandeling.CustomException("missing user");*/
-
             return await HandleAsync<UserDTO>(async () =>
             {
                 var user = await _userService.GetUserByIdAsync(id);
                 return user;
             });
         }
-
+        /// <summary>
+        /// Shton nje user
+        /// </summary>
         [HttpPost("create")]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<int>> AddUser(UserDTO userDTO)
@@ -66,7 +71,11 @@ namespace RealEstateWebAPI.Controllers
             });
         }
 
-
+        /// <summary>
+        /// Updateon nje user me id specifike
+        /// </summary>
+        /// <param name="id">Id e Userit qe do te modifikohet</param>
+        /// <param name="userDTO"> Useri qe do te modifikohet</param>
         [HttpPut("update/{id}")]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult> UpdateUser(int id, UserDTO userDTO)
@@ -76,7 +85,9 @@ namespace RealEstateWebAPI.Controllers
                 await _userService.UpdateUserAsync(id, userDTO);
             });
         }
-
+        /// <summary>
+        /// Fshin nje user
+        /// </summary>
         [HttpDelete("delete/{id}")]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult> DeleteUser(int id)
@@ -86,6 +97,10 @@ namespace RealEstateWebAPI.Controllers
                 await _userService.DeleteUserAsync(id);
             });
         }
+        /// <summary>
+        /// Merr  pronat  sipas UserId
+        /// </summary>
+        /// <param name="id">Id e Userit qe do te merret</param>
         [HttpGet("{userId}/properties")]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<IEnumerable<PropertyDTO>>> GetPropertiesByUserId(int userId)
@@ -96,6 +111,9 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(properties);
             });
         }
+        /// <summary>
+        /// Dergon email per kredencialet e userit te ri te ktijuar tek email i tij 
+        /// </summary>
         private async Task SendNewUserEmail(string email, string username, string password)
         {
             // Create the email message

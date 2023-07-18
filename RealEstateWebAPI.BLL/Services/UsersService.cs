@@ -106,7 +106,10 @@ namespace RealEstateWebAPI.BLL.Services
                     await _userRepository.UpdateUserAsync(user);
                     Log.Information("User updated succesfully");
                 }
-                throw new CustomException("User does not exists");
+                else
+                {
+                    throw new CustomException("User does not exists");
+                }
             });
         }
         /// <summary>

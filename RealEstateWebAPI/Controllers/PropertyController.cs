@@ -48,8 +48,7 @@ namespace RealEstateWebAPI.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<int>> AddProperty(PropertyDTO propertyDTO)
         {
-            // Get the user ID from the currently logged-in user
-            int userId = GetAuthenticatedUserId(); // Replace this with your actual implementation
+            int userId = GetAuthenticatedUserId(); 
 
             return await HandleAsync<int>(async () =>
             {
@@ -62,46 +61,68 @@ namespace RealEstateWebAPI.Controllers
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return int.Parse(userIdClaim);
         }
-        /* [HttpPost("create")]
-         public async Task<ActionResult<int>> AddProperty(PropertyDTO propertyDTO)
-         {
-             return await HandleAsync<int>(async () =>
-             {
-                 var propertyId = await _propertyService.AddPropertyAsync(propertyDTO);
-                 return Ok(propertyId);
-             });
-         }*/
         [HttpPut("update/{id}")]
         public async Task<ActionResult> UpdateProperty(int id, PropertyDTO propertyDTO)
         {
-            // Get the user ID from the currently logged-in user
-            int userId = GetAuthenticatedUserId(); // Replace this with your actual implementation
-
-            return await HandleAsync(async () =>
+            string userIdString = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdString, out int userId))
             {
-                await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
-            });
-        }
-        /*
-                [HttpPut("update/{id}")]
+                return BadRequest("Invalid user ID"); 
+            }
+            var property = await _propertyService.GetPropertyByIdAsync(id);
+            if (property == null)
+            {
+                return NotFound(); 
+            }
 
+            if (property.UserId != userId)
+            {
+                return Forbid(); 
+            }
+            await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
+            return NoContent(); 
+        }
+        /*        [HttpPut("update/{id}")]
                 public async Task<ActionResult> UpdateProperty(int id, PropertyDTO propertyDTO)
+                {
+
+                    int userId = GetAuthenticatedUserId(); 
+
+                    return await HandleAsync(async () =>
+                    {
+                        await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
+                    });
+                }*/
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteProperty(int id)
+        {
+            var property = await _propertyService.GetPropertyByIdAsync(id);
+
+            if (property == null)
+            {
+                return NotFound(); 
+            }
+            string userIdString = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdString, out int userId))
+            {
+                return BadRequest("Invalid user ID"); 
+            }
+            if (property.UserId != userId)
+            {
+                return Forbid();
+            }
+            await _propertyService.DeletePropertyAsync(id);
+            return NoContent();
+        }
+        /*        [HttpDelete("delete/{id}")]
+                [TypeFilter(typeof(AuthorisationFilter))]
+                public async Task<ActionResult> DeleteProperty(int id)
                 {
                     return await HandleAsync(async () =>
                     {
-                        await _propertyService.UpdatePropertyAsync(id, propertyDTO);
+                        await _propertyService.DeletePropertyAsync(id);
                     });
                 }*/
-
-        [HttpDelete("delete/{id}")]
-        [TypeFilter(typeof(AuthorisationFilter))]
-        public async Task<ActionResult> DeleteProperty(int id)
-        {
-            return await HandleAsync(async () =>
-            {
-                await _propertyService.DeletePropertyAsync(id);
-            });
-        }
         [HttpGet("search/{location}")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<PropertyDTO>>> GetAllPropertiesByLocationAsync(string location)

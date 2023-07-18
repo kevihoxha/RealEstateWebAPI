@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RealEstateWebAPI.Common.ErrorHandeling;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace RealEstateWebAPI.BLL.Services
             catch (Exception ex)
             {
                 throw ex;
+
             }
         }
 
