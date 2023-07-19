@@ -57,17 +57,6 @@ namespace RealEstateWebAPI.DAL
                 context.Roles.Add(agentRole);
                 context.SaveChanges();
             }
-
-            /* var adminUser = new User
-             {
-                 UserName = "admin",
-                 PasswordHash = HashPasword
-                 PasswordSalt = "adminpasswordsalt",
-                 Email = "admin@example.com",
-                 RoleId = adminRole.RoleId
-             };
-             context.Users.Add(adminUser);
-             context.SaveChanges();*/
         }
 
     }

@@ -5333,3 +5333,5 @@ Object name: 'AppDbContext'.
 2023-07-18 12:44:46.018 +02:00 [ERR] Property not found
 2023-07-18 12:47:29.596 +02:00 [ERR] Property not found
 2023-07-18 12:58:11.897 +02:00 [ERR] The property 'Property.PropertyId' is part of a key and so cannot be modified or marked as modified. To change the principal of an existing entity with an identifying foreign key, first delete the dependent and invoke 'SaveChanges', and then associate the dependent with the new principal.
+2023-07-19 10:46:42.178 +02:00 [ERR] Couldnt get properties
+2023-07-19 12:35:06.447 +02:00 [ERR] Couldnt get properties

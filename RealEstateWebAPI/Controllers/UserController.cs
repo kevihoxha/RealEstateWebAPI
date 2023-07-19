@@ -26,7 +26,7 @@ namespace RealEstateWebAPI.Controllers
             _emailService = emailService;
         }
         /// <summary>
-        /// Merr te gjith users
+        ///pasi kalon middlewares per authentikim dhe autorizim ,  Merr te gjith users
         /// </summary>
         [HttpGet]
         [TypeFilter(typeof(AuthorisationFilter))]
@@ -39,7 +39,7 @@ namespace RealEstateWebAPI.Controllers
             });
         }
         /// <summary>
-        /// Merr user me Id Specifike
+        /// pasi kalon middlewares per authentikim dhe autorizim , Merr user me Id Specifike
         /// </summary>
         /// <param name="id">Id e Userit qe od te merret</param>
         [HttpGet("{id}")]
@@ -54,7 +54,7 @@ namespace RealEstateWebAPI.Controllers
             });
         }
         /// <summary>
-        /// Shton nje user
+        /// pasi kalon middlewares per authentikim dhe autorizim , Shton nje user
         /// </summary>
         [HttpPost("create")]
         [TypeFilter(typeof(AuthorisationFilter))]
@@ -72,7 +72,7 @@ namespace RealEstateWebAPI.Controllers
         }
 
         /// <summary>
-        /// Updateon nje user me id specifike
+        /// pasi kalon middlewares per authentikim dhe autorizim , Updateon nje user me id specifike
         /// </summary>
         /// <param name="id">Id e Userit qe do te modifikohet</param>
         /// <param name="userDTO"> Useri qe do te modifikohet</param>
@@ -86,7 +86,7 @@ namespace RealEstateWebAPI.Controllers
             });
         }
         /// <summary>
-        /// Fshin nje user
+        /// pasi kalon middlewares per authentikim dhe autorizim , fshin nje user 
         /// </summary>
         [HttpDelete("delete/{id}")]
         [TypeFilter(typeof(AuthorisationFilter))]

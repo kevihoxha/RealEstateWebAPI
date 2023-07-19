@@ -26,6 +26,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _messages.Where(m => m.Property.UserId == authenticatedUserId).ToListAsync();
         }
+
         /// <summary>
         /// Merr  Messages sipas propertyID asinkronisht.
         /// </summary>
@@ -36,6 +37,7 @@ namespace RealEstateWebAPI.DAL.Repositories
                     .Where(m => m.PropertyId == propertyId)
                     .ToListAsync();
         }
+
         /// <summary>
         /// Krijon nje message asinkronisht.
         /// </summary>

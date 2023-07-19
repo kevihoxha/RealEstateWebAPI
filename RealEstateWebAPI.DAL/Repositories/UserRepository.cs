@@ -16,6 +16,7 @@ namespace RealEstateWebAPI.DAL.Repositories
     {
         private readonly AppDbContext _dbContext;
         private readonly DbSet<User> _users;
+
         /// <summary>
         /// Konstruktori me parametra per  <see cref="UserRepository"/> class.
         /// </summary>
@@ -24,6 +25,7 @@ namespace RealEstateWebAPI.DAL.Repositories
             _dbContext = dbContext;
             _users = _dbContext.Users;
         }
+
         /// <summary>
         /// Merr te gjithe users asinkronisht.
         /// </summary>
@@ -32,6 +34,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _users.ToListAsync();
         }
+
         /// <summary>
         /// Merr nje use me ane te Id asinkronisht.
         /// </summary>
@@ -41,6 +44,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _users.FindAsync(userId);
         }
+
         /// <summary>
         /// Merr nje use me ane te Username asinkronisht.
         /// </summary>
@@ -50,6 +54,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _users.SingleOrDefaultAsync(u => u.UserName == username);
         }
+
         /// <summary>
         /// Merr nje use me ane te Email asinkronisht.
         /// </summary>
@@ -59,6 +64,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _users.SingleOrDefaultAsync(u => u.Email == email);
         }
+
         /// <summary>
         /// Shton nje User te ri asinkronisht.
         /// </summary>
@@ -68,6 +74,7 @@ namespace RealEstateWebAPI.DAL.Repositories
             _users.Add(user);
             await _dbContext.SaveChangesAsync();
         }
+
         /// <summary>
         /// Modifikon nje User te ri asinkronisht.
         /// </summary>
@@ -77,6 +84,7 @@ namespace RealEstateWebAPI.DAL.Repositories
             _dbContext.Entry(user).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
+
         /// <summary>
         /// Fshin nje User asinkronisht.
         /// </summary>

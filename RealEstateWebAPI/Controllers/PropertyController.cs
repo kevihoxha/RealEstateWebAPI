@@ -24,7 +24,9 @@ namespace RealEstateWebAPI.Controllers
         {
             _propertyService = propertyService;
         }
-
+        /// <summary>
+        ///aksesi ne kete endpoint eshte anonymous ,  merr te gjithe properties
+        /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<PropertyDTO>>> GetAllProperties()
@@ -35,7 +37,9 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(properties);
             });
         }
-
+        /// <summary>
+        ///pasi kalon authentikimin nga middleware ,  merr nje porperty me id specifike
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<PropertyDTO>> GetPropertyById(int id)
         {
@@ -45,6 +49,9 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(property);
             });
         }
+        /// <summary>
+        ///pasi kalon authentikimin nga middleware ,  krijon nje porperty e cila do te marre id e agjentit qe po e krijon
+        /// </summary>
         [HttpPost("create")]
         public async Task<ActionResult<int>> AddProperty(PropertyDTO propertyDTO)
         {
@@ -61,6 +68,9 @@ namespace RealEstateWebAPI.Controllers
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return int.Parse(userIdClaim);
         }
+        /// <summary>
+        ///pasi kalon authentikimin nga middleware ,  modifikon nje porperty , nese eshte i njejti agjent qe e ka krijuar ate
+        /// </summary>
         [HttpPut("update/{id}")]
         public async Task<ActionResult> UpdateProperty(int id, PropertyDTO propertyDTO)
         {
@@ -82,17 +92,9 @@ namespace RealEstateWebAPI.Controllers
             await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
             return NoContent(); 
         }
-        /*        [HttpPut("update/{id}")]
-                public async Task<ActionResult> UpdateProperty(int id, PropertyDTO propertyDTO)
-                {
-
-                    int userId = GetAuthenticatedUserId(); 
-
-                    return await HandleAsync(async () =>
-                    {
-                        await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
-                    });
-                }*/
+        /// <summary>
+        ///pasi kalon authentikimin nga middleware ,  fshin nje porperty , nese eshte i njejti agjent qe e ka krijuar ate
+        /// </summary>
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteProperty(int id)
         {
@@ -114,15 +116,9 @@ namespace RealEstateWebAPI.Controllers
             await _propertyService.DeletePropertyAsync(id);
             return NoContent();
         }
-        /*        [HttpDelete("delete/{id}")]
-                [TypeFilter(typeof(AuthorisationFilter))]
-                public async Task<ActionResult> DeleteProperty(int id)
-                {
-                    return await HandleAsync(async () =>
-                    {
-                        await _propertyService.DeletePropertyAsync(id);
-                    });
-                }*/
+        /// <summary>
+        ///aksesi ne kete endpoint eshte anonymous ,  merr te gjithe properties sipas lokacionit
+        /// </summary>
         [HttpGet("search/{location}")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<PropertyDTO>>> GetAllPropertiesByLocationAsync(string location)

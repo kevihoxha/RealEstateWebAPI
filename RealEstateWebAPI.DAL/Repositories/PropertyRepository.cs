@@ -27,6 +27,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _properties.Where(p => !p.IsDeleted).ToListAsync();
         }
+
         /// <summary>
         /// Merr nje property asinkronisht ne baze te id .
         /// </summary>
@@ -35,6 +36,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _properties.FirstOrDefaultAsync(p => p.PropertyId == propertyId && !p.IsDeleted);
         }
+
         /// <summary>
         /// Merr nje property ne baze te lokacionit asinkronisht.
         /// </summary>
@@ -43,6 +45,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _properties.Where(p => p.Location.Contains(location) && !p.IsDeleted).ToListAsync();
         }
+
         /// <summary>
         /// Shton nje Property asinkronisht.
         /// </summary>
@@ -51,6 +54,7 @@ namespace RealEstateWebAPI.DAL.Repositories
             _properties.Add(property);
             await _dbContext.SaveChangesAsync();
         }
+
         /// <summary>
         /// Modifikon nje Property asinkronisht.
         /// </summary>
@@ -59,6 +63,7 @@ namespace RealEstateWebAPI.DAL.Repositories
             _dbContext.Entry(property).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
+
         /// <summary>
         /// Fshin nje Property asinkronisht.
         /// </summary>
@@ -72,6 +77,7 @@ namespace RealEstateWebAPI.DAL.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+
         /// <summary>
         /// Merr nje property asinkronisht ne baze te UserId .
         /// </summary>

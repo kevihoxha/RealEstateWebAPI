@@ -26,6 +26,15 @@ namespace RealEstateWebAPI.Controllers
             _usersService = usersService;
             _appDbContext = context;
         }
+        /// <summary>
+        /// Authentikon nje user me kredencialet e duhura.
+        /// </summary>
+        /// <param name="request"> <see cref="AuthRequest"/>permban kredencialet per logimin e userit.</param>
+        /// <returns>
+        /// Nje <see cref="ActionResult{T}"/> te tipit <see cref="AuthResponse"/> permban rezultatin e authentikimit.
+        /// Nese authentikimi eshte i suksesshkem kthen  <see cref="AuthResponse"/> me informacionin mbi userin dhe tokenin.
+        /// Nese kredencialet jane te gabuara ose nese authentikimi deshton kthen <see cref="BadRequestResult"/>.
+        /// </returns>
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]

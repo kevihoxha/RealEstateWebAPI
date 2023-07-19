@@ -18,7 +18,9 @@ namespace RealEstateWebAPI.Controllers
         {
             _transactionService = transactionService;
         }
-
+        /// <summary>
+        ///pasi kalon middlewares per authentikim dhe autorizim ,  Merr te gjith transaksionet
+        /// </summary>
         [HttpGet]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<IEnumerable<TransactionDTO>>> GetAllTransactions()
@@ -29,7 +31,9 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(transactions);
             });
         }
-
+        /// <summary>
+        ///pasi kalon middlewares per authentikim dhe autorizim ,  Merr user me id specifike
+        /// </summary>
         [HttpGet("{id}")]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<TransactionDTO>> GetTransactionById(int id)
@@ -40,7 +44,9 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(transaction);
             });
         }
-
+        /// <summary>
+        ///pasi kalon middlewares per authentikim dhe autorizim ,  Krijon transaksion
+        /// </summary>
         [HttpPost("create")]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<TransactionDTO>> CreateTransaction(TransactionDTO transactionRequest)
@@ -51,21 +57,24 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(createdTransaction);
             });
         }
+        /// <summary>
+        ///pasi kalon middlewares per authentikim dhe autorizim ,  krijon downloadable pdf te invoice te transaksionit
+        /// </summary>
         [HttpGet("{id}/invoice")]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<IActionResult> DownloadInvoice(int id)
         {
-            // Retrieve the transaction by ID
+            // Merr trasnaksionin me ID specifike
             var transaction = await _transactionService.GetTransactionByIdAsync(id);
 
-            // Generate the invoice PDF
+            // Gjeneron nje invoice si PDF
             byte[] invoicePdf = InvoiceGenerator.GenerateInvoicePdf(transaction);
 
-            // Save the PDF to a temporary file
+            // E ruan kete PDF ne temporaty file
             var tempFilePath = Path.GetTempFileName();
             System.IO.File.WriteAllBytes(tempFilePath, invoicePdf);
 
-            // Return the PDF as a downloadable file
+            // Kthen PDF si nje Downloadable file
             var fileStream = new FileStream(tempFilePath, FileMode.Open, FileAccess.Read);
             return File(fileStream, "application/pdf", "invoice.pdf", true);
         }

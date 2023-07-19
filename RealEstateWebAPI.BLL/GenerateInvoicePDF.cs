@@ -17,34 +17,34 @@ namespace RealEstateWebAPI.BLL
         /// <returns>Invoice PDF si nje  byte array.</returns>
         public static byte[] GenerateInvoicePdf(TransactionDTO transaction)
         {
+            // krijimi i nje memorie imagjinare ne RAM ku mund te shkruash dhe lexosh te dhena ne byte te ruajtura ne rradhe
             MemoryStream memoryStream = new MemoryStream();
 
-            // Create a new PDF document
+            // Krijon nje dokument PDF
             PdfDocument document = new PdfDocument();
 
-            // Add a page to the document
+            // Shton nje faqe ne dokumentin PDF
             PdfPage page = document.AddPage();
 
-            // Create a PDF graphics object for the page
+            // Krijon nje objekt Grafik ne kete doc
             XGraphics gfx = XGraphics.FromPdfPage(page);
 
-            // Create a font
+            // Krijimi i fontit te shkrimit
             XFont font = new XFont("Arial", 12, XFontStyle.Regular);
 
-            // Draw the content on the page
+            // Shkrimi i te dhenave ne faqe
             gfx.DrawString($"Invoice for Transaction ID: {transaction.TransactionId}", font, XBrushes.Black, new XRect(50, 50, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
             gfx.DrawString($"Transaction Amount: ${transaction.SalePrice}", font, XBrushes.Black, new XRect(50, 70, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            // Add more content as needed
 
-            // Save the PDF document to the memory stream
+            // Ruan dokumentin ne memoryStream
             document.Save(memoryStream);
 
-            // Close the PDF document
+            // Mbyll dokumentin
             document.Close();
 
-            // Get the PDF document as a byte array
+            // Merr dokumentin si nje vektor byte 
             byte[] pdfBytes = memoryStream.ToArray();
-
+            // Kthen dokumentin
             return pdfBytes;
         }
     }

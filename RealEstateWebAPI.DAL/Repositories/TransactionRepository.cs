@@ -27,6 +27,7 @@ namespace RealEstateWebAPI.DAL.Repositories
             await _dbContext.SaveChangesAsync();
             return transaction;
         }
+
         /// <summary>
         /// Merr nje Transaction me ane te Id asinkronisht.
         /// </summary>
@@ -34,6 +35,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         {
             return await _transactions.FindAsync(transactionId);
         }
+
         /// <summary>
         /// Merr te gjithe Transactions asinkronisht.
         /// </summary>

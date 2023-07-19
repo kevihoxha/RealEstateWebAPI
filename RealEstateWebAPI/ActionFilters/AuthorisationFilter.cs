@@ -11,7 +11,7 @@ namespace RealEstateWebAPI.ActionFilters
     public class AuthorisationFilter : IActionFilter
     {
         /// <summary>
-        /// Thirret perpara se nje metode te ekzekutohet, performon nje kontroll authorizimi pe rkete metode.
+        /// Thirret perpara se nje metode qe ekzekutohet, performon nje kontroll authorizimi per kete metode.
         /// </summary>
         /// <param name="context">Context per metoden qe do te ekzekutohet</param>
         public void OnActionExecuting(ActionExecutingContext context)

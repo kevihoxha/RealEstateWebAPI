@@ -14,7 +14,8 @@ using RealEstateWebAPI.BLL.DTO;
 namespace RealEstateWebAPI.BLL
 {
     public static class Startup
-    {/// <summary>
+    {
+        /// <summary>
 /// Metoda per regjistrimin e serviseve ne dependency injection container
 /// </summary>
         public static void RegisterServices(this IServiceCollection services, IConfiguration config)

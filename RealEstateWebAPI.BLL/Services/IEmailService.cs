@@ -28,18 +28,19 @@ public class EmailService : IEmailService
 
         try
         {
-            // Retrieve the email password from the environment variable
+            // Merr Password e email nga te ruajtur ne cmd  
             string emailPassword = Environment.GetEnvironmentVariable("EMAIL_PASSWORD");
 
-            // Check if the password is null or empty
+            // Kontrollon nese string eshte null
             if (string.IsNullOrEmpty(emailPassword))
             {
                 throw new Exception("Email password not found. Make sure to set the EMAIL_PASSWORD environment variable.");
             }
-
+            //lidhet me smtp 
             await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.SmtpPort, SecureSocketOptions.Auto);
+            //authentikon me ane te username dhe password
             await client.AuthenticateAsync(_emailSettings.Username, emailPassword);
-
+            // dergo email
             await client.SendAsync(message);
         }
         catch (Exception ex)
@@ -49,6 +50,7 @@ public class EmailService : IEmailService
         }
         finally
         {
+            //shkeputu nga lidhja smtp
             await client.DisconnectAsync(true);
         }
     }

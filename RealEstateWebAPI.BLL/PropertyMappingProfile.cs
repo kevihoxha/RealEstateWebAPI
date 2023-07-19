@@ -15,16 +15,11 @@ namespace RealEstateWebAPI.BLL
     {
         public PropertyMappingProfile()
         {
-            CreateMap<PropertyDTO, Property>();
-            CreateMap<Property, PropertyDTO>();
-            CreateMap<UserDTO, User>();
-            CreateMap<User, UserDTO>();
-            CreateMap<Transaction, TransactionDTO>();
-            CreateMap<TransactionDTO, Transaction>();
-            CreateMap<RoleDTO, Role>();
-            CreateMap<Role, RoleDTO>();
-            CreateMap<MessageDTO, Message>();
-            CreateMap<Message, MessageDTO>();
+            CreateMap<PropertyDTO, Property>().ReverseMap();
+            CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<TransactionDTO, Transaction>().ReverseMap();
+            CreateMap<RoleDTO, Role>().ReverseMap();
+            CreateMap<MessageDTO, Message>().ReverseMap();
         }
     }
 }

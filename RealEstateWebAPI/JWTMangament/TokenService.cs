@@ -21,16 +21,23 @@ namespace RealEstateWebAPI.JWTMangament
         /// <returns> JWT token.</returns>
         public string CreateToken(User user, AppDbContext context)
         {
+            //kalkulon kohen se sa minuta do te zgjase tokeni
             var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
+            //krijon token
             var token = CreateJwtToken(
+                //krijon claims
                 CreateClaims(user, context),
+                //krijon kredencialet 
                 CreateSigningCredentials(),
+                // koha e kalkuluar
                 expiration
             );
+            //merr tokenin
             var tokenHandler = new JwtSecurityTokenHandler();
+            //kthen tokenin
             return tokenHandler.WriteToken(token);
         }
-
+        // kjo metode do te ktheje JwtSecurityToken
         private JwtSecurityToken CreateJwtToken(List<Claim> claims, SigningCredentials credentials,
             DateTime expiration) =>
             new(
@@ -75,6 +82,7 @@ namespace RealEstateWebAPI.JWTMangament
                 throw;
             }
         }
+        //do te kthehe signingCredentials dhe nuk merr parameter
         private SigningCredentials CreateSigningCredentials()
         {
             return new SigningCredentials(

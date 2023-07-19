@@ -29,8 +29,10 @@ namespace RealEstateWebAPI.Controllers
             _messageService = messageService;
             _propertiesService = propertiesService;
         }
+        /// <summary>
+        ///pasi kalon authorizimin nga middleware ,  merr mesazhet qe i perkasin atij agjenti te loguar
+        /// </summary>
         [HttpGet("properties/messages")]
-
         public async Task<ActionResult<IEnumerable<MessageDTO>>> GetAllMessages()
         {
             return await HandleAsync<IEnumerable<MessageDTO>>(async () =>
@@ -41,7 +43,9 @@ namespace RealEstateWebAPI.Controllers
             });
         }
 
-
+        /// <summary>
+        ///pasi kalon authentikim dhe authorizimin nga middleware , merr mesazhet per nje property me id specifike
+        ///</summary>
         [HttpGet("properties/messages/{propertyId}")]
         [TypeFilter(typeof(AuthorisationFilter))]
         public async Task<ActionResult<IEnumerable<MessageDTO>>> GetMessagesForProperty(int propertyId)
@@ -53,13 +57,17 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(messages);
             });
         }
-
+        /// <summary>
+        /// metode qe do te kthehe Id e userit te loguar ne ate moment 
+        ///</summary>
         private int GetAuthenticatedUserId()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return int.Parse(userIdClaim);
         }
-
+        /// <summary>
+        ///aksesi ne kete endpoint eshte anonymous ,  dergon mesazh mbi pronen me id Specifike
+        /// </summary>
         [HttpPost("properties/{id}/message")]
         [AllowAnonymous]
         public async Task<ActionResult> SendMessage(int id, MessageDTO messageDTO)
