@@ -31,16 +31,6 @@ namespace RealEstateWebAPI.Middleware
                 return;
             }
             /// <summary>
-            /// Kontrollon nese ka nje token
-            /// </summary>
-/*            if (!context.Request.Headers.ContainsKey("Authorization"))
-            {
-                context.Response.StatusCode = 401;
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync("You are not authorized to be here.");
-                return;
-            }*/
-            /// <summary>
             /// Kontrollon nese ka nje token ne header
             /// </summary>
             string token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");

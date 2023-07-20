@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using PdfSharp.Charting;
 using RealEstateWebAPI.BLL;
 using RealEstateWebAPI.DAL;
 using RealEstateWebAPI.JWTMangament;
@@ -15,6 +16,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<GlobalErrorHandlingMiddleware>();
 //identifikon dhe krijon automatisht instancat e kontrollerëve të nevojshëm në varësi të kërkesave HTTP që vijnë në aplikacion
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 ;
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -117,6 +127,7 @@ if (app.Environment.IsDevelopment())
 }
 // vendosja e GlobalErrorHandlingMiddleware ne pipeline ne fillim per te kapur erroret dhe mos vazhduar ne pipeline ne kapen
 app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+app.UseCors();
 // perdor sistemin Routing te drejtoje kerkesat HTTP ne kontrollerat perkates 
 app.UseRouting();
 // inicializimi i databazes 

@@ -41,6 +41,7 @@ namespace RealEstateWebAPI.Controllers
         ///pasi kalon authentikimin nga middleware ,  merr nje porperty me id specifike
         /// </summary>
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<PropertyDTO>> GetPropertyById(int id)
         {
             return await HandleAsync<PropertyDTO>(async () =>

@@ -67,9 +67,10 @@ namespace RealEstateWebAPI.Controllers
         }
         /// <summary>
         ///aksesi ne kete endpoint eshte anonymous ,  dergon mesazh mbi pronen me id Specifike
-        /// </summary>
-        [HttpPost("properties/{id}/message")]
+        /// </summary>\
         [AllowAnonymous]
+        [HttpPost("properties/{id}/message")]
+
         public async Task<ActionResult> SendMessage(int id, MessageDTO messageDTO)
         {
             return await HandleAsync(async () =>

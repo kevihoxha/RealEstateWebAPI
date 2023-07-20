@@ -57,7 +57,9 @@ namespace RealEstateWebAPI.JWTMangament
         {
             try
             {
+                // merr userin me rolin e asajnuar
                 var userWithRole = context.GetUserWithRole(user.UserId);
+                //krijo nje liste qe mban claims e userit
                 var claims = new List<Claim>
                 {
                 new Claim(JwtRegisteredClaimNames.Sub,  user.UserId.ToString()),
@@ -67,13 +69,15 @@ namespace RealEstateWebAPI.JWTMangament
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.Email, user.Email),
                 };
+                //kontrollon nese nje perodrues ka nje rol te asenjuar
                 if (userWithRole.Role != null && !string.IsNullOrEmpty(userWithRole.Role.Name))
                 {
+                    //shton nje claim per rolin e userit
                     claims.Add(new Claim(ClaimTypes.Role, userWithRole.Role.Name));
                 }
 
 
-
+                // kthen nje liste me claims te user
                 return claims;
             }
             catch (Exception e)
@@ -85,10 +89,12 @@ namespace RealEstateWebAPI.JWTMangament
         //do te kthehe signingCredentials dhe nuk merr parameter
         private SigningCredentials CreateSigningCredentials()
         {
+            //krijon SymmetricSecurityKey  me sekretin si nje vektor byte 
             return new SigningCredentials(
                 new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes("!SomethingSecret!12345abcd ergijnewr orwjngkjebwrkg reijbgkewbgrkhwberg")
                 ),
+                //specifikon cilen algoritem do te perdore per ta sajnuar kete token
                 SecurityAlgorithms.HmacSha256
             );
         }
