@@ -21,6 +21,7 @@ namespace RealEstateWebAPI.JWTMangament
         /// <returns> JWT token.</returns>
         public string CreateToken(User user, AppDbContext context)
         {
+            using var dbContext = new AppDbContext();
             //kalkulon kohen se sa minuta do te zgjase tokeni
             var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
             //krijon token

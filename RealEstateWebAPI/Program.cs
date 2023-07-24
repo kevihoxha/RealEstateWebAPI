@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<GlobalErrorHandlingMiddleware>();
 //identifikon dhe krijon automatisht instancat e kontrollerëve të nevojshëm në varësi të kërkesave HTTP që vijnë në aplikacion
 builder.Services.AddControllers();
+//lidhja e backend me frontend 
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -60,7 +61,7 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-//rregjistrimi i TokenService ssi scoped
+//rregjistrimi i TokenService si scoped
 builder.Services.AddScoped<TokenService, TokenService>();
 // perdoret per te aksesuar http requests ose responses per te marre komponete te ndryshem brenda tyre
 builder.Services.AddHttpContextAccessor();
@@ -97,7 +98,7 @@ Log.Logger = new LoggerConfiguration()
             //ben shkrimin e logeve ne databaze ne tabelen Logs
             .WriteTo.MSSqlServer(
         connectionString: "Data Source=.,1401;Initial Catalog=RealEstateWebAPIDb;Persist Security Info=True;User ID=sa;Password=yourStrong(!)Password;TrustServerCertificate=True", // Replace with your actual connection string
-        //nese nuk e gjen tabelen logs ne databaze do ta krijoje ate 
+        //nese nuk e gjen tabelen Logs ne databaze do ta krijoje ate 
         sinkOptions: new MSSqlServerSinkOptions
         {
             TableName = "Logs",
@@ -127,6 +128,7 @@ if (app.Environment.IsDevelopment())
 }
 // vendosja e GlobalErrorHandlingMiddleware ne pipeline ne fillim per te kapur erroret dhe mos vazhduar ne pipeline ne kapen
 app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+//lidhja e backend me frontend 
 app.UseCors();
 // perdor sistemin Routing te drejtoje kerkesat HTTP ne kontrollerat perkates 
 app.UseRouting();
@@ -134,7 +136,8 @@ app.UseRouting();
 StartUp.SeedData(app);
 //krijon kerkesat HTTPS nga HTTP qe ishin me pare
 app.UseHttpsRedirection();
-// perdorimi i AuthenticationMiddleware per te autorizuar controllers ku ai eshte dekoruar
+// perdorimi i AuthenticationMiddleware(globalisht) per te kontrolluar nese user eshte i authntikuar
+//do te kapi cdo request pervec atyre te dekoruar me atributin AllowAnonymous
 app.UseMiddleware(typeof(AuthenticationMiddleware));
 //konfiguron si te routohen kerkesat HTTP ne controllers te aplikacionit
 app.UseEndpoints(endpoints =>

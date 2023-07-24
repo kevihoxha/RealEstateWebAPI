@@ -48,7 +48,7 @@ namespace RealEstateWebAPI.Controllers
             var managedUser = await _usersService.GetUserByUsernameAsync(request.Username);
             if (managedUser == null)
             {
-                return BadRequest("Bad credentials");
+                return BadRequest("Invalid Username");
             }
             if (PasswordHashing.VerifyPassword(request.Password, managedUser.PasswordHash, managedUser.PasswordSalt))
             {
@@ -61,7 +61,10 @@ namespace RealEstateWebAPI.Controllers
                     Token = accessToken,
                 });
             }
-            return new AuthResponse();
+            else
+            {
+                return BadRequest("Invalid password");
+            }
         }
     }
 }

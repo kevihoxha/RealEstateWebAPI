@@ -17,6 +17,7 @@ namespace RealEstateWebAPI.BLL
         {
             CreateMap<PropertyDTO, Property>().ReverseMap();
             CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<CreateUpdateUserDTO, User>().ReverseMap();
             CreateMap<TransactionDTO, Transaction>().ReverseMap();
             CreateMap<RoleDTO, Role>().ReverseMap();
             CreateMap<MessageDTO, Message>().ReverseMap();

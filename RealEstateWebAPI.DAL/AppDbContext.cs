@@ -31,7 +31,6 @@ namespace RealEstateWebAPI.DAL
         /// <param name="options">Opsionet per konfigurimin e context</param>
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
         }
         /// <summary>
         /// Ben konfigurimet e modeleve per Database Context

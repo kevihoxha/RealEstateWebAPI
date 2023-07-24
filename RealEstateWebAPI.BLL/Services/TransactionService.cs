@@ -23,7 +23,7 @@ namespace RealEstateWebAPI.BLL.Services
         /// </summary>
         public async Task<TransactionDTO> CreateTransactionAsync(TransactionDTO transactionRequest)
         {
-            return await HandleAsync<TransactionDTO>(async () =>
+            return await HandleAsync(async () =>
             {
                 var transaction = _mapper.Map<Transaction>(transactionRequest);
                 var createdTransaction = await _transactionRepository.AddTransactionAsync(transaction);
@@ -37,7 +37,7 @@ namespace RealEstateWebAPI.BLL.Services
         /// </summary>
         public async Task<TransactionDTO> GetTransactionByIdAsync(int transactionId)
         {
-            return await HandleAsync<TransactionDTO>(async () =>
+            return await HandleAsync(async () =>
             {
                 var transaction = await _transactionRepository.GetTransactionByIdAsync(transactionId);
                 if (transaction != null)
@@ -54,7 +54,7 @@ namespace RealEstateWebAPI.BLL.Services
         /// <returns>Nje koleksion Transactions.</returns>
         public async Task<IEnumerable<TransactionDTO>> GetAllTransactionsAsync()
         {
-            return await HandleAsync<IEnumerable<TransactionDTO>>(async () =>
+            return await HandleAsync(async () =>
             {
                 var transactions = await _transactionRepository.GetAllTransactionsAsync();
                 if (transactions != null)

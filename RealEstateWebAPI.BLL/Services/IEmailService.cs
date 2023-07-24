@@ -28,7 +28,7 @@ public class EmailService : IEmailService
 
         try
         {
-            // Merr Password e email nga te ruajtur ne cmd  
+            // Merr Password e email te ruajtur ne cmd  
             string emailPassword = Environment.GetEnvironmentVariable("EMAIL_PASSWORD");
 
             // Kontrollon nese string eshte null

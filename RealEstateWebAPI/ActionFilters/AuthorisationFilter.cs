@@ -19,8 +19,16 @@ namespace RealEstateWebAPI.ActionFilters
 
             if (!context.HttpContext.User.Claims.Any(c => c.Type == ClaimTypes.Name && c.Value == "admin"))
             {
-                context.Result = new ForbidResult();
-                return;
+                var response = new
+                {
+                    Message = "You are not authorized",
+                    StatusCode = 403 
+                };
+
+                context.Result = new ObjectResult(response)
+                {
+                    StatusCode = 403 
+                };
             }
         }
         /// <summary>

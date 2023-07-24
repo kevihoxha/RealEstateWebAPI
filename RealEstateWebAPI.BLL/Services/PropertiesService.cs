@@ -23,7 +23,7 @@ namespace RealEstateWebAPI.BLL.Services
         /// <returns>Nje koleksion Properties pervec atyre qe jane softDelete.</returns>
         public async Task<IEnumerable<PropertyDTO>> GetAllPropertiesAsync()
         {
-            return await HandleAsync<IEnumerable<PropertyDTO>>(async () =>
+            return await HandleAsync(async () =>
             {
                 var properties = await _propertyRepository.GetAllPropertiesAsync();
                 if (properties != null)
@@ -40,7 +40,7 @@ namespace RealEstateWebAPI.BLL.Services
         /// <returns>Nje Property pervec atij qe eshte softDeleted.</returns>
         public async Task<PropertyDTO> GetPropertyByIdAsync(int propertyId)
         {
-            return await HandleAsync<PropertyDTO>(async () =>
+            return await HandleAsync(async () =>
             {
                 var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
                 if (property != null)
@@ -57,7 +57,7 @@ namespace RealEstateWebAPI.BLL.Services
         ///
         public async Task<int> AddPropertyAsync(PropertyDTO propertyDTO, int userId)
         {
-            return await HandleAsync<int>(async () =>
+            return await HandleAsync(async () =>
             {
                 var property = _mapper.Map<Property>(propertyDTO);
                 property.UserId = userId; // Assign the user ID to the property
@@ -66,19 +66,6 @@ namespace RealEstateWebAPI.BLL.Services
                 return property.PropertyId;
             });
         }
-        /* public async Task<int> AddPropertyAsync(PropertyDTO propertyDTO)
-         {
-             try
-             {
-                 var property = _mapper.Map<Property>(propertyDTO);
-                 await _propertyRepository.AddPropertyAsync(property);
-                 return property.PropertyId;
-             }
-             catch (Exception ex)
-             {
-                 throw;
-             }
-         }*/
         /// <summary>
         /// Modifikon nje Property asinkronisht.
         /// </summary>
@@ -90,6 +77,7 @@ namespace RealEstateWebAPI.BLL.Services
             if (property != null)
             {
                 // Update the property details
+                propertyDTO.PropertyId = propertyId;
                 _mapper.Map(propertyDTO, property);
                 property.UserId = userId; // Assign the user ID to the property
                 await _propertyRepository.UpdatePropertyAsync(property);
@@ -101,22 +89,6 @@ namespace RealEstateWebAPI.BLL.Services
             }
         });
         }
-        /* public async Task UpdatePropertyAsync(int propertyId, PropertyDTO propertyDTO)
-         {
-             try
-             {
-                 var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
-                 if (property != null)
-                 {
-                     _mapper.Map(propertyDTO, property);
-                     await _propertyRepository.UpdatePropertyAsync(property);
-                 }
-             }
-             catch (Exception ex)
-             {
-                 throw;
-             }
-         }*/
         /// <summary>
         /// Fshin nje Property asinkronisht.
         /// </summary>
@@ -142,7 +114,7 @@ namespace RealEstateWebAPI.BLL.Services
         /// <returns>>Nje Property</returns>
         public async Task<IEnumerable<PropertyDTO>> GetAllPropertiesByLocationAsync(string location)
         {
-            return await HandleAsync<IEnumerable<PropertyDTO>>(async () =>
+            return await HandleAsync(async () =>
             {
                 var properties = await _propertyRepository.GetPropertyByLocationAsync(location);
                 if (properties.Any())

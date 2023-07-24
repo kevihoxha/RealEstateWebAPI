@@ -8,6 +8,7 @@ namespace RealEstateWebAPI.BLL.Services
 {
     using AutoMapper;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using RealEstateWebAPI.BLL.DTO;
     using RealEstateWebAPI.Common.ErrorHandeling;
     using RealEstateWebAPI.DAL.Entities;
@@ -58,10 +59,10 @@ namespace RealEstateWebAPI.BLL.Services
                 var user = await _userRepository.GetUserByIdAsync(userId);
                 if (user != null)
                 {
-                    Log.Information($"Got user with ID: {userId}");
+                    Log.Information($"Got user with Username: {user.UserName}");
                     return _mapper.Map<UserDTO>(user);
                 }
-                throw new CustomException("User not found");
+                throw new CustomException("User not found from service");
             });
         }
         /// <summary>
@@ -81,14 +82,19 @@ namespace RealEstateWebAPI.BLL.Services
                 {
                     throw new CustomException($"User with email {userDTO.Email} already exists");
                 }
-
+                userDTO.RoleId = 2;
                 var user = _mapper.Map<User>(userDTO);
                 byte[] salt;
                 user.PasswordHash = PasswordHashing.HashPasword(userDTO.Password, out salt);
                 user.PasswordSalt = salt;
                 await _userRepository.AddUserAsync(user);
-                Log.Information("User added succesfully");
-                return user.UserId;
+                if (user.UserId > 0)
+                {
+                    Log.Information("User added succesfully");
+                    return user.UserId;
+                }
+                Log.Error($"User with username {user.UserName} could not be added");
+                throw new CustomException($"User could not be added");
             });
         }
         /// <summary>
@@ -102,6 +108,8 @@ namespace RealEstateWebAPI.BLL.Services
                 var user = await _userRepository.GetUserByIdAsync(userId);
                 if (user != null)
                 {
+                    userDTO.UserId= userId;
+                    userDTO.RoleId= 2;
                     _mapper.Map<UserDTO, User>(userDTO, user);
                     await _userRepository.UpdateUserAsync(user);
                     Log.Information("User updated succesfully");

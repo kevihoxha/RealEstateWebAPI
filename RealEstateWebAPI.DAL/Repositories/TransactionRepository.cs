@@ -22,7 +22,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// Shton nje Transaction te ri asinkronisht.
         /// </summary>
         public async Task<Transaction> AddTransactionAsync(Transaction transaction)
-        {
+        { 
             _transactions.Add(transaction);
             await _dbContext.SaveChangesAsync();
             return transaction;

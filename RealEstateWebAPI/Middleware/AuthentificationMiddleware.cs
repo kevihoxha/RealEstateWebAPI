@@ -38,7 +38,7 @@ namespace RealEstateWebAPI.Middleware
             {
                 context.Response.StatusCode = 401;
                 context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync("Invalid token.");
+                await context.Response.WriteAsync("Missing token.");
                 return;
             }
             /// <summary>
@@ -80,7 +80,11 @@ namespace RealEstateWebAPI.Middleware
                 var attributes = endpoint.Metadata.GetOrderedMetadata<AllowAnonymousAttribute>();
                 return attributes.Any();
             }
-            return false;
+            else
+            {
+                context.Response.WriteAsync("You are not authenticated");
+                return false;
+            }
         }
     }
 }

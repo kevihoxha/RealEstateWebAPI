@@ -32,7 +32,7 @@ namespace RealEstateWebAPI.BLL.Services
             }
             catch (Exception ex)
             {
-                throw ex ;
+                throw ex;
             }
         }
     }

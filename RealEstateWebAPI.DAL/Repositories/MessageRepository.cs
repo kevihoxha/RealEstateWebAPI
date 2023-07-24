@@ -32,7 +32,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// </summary>
         /// <returns>Nje koleksion Messages ne baze te propertyId </returns>
         public async Task<IEnumerable<Message>> GetMessagesForPropertyAsync(int propertyId)
-        {
+        { 
             return await _messages
                     .Where(m => m.PropertyId == propertyId)
                     .ToListAsync();

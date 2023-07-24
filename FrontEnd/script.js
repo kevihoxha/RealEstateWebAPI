@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
           const listItem = document.createElement("li");
           listItem.innerHTML = `
               <h3>${property.title}</h3>
-              <p>Location: ${property.location}</p>
-              <p>Price: ${property.price}</p>
-              <button onclick="openMessageModal(${property.propertyId})">Send Message</button> <!-- New "Send Message" button -->
+              <p>Vendndodhja: ${property.location}</p>
+              <p>Cmimi: ${property.price} Euro</p>
+              <button onclick="openMessageModal(${property.propertyId})">Dergo Mesazh</button> <!-- New "Send Message" button -->
           `;
   
           propertyList.appendChild(listItem);

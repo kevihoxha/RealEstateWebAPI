@@ -29,7 +29,7 @@ namespace RealEstateWebAPI.BLL.Services
         /// <returns>Nje koleksion Messages </returns>
         public async Task<IEnumerable<MessageDTO>> GetAllMessagesByUser(int authenticatedUserId)
         {
-            return await HandleAsync<IEnumerable<MessageDTO>>(async () =>
+            return await HandleAsync(async () =>
             {
                 var messages = await _messageRepository.GetAllMessagesByUserAsync(authenticatedUserId);
                 if (messages != null)
@@ -47,7 +47,7 @@ namespace RealEstateWebAPI.BLL.Services
         /// <returns>Nje koleksion Messages ne baze te propertyId </returns>
         public async Task<IEnumerable<MessageDTO>> GetMessagesForPropertyAsync(int propertyId)
         {
-            return await HandleAsync<IEnumerable<MessageDTO>>(async () =>
+            return await HandleAsync(async () =>
             {
                 var messages = await _messageRepository.GetMessagesForPropertyAsync(propertyId);
                 if (messages.Any())
