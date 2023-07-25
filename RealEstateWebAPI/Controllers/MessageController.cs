@@ -38,7 +38,7 @@ namespace RealEstateWebAPI.Controllers
             return await HandleAsync<IEnumerable<MessageDTO>>(async () =>
             {
                 int authenticatedUserId = GetAuthenticatedUserId();
-                var messages = await _messageService.GetAllMessagesByUser(authenticatedUserId);
+                var messages = await _messageService.GetAllMessagesByUserAsync(authenticatedUserId);
                 return Ok(messages);
             });
         }
@@ -58,14 +58,6 @@ namespace RealEstateWebAPI.Controllers
             });
         }
         /// <summary>
-        /// metode qe do te kthehe Id e userit te loguar ne ate moment 
-        ///</summary>
-        private int GetAuthenticatedUserId()
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return int.Parse(userIdClaim);
-        }
-        /// <summary>
         ///aksesi ne kete endpoint eshte anonymous ,  dergon mesazh mbi pronen me id Specifike
         /// </summary>\
         [AllowAnonymous]
@@ -81,6 +73,14 @@ namespace RealEstateWebAPI.Controllers
                 Log.Information("Message sent successfully");
 
             });
+        }
+        /// <summary>
+        /// metode qe do te kthehe Id e userit te loguar ne ate moment 
+        ///</summary>
+        private int GetAuthenticatedUserId()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return int.Parse(userIdClaim);
         }
     }
 }

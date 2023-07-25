@@ -118,6 +118,7 @@ builder.Services.AddLogging(loggingBuilder =>
 });
 //rregjistrimi i servisit singleton per AuthenticationMiddleware
 builder.Services.AddSingleton<AuthenticationMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -144,11 +145,6 @@ app.UseEndpoints(endpoints =>
 {
     //kerkesat HTTP tu drejtohen Controllerave perkates ne app
     endpoints.MapControllers();
-    endpoints.MapControllerRoute(
-        name: "errorHandler",
-        pattern: "/api/errorHandler",
-        defaults: new { controller = "ErrorHandler", action = "HandleError" }
-    );
 });
 
 app.Run();

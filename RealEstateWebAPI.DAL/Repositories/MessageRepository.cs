@@ -11,12 +11,11 @@ namespace RealEstateWebAPI.DAL.Repositories
     public class MessageRepository : IMessageRepository
     {
         private readonly AppDbContext _dbContext;
-        private readonly DbSet<Message> _messages;
+        private DbSet<Message> Messages => _dbContext.Messages;
 
         public MessageRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
-            _messages = _dbContext.Messages;
         }
         /// <summary>
         /// Merr te gjithe Message asinkronisht.
@@ -24,7 +23,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Nje koleksion Messages </returns>
         public async Task<IEnumerable<Message>> GetAllMessagesByUserAsync(int authenticatedUserId)
         {
-            return await _messages.Where(m => m.Property.UserId == authenticatedUserId).ToListAsync();
+            return await Messages.Where(m => m.Property.UserId == authenticatedUserId).ToListAsync();
         }
 
         /// <summary>
@@ -33,7 +32,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Nje koleksion Messages ne baze te propertyId </returns>
         public async Task<IEnumerable<Message>> GetMessagesForPropertyAsync(int propertyId)
         { 
-            return await _messages
+            return await Messages
                     .Where(m => m.PropertyId == propertyId)
                     .ToListAsync();
         }
@@ -43,7 +42,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// </summary>
         public async Task SendMessageAsync(Message message)
         {
-            _messages.Add(message);
+            Messages.Add(message);
             await _dbContext.SaveChangesAsync();
         }
 

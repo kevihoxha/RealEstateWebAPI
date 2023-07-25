@@ -21,6 +21,7 @@ namespace RealEstateWebAPI.DAL.Entities
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
+        public Transaction Transaction { get; set; }
 
 
     }

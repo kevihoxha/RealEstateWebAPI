@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RealEstateWebAPI.DAL.Entities;
 using System;
@@ -28,13 +29,12 @@ namespace RealEstateWebAPI.DAL
         /// <summary>
         /// Ben Seed rolet e admin dhe agent ne databaze nese ato nuk ekzitojne.
         /// </summary>
-        private static void SeedAdminAndAgentUsers(AppDbContext context)
+        private static async Task SeedAdminAndAgentUsers(AppDbContext context)
         {
-
-            if (context.Users.Any(u => u.UserName == "admin"))
+            if (await context.Users.AnyAsync(u => u.UserName == "admin"))
                 return;
 
-            var adminRole = context.Roles.SingleOrDefault(r => r.Name == "admin");
+            var adminRole = await context.Roles.SingleOrDefaultAsync(r => r.Name == "admin");
             if (adminRole == null)
             {
                 adminRole = new Role
@@ -42,11 +42,11 @@ namespace RealEstateWebAPI.DAL
                     Name = "admin",
                     UniqueIdentifier = Guid.NewGuid()
                 };
-                context.Roles.Add(adminRole);
-                context.SaveChanges();
+                await context.Roles.AddAsync(adminRole);
+                await context.SaveChangesAsync();
             }
 
-            var agentRole = context.Roles.SingleOrDefault(r => r.Name == "agent");
+            var agentRole = await context.Roles.SingleOrDefaultAsync(r => r.Name == "agent");
             if (agentRole == null)
             {
                 agentRole = new Role
@@ -54,8 +54,8 @@ namespace RealEstateWebAPI.DAL
                     Name = "agent",
                     UniqueIdentifier = Guid.NewGuid()
                 };
-                context.Roles.Add(agentRole);
-                context.SaveChanges();
+                await context.Roles.AddAsync(agentRole);
+                await context.SaveChangesAsync();
             }
         }
 

@@ -28,7 +28,7 @@ namespace RealEstateWebAPI.BLL.Services
                 var transaction = _mapper.Map<Transaction>(transactionRequest);
                 var createdTransaction = await _transactionRepository.AddTransactionAsync(transaction);
                 var transactionDTO = _mapper.Map<TransactionDTO>(createdTransaction);
-                Log.Information("Transaction added succesfully");
+                Log.Information($"Transaction added successfully. Transaction ID: {transactionDTO.TransactionId}, Amount: {transactionDTO.SalePrice}, Date: {transactionDTO.TransactionDate}");
                 return transactionDTO;
             });
         }
@@ -42,10 +42,10 @@ namespace RealEstateWebAPI.BLL.Services
                 var transaction = await _transactionRepository.GetTransactionByIdAsync(transactionId);
                 if (transaction != null)
                 {
-                    Log.Information($"Got transaction with ID: {transactionId}");
+                    Log.Information($"Retrieved transaction with ID: {transaction.TransactionId}, Amount: {transaction.SalePrice}, Date: {transaction.TransactionDate}");
                     return _mapper.Map<TransactionDTO>(transaction);
                 }
-                throw new CustomException("Transaction not found");
+                throw new CustomException($"Transaction with ID: {transactionId} not found.");
             });
         }
         /// <summary>
@@ -59,10 +59,10 @@ namespace RealEstateWebAPI.BLL.Services
                 var transactions = await _transactionRepository.GetAllTransactionsAsync();
                 if (transactions != null)
                 {
-                    Log.Information("Got all Transactions");
+                    Log.Information($"Retrieved {transactions.Count()} transactions.");
                     return _mapper.Map<IEnumerable<TransactionDTO>>(transactions);
                 }
-                throw new CustomException("Couldnt get Transactions");
+                throw new CustomException("No Transactions Found");
             });
         }
 

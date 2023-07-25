@@ -56,7 +56,7 @@ namespace RealEstateWebAPI.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<int>> AddProperty(PropertyDTO propertyDTO)
         {
-            int userId = GetAuthenticatedUserId(); 
+            int userId = GetAuthenticatedUserId();
 
             return await HandleAsync<int>(async () =>
             {
@@ -64,58 +64,30 @@ namespace RealEstateWebAPI.Controllers
                 return Ok(propertyId);
             });
         }
-        private int GetAuthenticatedUserId()
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return int.Parse(userIdClaim);
-        }
         /// <summary>
         ///pasi kalon authentikimin nga middleware ,  modifikon nje porperty , nese eshte i njejti agjent qe e ka krijuar ate
         /// </summary>
         [HttpPut("update/{id}")]
         public async Task<ActionResult> UpdateProperty(int id, PropertyDTO propertyDTO)
         {
-            string userIdString = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (!int.TryParse(userIdString, out int userId))
+            int userId = GetAuthenticatedUserId();
+            return await HandleAsync(async () =>
             {
-                return BadRequest("Invalid user ID"); 
-            }
-            var property = await _propertyService.GetPropertyByIdAsync(id);
-            if (property == null)
-            {
-                return NotFound(); 
-            }
-
-            if (property.UserId != userId)
-            {
-                return Forbid(); 
-            }
-            await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
-            return NoContent(); 
+                await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
+            });
         }
+
         /// <summary>
         ///pasi kalon authentikimin nga middleware ,  fshin nje porperty , nese eshte i njejti agjent qe e ka krijuar ate
         /// </summary>
         [HttpDelete("delete/{id}")]
-        public async Task<ActionResult> DeleteProperty(int id)
+        public async Task<ActionResult> DeleteProperty(int id, PropertyDTO propertyDTO)
         {
-            var property = await _propertyService.GetPropertyByIdAsync(id);
-
-            if (property == null)
+            int userId = GetAuthenticatedUserId();
+            return await HandleAsync(async () =>
             {
-                return NotFound(); 
-            }
-            string userIdString = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (!int.TryParse(userIdString, out int userId))
-            {
-                return BadRequest("Invalid user ID"); 
-            }
-            if (property.UserId != userId)
-            {
-                return Forbid();
-            }
-            await _propertyService.DeletePropertyAsync(id);
-            return NoContent();
+                await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
+            });
         }
         /// <summary>
         ///aksesi ne kete endpoint eshte anonymous ,  merr te gjithe properties sipas lokacionit
@@ -129,6 +101,14 @@ namespace RealEstateWebAPI.Controllers
                 var property = await _propertyService.GetAllPropertiesByLocationAsync(location);
                 return Ok(property);
             });
+        }
+        /// <summary>
+        /// kjo metode merr nga claims ID e user te authentikuar ne moment , dhe e kthen ate ne int
+        /// </summary>
+        private int GetAuthenticatedUserId()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return int.Parse(userIdClaim);
         }
     }
 }

@@ -28,10 +28,10 @@ namespace RealEstateWebAPI.BLL.Services
                 var properties = await _propertyRepository.GetAllPropertiesAsync();
                 if (properties != null)
                 {
-                    Log.Information("Got all Properties");
+                    Log.Information($"Retrieved {properties.Count()} properties.");
                     return _mapper.Map<IEnumerable<PropertyDTO>>(properties);
                 }
-                throw new CustomException("Couldnt get Properties");
+                throw new CustomException("Could not get properties.");
             });
         }
         /// <summary>
@@ -45,9 +45,10 @@ namespace RealEstateWebAPI.BLL.Services
                 var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
                 if (property != null)
                 {
-                    Log.Information($"Got property with ID: {propertyId}");
+                    Log.Information($"Retrieved property with ID: {propertyId}");
                     return _mapper.Map<PropertyDTO>(property);
                 }
+                Log.Warning($"Property with ID: {propertyId} not found.");
                 throw new CustomException("Property not found");
             });
         }
@@ -60,9 +61,9 @@ namespace RealEstateWebAPI.BLL.Services
             return await HandleAsync(async () =>
             {
                 var property = _mapper.Map<Property>(propertyDTO);
-                property.UserId = userId; // Assign the user ID to the property
+                AssignUserIdToProperty(property, userId);
                 await _propertyRepository.AddPropertyAsync(property);
-                Log.Information("Property added succesfully");
+                Log.Information($"Property with ID {property.PropertyId} added successfully by User ID {userId}.");
                 return property.PropertyId;
             });
         }
@@ -76,35 +77,47 @@ namespace RealEstateWebAPI.BLL.Services
             var property = await _propertyRepository.GetPropertyByIdAsync(propertyId);
             if (property != null)
             {
-                // Update the property details
+                if (property.UserId != userId)
+                {
+                    Log.Warning($"User with ID {userId} is not authorized to update Property with ID {propertyId}.");
+                    throw new CustomException($"User with ID {userId} is not authorized to update Property with ID {propertyId}.");
+                }
+
+                
                 propertyDTO.PropertyId = propertyId;
                 _mapper.Map(propertyDTO, property);
-                property.UserId = userId; // Assign the user ID to the property
+                AssignUserIdToProperty(property, userId);
                 await _propertyRepository.UpdatePropertyAsync(property);
-                Log.Information("Property  updated succesfully");
+                Log.Information($"Property with ID {propertyId} updated successfully.");
             }
             else
             {
-                throw new CustomException("User does not exists");
+                throw new CustomException($"Property with ID {propertyId} not found.");
             }
         });
         }
         /// <summary>
         /// Fshin nje Property asinkronisht.
         /// </summary>
-        public async Task DeletePropertyAsync(int propertyId)
+        public async Task DeletePropertyAsync(int propertyId,int userId)
         {
             await HandleAsync(async () =>
             {
-                var propertyToDelte = await _propertyRepository.GetPropertyByIdAsync(propertyId);
-                if (propertyToDelte != null)
+                var propertyToDelete = await _propertyRepository.GetPropertyByIdAsync(propertyId);
+                if (propertyToDelete != null)
                 {
+                    if (propertyToDelete.UserId != userId)
+                    {
+                        Log.Warning($"User with ID {userId} is not authorized to delete Property with ID {propertyId}.");
+                        throw new CustomException($"User with ID {userId} is not authorized to delete Property with ID {propertyId}.");
+                    }
+
                     await _propertyRepository.DeletePropertyAsync(propertyId);
-                    Log.Information($"Property with id {propertyToDelte.PropertyId} got deleted");
+                    Log.Information($"Property with ID {propertyId} deleted successfully.");
                 }
                 else
                 {
-                    throw new CustomException("Property not found");
+                    throw new CustomException($"Property with ID {propertyId} not found.");
                 }
             });
         }
@@ -119,11 +132,16 @@ namespace RealEstateWebAPI.BLL.Services
                 var properties = await _propertyRepository.GetPropertyByLocationAsync(location);
                 if (properties.Any())
                 {
-                    Log.Information("Got all Properties");
+                    Log.Information($"Retrieved {properties.Count()} properties for location: {location}");
                     return _mapper.Map<IEnumerable<PropertyDTO>>(properties);
                 }
-                throw new CustomException("Couldnt get properties");
+                Log.Warning($"No properties found for location: {location}");
+                throw new CustomException("No properties found for the specified location.");
             });
+        }
+        private void AssignUserIdToProperty(Property property, int userId)
+        {
+            property.UserId = userId;
         }
     }
 }

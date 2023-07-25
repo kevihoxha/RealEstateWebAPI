@@ -10,6 +10,7 @@ namespace RealEstateWebAPI.ActionFilters
 {
     public class AuthorisationFilter : IActionFilter
     {
+        private const string RequiredRole = "admin";
         /// <summary>
         /// Thirret perpara se nje metode qe ekzekutohet, performon nje kontroll authorizimi per kete metode.
         /// </summary>
@@ -17,17 +18,11 @@ namespace RealEstateWebAPI.ActionFilters
         public void OnActionExecuting(ActionExecutingContext context)
         {
 
-            if (!context.HttpContext.User.Claims.Any(c => c.Type == ClaimTypes.Name && c.Value == "admin"))
+            if (!IsUserAuthorized(context.HttpContext.User))
             {
-                var response = new
+                context.Result = new ObjectResult("You are not authorized")
                 {
-                    Message = "You are not authorized",
-                    StatusCode = 403 
-                };
-
-                context.Result = new ObjectResult(response)
-                {
-                    StatusCode = 403 
+                    StatusCode = 403
                 };
             }
         }
@@ -38,7 +33,10 @@ namespace RealEstateWebAPI.ActionFilters
         public void OnActionExecuted(ActionExecutedContext context)
         {
         }
-
+        private bool IsUserAuthorized(ClaimsPrincipal user)
+        {
+            return user.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == RequiredRole);
+        }
     }
 }
 

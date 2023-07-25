@@ -6,6 +6,6 @@ namespace RealEstateWebAPI.BLL.Services
     {
         Task<IEnumerable<MessageDTO>> GetMessagesForPropertyAsync(int propertyId);
         Task SendMessageAsync(MessageDTO messageDTO);
-        Task<IEnumerable<MessageDTO>> GetAllMessagesByUser(int authenticatedUserId);
+        Task<IEnumerable<MessageDTO>> GetAllMessagesByUserAsync(int authenticatedUserId);
     }
 }

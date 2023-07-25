@@ -16,7 +16,7 @@ namespace RealEstateWebAPI.DAL.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _dbContext;
-        private readonly DbSet<User> _users;
+        private DbSet<User> Users => _dbContext.Users;
 
         /// <summary>
         /// Konstruktori me parametra per  <see cref="UserRepository"/> class.
@@ -24,7 +24,6 @@ namespace RealEstateWebAPI.DAL.Repositories
         public UserRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
-            _users = _dbContext.Users;
         }
 
         /// <summary>
@@ -33,9 +32,9 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Nje koleksion Userash.</returns>
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            
-                return await _users.ToListAsync();
-            
+
+            return await Users.ToListAsync();
+
         }
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Userin me Id specifike,ose null nese nuk e gjen</returns>
         public async Task<User> GetUserByIdAsync(int userId)
         {
-            return await _users.FindAsync(userId);
+            return await Users.FindAsync(userId);
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Userin me UserName specifike,ose null nese nuk e gjen.</returns>
         public async Task<User> GetUserByUsernameAsync(string username)
         {
-                return await _users.SingleOrDefaultAsync(u => u.UserName == username);
+            return await Users.SingleOrDefaultAsync(u => u.UserName == username);
         }
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Userin me Email specifike,ose null nese nuk e gjen.</returns>
         public async Task<User> GetUserByEmailAsync(string email)
         {
-                return await _users.SingleOrDefaultAsync(u => u.Email == email);
+            return await Users.SingleOrDefaultAsync(u => u.Email == email);
         }
 
         /// <summary>
@@ -74,9 +73,9 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <param name="user">User qe do te shtoje</param>
         public async Task AddUserAsync(User user)
         {
-                _users.Add(user);
-                await _dbContext.SaveChangesAsync();
-            
+            Users.Add(user);
+            await _dbContext.SaveChangesAsync();
+
         }
 
         /// <summary>
@@ -86,8 +85,8 @@ namespace RealEstateWebAPI.DAL.Repositories
         public async Task UpdateUserAsync(User user)
         {
             _dbContext.Entry(user).State = EntityState.Modified;
-                await _dbContext.SaveChangesAsync();
-            
+            await _dbContext.SaveChangesAsync();
+
         }
 
         /// <summary>
@@ -96,14 +95,14 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <param name="userId">Id e usierit qe do te fshihet.</param>
         public async Task DeleteUserAsync(int userId)
         {
-                var user = await _users.FindAsync(userId);
-                if (user != null)
-                {
-                    _users.Remove(user);
-                    await _dbContext.SaveChangesAsync();
-                }
+            var user = await Users.FindAsync(userId);
+            if (user != null)
+            {
+                Users.Remove(user);
+                await _dbContext.SaveChangesAsync();
             }
         }
-       
     }
+
+}
 

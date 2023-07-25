@@ -135,7 +135,8 @@ namespace RealEstateWebAPI.DAL.Migrations
 
                     b.HasKey("TransactionId");
 
-                    b.HasIndex("PropertyId");
+                    b.HasIndex("PropertyId")
+                        .IsUnique();
 
                     b.ToTable("Transactions");
                 });
@@ -199,8 +200,8 @@ namespace RealEstateWebAPI.DAL.Migrations
             modelBuilder.Entity("RealEstateWebAPI.DAL.Entities.Transaction", b =>
                 {
                     b.HasOne("RealEstateWebAPI.DAL.Entities.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId")
+                        .WithOne("Transaction")
+                        .HasForeignKey("RealEstateWebAPI.DAL.Entities.Transaction", "PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -216,6 +217,12 @@ namespace RealEstateWebAPI.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("RealEstateWebAPI.DAL.Entities.Property", b =>
+                {
+                    b.Navigation("Transaction")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

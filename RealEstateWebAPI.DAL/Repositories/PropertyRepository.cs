@@ -12,12 +12,11 @@ namespace RealEstateWebAPI.DAL.Repositories
     public class PropertyRepository : IPropertyRepository
     {
         private readonly AppDbContext _dbContext;
-        private readonly DbSet<Property> _properties;
+        private DbSet<Property> Properties => _dbContext.Properties;
 
         public PropertyRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
-            _properties = _dbContext.Properties;
         }
         /// <summary>
         /// Merr te gjithe Properties asinkronisht.
@@ -25,7 +24,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Nje koleksion Properties pervec atyre qe jane softDelete.</returns>
         public async Task<IEnumerable<Property>> GetAllPropertiesAsync()
         {
-            return await _properties.Where(p => !p.IsDeleted).ToListAsync();
+            return await Properties.Where(p => !p.IsDeleted).ToListAsync();
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Nje Property pervec atij qe eshte softDeleted.</returns>
         public async Task<Property> GetPropertyByIdAsync(int propertyId)
         {
-            return await _properties.FirstOrDefaultAsync(p => p.PropertyId == propertyId && !p.IsDeleted);
+            return await Properties.FirstOrDefaultAsync(p => p.PropertyId == propertyId && !p.IsDeleted);
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>>Nje Property</returns>
         public async Task<IEnumerable<Property>> GetPropertyByLocationAsync(string location)
         {
-            return await _properties.Where(p => p.Location.Contains(location) && !p.IsDeleted).ToListAsync();
+            return await Properties.Where(p => p.Location.Contains(location) && !p.IsDeleted).ToListAsync();
         }
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// </summary>
         public async Task AddPropertyAsync(Property property)
         {
-            _properties.Add(property);
+            Properties.Add(property);
             await _dbContext.SaveChangesAsync();
         }
 
@@ -69,7 +68,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// </summary>
         public async Task DeletePropertyAsync(int id)
         {
-            var property = await _properties.FindAsync(id);
+            var property = await Properties.FindAsync(id);
             if (property != null)
             {
                 property.IsDeleted = true;
@@ -84,7 +83,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Nje  koleksion Property pervec atij qe eshte softDeleted.</returns>
         public async Task<IEnumerable<Property>> GetPropertiesByUserIdAsync(int userId)
         {
-            return await _properties.Where(p => p.UserId == userId && !p.IsDeleted).ToListAsync();
+            return await Properties.Where(p => p.UserId == userId && !p.IsDeleted).ToListAsync();
         }
     }
 }

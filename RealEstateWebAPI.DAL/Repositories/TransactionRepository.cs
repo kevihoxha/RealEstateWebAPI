@@ -11,19 +11,18 @@ namespace RealEstateWebAPI.DAL.Repositories
     public class TransactionRepository : ITransactionRepository
     {
         private readonly AppDbContext _dbContext;
-        private readonly DbSet<Transaction> _transactions;
+        private DbSet<Transaction> Transactions => _dbContext.Transactions;
 
         public TransactionRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
-            _transactions = _dbContext.Transactions;
         }
         /// <summary>
         /// Shton nje Transaction te ri asinkronisht.
         /// </summary>
         public async Task<Transaction> AddTransactionAsync(Transaction transaction)
-        { 
-            _transactions.Add(transaction);
+        {
+            Transactions.Add(transaction);
             await _dbContext.SaveChangesAsync();
             return transaction;
         }
@@ -33,7 +32,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// </summary>
         public async Task<Transaction> GetTransactionByIdAsync(int transactionId)
         {
-            return await _transactions.FindAsync(transactionId);
+            return await Transactions.FindAsync(transactionId);
         }
 
         /// <summary>
@@ -42,7 +41,7 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// <returns>Nje koleksion Transactions.</returns>
         public async Task<IEnumerable<Transaction>> GetAllTransactionsAsync()
         {
-            return await _transactions.ToListAsync();
+            return await Transactions.ToListAsync();
         }
 
 

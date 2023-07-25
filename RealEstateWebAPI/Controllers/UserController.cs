@@ -64,7 +64,7 @@ namespace RealEstateWebAPI.Controllers
             {
                 var userId = await _userService.AddUserAsync(userDTO);
 
-                // Send email to the user
+                // Dergo email tek ky user i krijuar 
                 await SendNewUserEmail(userDTO.Email, userDTO.UserName, userDTO.Password);
 
                 return userId;

@@ -45,6 +45,12 @@ namespace RealEstateWebAPI.DAL
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Property>()
+            .HasOne(p => p.Transaction)
+            .WithOne(t => t.Property)
+            .HasForeignKey<Transaction>(t => t.PropertyId)
+            .IsRequired();
+
+            modelBuilder.Entity<Property>()
                 .Property(e => e.Price)
                 .HasPrecision(18, 4);
 

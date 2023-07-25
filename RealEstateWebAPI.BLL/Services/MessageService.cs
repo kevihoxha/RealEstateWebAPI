@@ -27,17 +27,17 @@ namespace RealEstateWebAPI.BLL.Services
         /// Merr te gjithe Message asinkronisht.
         /// </summary>
         /// <returns>Nje koleksion Messages </returns>
-        public async Task<IEnumerable<MessageDTO>> GetAllMessagesByUser(int authenticatedUserId)
+        public async Task<IEnumerable<MessageDTO>> GetAllMessagesByUserAsync(int authenticatedUserId)
         {
             return await HandleAsync(async () =>
             {
                 var messages = await _messageRepository.GetAllMessagesByUserAsync(authenticatedUserId);
                 if (messages != null)
                 {
-                    Log.Information($"User {authenticatedUserId} got all his messages ");
+                    Log.Information($"Retrieved {messages.Count()} messages for User ID: {authenticatedUserId}.");
                     return _mapper.Map<IEnumerable<MessageDTO>>(messages);
                 }
-                throw new CustomException($"User {authenticatedUserId} failed to get all his messages ");
+                throw new CustomException($"No messages found for User ID: {authenticatedUserId}.");
             });
         }
 
@@ -52,10 +52,10 @@ namespace RealEstateWebAPI.BLL.Services
                 var messages = await _messageRepository.GetMessagesForPropertyAsync(propertyId);
                 if (messages.Any())
                 {
-                    Log.Information($"Got all messages for property {propertyId}");
+                    Log.Information($"Retrieved {messages.Count()} messages for Property ID: {propertyId}.");
                     return _mapper.Map<IEnumerable<MessageDTO>>(messages);
                 }
-                throw new CustomException($"There are no messages for property {propertyId}");
+                throw new CustomException($"No messages found for Property ID: {propertyId}.");
             });
         }
         /// <summary>
@@ -67,7 +67,7 @@ namespace RealEstateWebAPI.BLL.Services
             {
                 var message = _mapper.Map<Message>(messageDTO);
                 await _messageRepository.SendMessageAsync(message);
-                Log.Information("Message sent");
+                Log.Information($"Message sent successfully. ID: {message.MessageId}, Property ID: {message.PropertyId}, Sender Anonymous");
             });
         }
     }
