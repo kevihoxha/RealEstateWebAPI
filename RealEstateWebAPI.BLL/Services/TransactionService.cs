@@ -12,19 +12,28 @@ namespace RealEstateWebAPI.BLL.Services
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IMapper _mapper;
+        private readonly IPropertyRepository _propertyRepository;
 
-        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper)
+        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper, IPropertyRepository propertyRepository)
         {
             _transactionRepository = transactionRepository;
             _mapper = mapper;
+            _propertyRepository = propertyRepository;
         }
         /// <summary>
         /// Shton nje Transaction te ri asinkronisht.
         /// </summary>
+        /// 
         public async Task<TransactionDTO> CreateTransactionAsync(TransactionDTO transactionRequest)
         {
             return await HandleAsync(async () =>
             {
+                var property = await _propertyRepository.GetPropertyByIdAsync(transactionRequest.PropertyId);
+                if (property == null)
+                {
+                    throw new CustomException($"Property with ID: {transactionRequest.PropertyId} not found.");
+                }
+                transactionRequest.SalePrice = property.Price;
                 var transaction = _mapper.Map<Transaction>(transactionRequest);
                 var createdTransaction = await _transactionRepository.AddTransactionAsync(transaction);
                 var transactionDTO = _mapper.Map<TransactionDTO>(createdTransaction);

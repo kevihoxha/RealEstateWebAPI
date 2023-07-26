@@ -12,3 +12,9 @@ C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\
 C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.pdb
 C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.genruntimeconfig.cache
 C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\ref\RealEstateWebAPI.DAL.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\bin\Debug\net6.0\lib\win32\x86\realm-wrappers.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\bin\Debug\net6.0\lib\win32\x64\realm-wrappers.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\bin\Debug\net6.0\RealEstateWebAPI.Common.dll
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\bin\Debug\net6.0\RealEstateWebAPI.Common.pdb
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\bin\Debug\net6.0\RealEstateWebAPI.Common.dll.config
+C:\Users\pc\source\repos\RealEstateWebAPI\RealEstateWebAPI.DAL\obj\Debug\net6.0\RealEstateWebAPI.DAL.csproj.CopyComplete

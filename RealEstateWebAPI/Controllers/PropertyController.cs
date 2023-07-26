@@ -81,12 +81,12 @@ namespace RealEstateWebAPI.Controllers
         ///pasi kalon authentikimin nga middleware ,  fshin nje porperty , nese eshte i njejti agjent qe e ka krijuar ate
         /// </summary>
         [HttpDelete("delete/{id}")]
-        public async Task<ActionResult> DeleteProperty(int id, PropertyDTO propertyDTO)
+        public async Task<ActionResult> DeleteProperty(int id)
         {
             int userId = GetAuthenticatedUserId();
             return await HandleAsync(async () =>
             {
-                await _propertyService.UpdatePropertyAsync(id, propertyDTO, userId);
+                await _propertyService.DeletePropertyAsync(id, userId);
             });
         }
         /// <summary>

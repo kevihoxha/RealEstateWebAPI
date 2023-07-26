@@ -4,6 +4,21 @@
     "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.DAL\\RealEstateWebAPI.DAL.csproj": {}
   },
   "projects": {
+    "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.Common\\RealEstateWebAPI.Common.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.Common\\RealEstateWebAPI.Common.csproj",
+        "projectName": "RealEstateWebAPI.Common",
+        "projectPath": "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.Common\\RealEstateWebAPI.Common.csproj",
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {}
+      }
+    },
     "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.DAL\\RealEstateWebAPI.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -27,7 +42,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.Common\\RealEstateWebAPI.Common.csproj": {
+                "projectPath": "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.Common\\RealEstateWebAPI.Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

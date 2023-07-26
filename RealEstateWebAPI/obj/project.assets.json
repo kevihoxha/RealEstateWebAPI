@@ -2936,6 +2936,7 @@
           "Microsoft.Extensions.Hosting": "7.0.1",
           "Newtonsoft.Json": "13.0.3",
           "PdfSharp": "1.50.5147",
+          "RealEstateWebAPI.Common": "1.0.0",
           "Serilog": "3.0.1",
           "Serilog.AspNetCore": "7.0.0",
           "Serilog.Exceptions": "8.4.0",

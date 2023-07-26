@@ -21,6 +21,7 @@
           "Microsoft.Extensions.Hosting": "7.0.1",
           "Newtonsoft.Json": "13.0.3",
           "PDFsharp": "1.50.5147",
+          "RealEstateWebAPI.Common": "1.0.0",
           "Serilog": "3.0.1",
           "Serilog.AspNetCore": "7.0.0",
           "Serilog.Exceptions": "8.4.0",
@@ -1631,6 +1632,11 @@
             "fileVersion": "6.0.21.52210"
           }
         }
+      },
+      "RealEstateWebAPI.Common/1.0.0": {
+        "runtime": {
+          "RealEstateWebAPI.Common.dll": {}
+        }
       }
     }
   },
@@ -2710,6 +2716,11 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "RealEstateWebAPI.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

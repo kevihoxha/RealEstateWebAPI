@@ -14,9 +14,14 @@ namespace RealEstateWebAPI.DAL.Entities
     {
         [Key]
         public int UserId { get; set; }
+        [Required]
+        [MaxLength(50)]
+        [RegularExpression(@"^[A-Za-z0-9]+$", ErrorMessage = "UserName must contain only letters and numbers.")]
         public string UserName { get; set; }
         public string PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        [Required]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "UserName must contain only letters and numbers.")]
         public string Email { get; set; }
 
         [ForeignKey(nameof(Role))]

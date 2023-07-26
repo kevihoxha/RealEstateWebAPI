@@ -232,7 +232,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.Common\\RealEstateWebAPI.Common.csproj": {
+                "projectPath": "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.Common\\RealEstateWebAPI.Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

@@ -2724,6 +2724,15 @@
             "rid": "win"
           }
         }
+      },
+      "RealEstateWebAPI.Common/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/RealEstateWebAPI.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RealEstateWebAPI.Common.dll": {}
+        }
       }
     }
   },
@@ -7855,6 +7864,11 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "RealEstateWebAPI.Common/1.0.0": {
+      "type": "project",
+      "path": "../RealEstateWebAPI.Common/RealEstateWebAPI.Common.csproj",
+      "msbuildProject": "../RealEstateWebAPI.Common/RealEstateWebAPI.Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -7872,6 +7886,7 @@
       "Microsoft.Extensions.Hosting >= 7.0.1",
       "Newtonsoft.Json >= 13.0.3",
       "PdfSharp >= 1.50.5147",
+      "RealEstateWebAPI.Common >= 1.0.0",
       "Serilog >= 3.0.1",
       "Serilog.AspNetCore >= 7.0.0",
       "Serilog.Exceptions >= 8.4.0",
@@ -7911,7 +7926,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.Common\\RealEstateWebAPI.Common.csproj": {
+              "projectPath": "C:\\Users\\pc\\source\\repos\\RealEstateWebAPI\\RealEstateWebAPI.Common\\RealEstateWebAPI.Common.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

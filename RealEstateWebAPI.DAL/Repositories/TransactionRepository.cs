@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RealEstateWebAPI.Common.ErrorHandeling;
 using RealEstateWebAPI.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,17 @@ namespace RealEstateWebAPI.DAL.Repositories
         /// </summary>
         public async Task<Transaction> AddTransactionAsync(Transaction transaction)
         {
-            Transactions.Add(transaction);
-            await _dbContext.SaveChangesAsync();
-            return transaction;
+
+            try
+            {
+                Transactions.Add(transaction);
+                await _dbContext.SaveChangesAsync();
+                return transaction;
+            }
+            catch 
+            {
+                throw new CustomException("The transaction for this property already exists");
+            }
         }
 
         /// <summary>
